@@ -1,0 +1,5 @@
+# list of package names that this role def depends on
+# the tests here will only be triggered if one of these packages is built
+php
+mysql
+httpd

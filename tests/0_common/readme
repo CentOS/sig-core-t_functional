@@ -1,0 +1,5 @@
+These are tests that are run everytime a new machine instance comes up;
+these tests are run before any package specific or role specific test is run;
+these tests should :
+- not leave behind any state or content residue that might impact the package/role tests that come after
+

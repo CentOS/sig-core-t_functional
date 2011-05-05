@@ -1,0 +1,5 @@
+Put everything that is shared across all tests here.
+Every file in this directory will get 'sourced' before tests are run
+( which also means we can only ever really use Bash for stuff in here )
+
+this readme file is ignored

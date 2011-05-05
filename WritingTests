@@ -1,0 +1,7 @@
+Any and every script can be a test. The only 2 things that are important
+are that 
+  (a) the script needs to exit with a non zero exit level in
+      order to siginal a 'Fail' 
+
+  (b) the script needs to call yum install to install any
+      packages or libraries that it would need to run 
