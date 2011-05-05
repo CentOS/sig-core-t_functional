@@ -40,3 +40,7 @@ notes...
 
 - if tests are written in any language other than bash, its upto the test
   to install the required environment ( including python, ruby, perl.. )
+
+- all files named 'readme', or starting with an underscore are ignored 
+  by the test harness ( so one can use the _<filename> to host metadata
+  or any config that might be needed for a test.
