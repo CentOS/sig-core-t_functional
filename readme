@@ -44,3 +44,13 @@ notes...
 - all files named 'readme', or starting with an underscore are ignored 
   by the test harness ( so one can use the _<filename> to host metadata
   or any config that might be needed for a test.
+
+ToDo:
+- At the moment the tests are not distro / arch specific, we might need a way
+  to clearly mark a test as -only-for-c4- or -only-for-c5- etc ( specially
+  when there are kickstart files involved, there are some non trivial changes
+  in that area moving towards c6 )
+
+- We also need a way to dictate if a role_<test> should be run on realiron,
+  virtual machine host, virtual machine ( and maybe even the type of virt
+  being used! )
