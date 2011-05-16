@@ -2,7 +2,7 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
 # vsFTPd
-yum -y install vsftpd 
+t_InstallPackage vsftpd 
 chkconfig vsftpd on
 service vsftpd start
 

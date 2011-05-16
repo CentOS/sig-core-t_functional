@@ -9,7 +9,7 @@ tests/0_lib/   : contains all the common functions and shared code for
                  before any of the tests are run, which also means it 
                  can only contain bash code ( no subdir allowed )
 
-tests/_common/ : Contain's tests that are run before any other test,
+tests/0_common/ : Contain's tests that are run before any other test,
                  and immediately after the 0_lib/ code is sourced.
                  These should be tests that check system sanity and 
                  environment. These tests should also not leave behind

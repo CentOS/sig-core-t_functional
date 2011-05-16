@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Description: All the common static content can go here
-
-PASS=0
-FAIL=1
-
-YUM=/usr/bin/yum

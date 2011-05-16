@@ -1,4 +1,5 @@
 #!/bin/sh
 
-yum -d0 install php-cli
-exit $?
+t_Log "Running $0 - attempting to install php-cli."
+t_InstallPackage php-cli
+

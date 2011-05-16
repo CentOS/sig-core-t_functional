@@ -1,7 +1,8 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-# Dovecot 
-yum -y install dovecot
+t_Log "Running $0 - installation and startup of dovecot IMAP/POP3."
+
+t_InstallPackage dovecot
 chkconfig dovecot on
 service dovecot start

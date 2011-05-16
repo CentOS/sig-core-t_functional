@@ -1,10 +1,11 @@
 #!/bin/bash
 
+t_Log "Running $0 - modifying yum repositories for QA purposes."
+
 # Disable the normal repositories and points to the QA repo
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.disabled
-touch /etc/yum.repos.d/CentOS-Base.repo
 
-cat >> /etc/yum.repos.d/CentOS-QA.repo << EOF
+cat << EOF > /etc/yum.repos.d/CentOS-QA.repo
  
 [QA-base]
 name=CentOS-\$releasever - OS
@@ -37,13 +38,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
 EOF
 
 yum clean all
-echo "Modifying yum repositories for QA purposes ..."
 yum repolist
 
-if [ $? -eq 0 ]; then 
-  echo ' PASS'
-else
-  echo ' Fail'
-  exit 1
-fi 
+t_CheckExitStatus $?
 
