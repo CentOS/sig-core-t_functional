@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Author: Steve Barnes (steve@echo.id.au)
+# Description: this script sources our library functions and starts a test run.
+
 export readonly PASS=0
 export readonly FAIL=1
 
@@ -15,8 +18,11 @@ shopt -s nocasematch
 # exit as soon as any script returns a non-zero exit status
 set -e
 
-t_ProcessFolder <(/usr/bin/find ./tests/0_common/ -type f|sort) 
-t_ProcessFolder <(/usr/bin/find ./tests/p_* -type f|sort)
-t_ProcessFolder <(/usr/bin/find ./tests/r_* -type f|sort)
+# process our test script folders
+t_ProcessFolder <(/usr/bin/find ./tests/0_common/ -type f|sort)
+t_ProcessFolder <(/usr/bin/find ./tests/p_*/ -type f|sort)
+t_ProcessFolder <(/usr/bin/find ./tests/r_*/ -type f|sort)
 
+# and, we're done.
 t_Log "Finished."
+

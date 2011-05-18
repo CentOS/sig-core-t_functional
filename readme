@@ -26,7 +26,7 @@ tests/p_<name>/ : Each of the p_<name> directories would contain tests
 
 tests/r_<role>  : Each of the r_<role> directories should contain the tests
                   specific to a role. eg: 'lamp'. The test harness looks at
-                  a file called 'pacakge_deps' inside each of the role directories
+                  a file called 'package_deps' inside each of the role directories
                   and runs the role tests if any package listed in that file 
                   has been changed / built etc.
 
