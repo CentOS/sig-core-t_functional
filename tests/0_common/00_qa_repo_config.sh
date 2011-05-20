@@ -38,7 +38,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
 EOF
 
 yum clean all
-yum repolist
+yum repolist >/dev/null 2>&1
 
 t_CheckExitStatus $?
 
