@@ -3,7 +3,7 @@
 t_Log "Running $0 - install a minimal lamp stack, and test it"
 
 t_InstallPackage httpd mysql mysql-server php php-mysql wget
-service mysqld start
+service mysqld start >/dev/null 2>&1 
 service httpd start
 
 # Initializing a small MySQL db
