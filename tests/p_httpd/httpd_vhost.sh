@@ -25,3 +25,4 @@ t_CheckExitStatus $?
 # that assume DocumentRoot is /var/www/html from failing
 rm /etc/httpd/conf.d/vhost-test.conf
 t_ServiceControl httpd reload
+
