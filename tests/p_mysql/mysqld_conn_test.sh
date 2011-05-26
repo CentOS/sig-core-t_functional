@@ -4,7 +4,7 @@
 t_Log "Running $0 - mysqld listening test."
 
 # FIXME: Test is very basic
-nc -w 1 localhost 3306  > /dev/null 2>&1
+nc -d -w 1 localhost 3306 >/dev/null 2>&1
 
 t_CheckExitStatus $?
 

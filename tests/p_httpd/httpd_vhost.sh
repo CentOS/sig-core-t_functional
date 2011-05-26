@@ -16,12 +16,12 @@ EOF
 
 mkdir -p /var/www/vhosts/test/
 echo "Virtual Host Test Page" > /var/www/vhosts/test/index.html
-service httpd restart
-echo -e "GET / HTTP/1.0\r\n" | nc test 80 | grep 'Virtual Host Test Page' > /dev/null 2>&1
+t_ServiceControl httpd reload
+echo -e "GET / HTTP/1.0\r\n" | nc test 80 | grep 'Virtual Host Test Page'
 
 t_CheckExitStatus $?
 
 # SteveCB: remove vhost-test.conf to prevent later tests 
 # that assume DocumentRoot is /var/www/html from failing
 rm /etc/httpd/conf.d/vhost-test.conf
-service httpd reload
+t_ServiceControl httpd reload

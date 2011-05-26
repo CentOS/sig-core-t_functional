@@ -4,4 +4,4 @@
 # SSH
 t_InstallPackage openssh-server
 chkconfig sshd on
-service sshd start
+t_ServiceControl sshd start

@@ -1,7 +1,12 @@
-Any and every script can be a test. The only 2 things that are important
-are that 
-  (a) the script needs to exit with a non zero exit level in
-      order to siginal a 'Fail' 
 
-  (b) the script needs to call t_InstallPackage install to install any
-      packages or libraries that it would need to run 
+This file provides guidance on things to bear in mind when writing test scripts for the QA process:
+
+(a) scripts should exit with either zero to signal success, or non-zero to signal a failure. A failure exit code causes the entire test script execution process to stop (which is fine - we need to see what failed)
+
+(b) several helper functions are available in test/0_lib/* that should be used in preference to directly calling the commands they implement. Some of the reasons for doing this are consistency in debug output and avoiding timing related test failures. Please review the functions so you're familiar with their existence/operation.
+
+(c) all test scripts should first make a call to t_Log, passing in $0 and a description of what the test is doing, something like:
+
+        t_Log Running $0 - Postfix SMTP test.
+
+(d) test scripts are processed in alphabetical order, so it's best to install any required packages in a 0-install-blah.sh script. Anything starting with a _ is ignored, and so are files named `readme` (case insensitive)

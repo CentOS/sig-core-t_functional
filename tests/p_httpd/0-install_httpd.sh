@@ -3,7 +3,5 @@
 
 # HTTPD / PHP 
 t_InstallPackage httpd mod_ssl php php-mysql 
-
 chkconfig httpd on
-
-service httpd start
+t_ServiceControl httpd start

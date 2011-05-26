@@ -18,10 +18,13 @@ shopt -s nocasematch
 # exit as soon as any script returns a non-zero exit status
 set -e
 
-# process our test script folders
-t_ProcessFolder <(/usr/bin/find ./tests/0_common/ -type f|sort)
-t_ProcessFolder <(/usr/bin/find ./tests/p_*/ -type f|sort)
-t_ProcessFolder <(/usr/bin/find ./tests/r_*/ -type f|sort)
+# exit on undefined variables
+set -u
+
+# process our test scripts
+t_Process <(/usr/bin/find ./tests/0_common/ -type f|sort)
+t_Process <(/usr/bin/find ./tests/p_*/ -type f|sort)
+t_Process <(/usr/bin/find ./tests/r_*/ -type f|sort)
 
 # and, we're done.
 t_Log "Finished."

@@ -4,5 +4,4 @@
 # Postfix
 t_InstallPackage postfix
 t_RemovePackage sendmail
-service postfix start
-
+t_ServiceControl postfix start

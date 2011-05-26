@@ -4,4 +4,4 @@
 # MySQL
 t_InstallPackage mysql-server
 chkconfig mysqld on
-service mysqld start
+t_ServiceControl mysqld start

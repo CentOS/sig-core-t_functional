@@ -4,5 +4,4 @@
 # vsFTPd
 t_InstallPackage vsftpd 
 chkconfig vsftpd on
-service vsftpd start
-
+t_ServiceControl vsftpd start

@@ -37,17 +37,19 @@ function t_RemovePackage
 
 # Description: call this to process a list of folders containing test scripts
 # Arguments: a list of folder paths to process (see example in runtests.sh)
-function t_ProcessFolder
+function t_Process
 {
-	while read f
+	exec 7< $@
+	
+	while read -u 7 f
 	do
 		# skip files named readme or those that start with an _
 		[[ "${f}" =~ readme|^_ ]] &&  continue;
 		
-		# handy tip: chmod ug-x to disable individual test scripts.
+		# handy tip: chmod -x to disable individual test scripts.
 		[ -x ${f} ] && ${f}
 			
-	done < $@
+	done
 
 	return 0
 }
@@ -63,10 +65,22 @@ function t_CheckDeps
 	return 0
 }
 
+# Description: perform a service control and sleep for a few seconds to let
+# the dust settle. Failing to do this means tests that check for an
+# open network port or response banner will probably fail for no 
+# apparent reason.
+function t_ServiceControl
+{
+	/sbin/service $1 $2
+
+	# aaaand relax...
+	sleep 3
+}
+
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
 export -f t_RemovePackage
-export -f t_ProcessFolder
+export -f t_Process
 export -f t_CheckDeps
-
+export -f t_ServiceControl
