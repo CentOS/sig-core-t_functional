@@ -17,7 +17,7 @@ EOF
 mkdir -p /var/www/vhosts/test/
 echo "Virtual Host Test Page" > /var/www/vhosts/test/index.html
 t_ServiceControl httpd reload
-echo -e "GET / HTTP/1.0\r\n" | nc test 80 | grep 'Virtual Host Test Page'
+curl -s http://test/ | grep 'Virtual Host Test Page' > /dev/null 2>&1
 
 t_CheckExitStatus $?
 

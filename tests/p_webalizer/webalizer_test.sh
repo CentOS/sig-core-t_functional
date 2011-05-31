@@ -13,6 +13,6 @@ done
 /etc/cron.daily/00webalizer
 
 # Run the test
-echo -e "GET /usage/ HTTP/1.0\r\n" | nc localhost 80 | grep 'Usage Statistics for' > /dev/null 2>&1
+curl -s http://localhost/usage/ | grep 'Usage Statistics for' > /dev/null 2>&1
 
 t_CheckExitStatus $?

@@ -37,7 +37,7 @@ if __name__ == '__main__':
         if install_pexpect() != 0:
             sys.exit("[FAIL] pexpect installation failed")
         print "[INFO] Adding new user ..."
-        if os.system("userdel sshtest; useradd sshtest && echo sshtest | passwd --stdin sshtest") != 0:
+        if os.system("userdel -rf sshtest; useradd sshtest && echo sshtest | passwd --stdin sshtest") != 0:
             sys.exit("[FAIL] can't add new user")
         try:
             ssh_command('sshtest','localhost','sshtest','/bin/ls')
