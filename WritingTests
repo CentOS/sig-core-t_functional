@@ -7,6 +7,10 @@ This file provides guidance on things to bear in mind when writing test scripts 
 
 (c) all test scripts should first make a call to t_Log, passing in $0 and a description of what the test is doing, something like:
 
-        t_Log Running $0 - Postfix SMTP test.
+        t_Log "Running $0 - Postfix SMTP test."
 
 (d) test scripts are processed in alphabetical order, so it's best to install any required packages in a 0-install-blah.sh script. Anything starting with a _ is ignored, and so are files named `readme` (case insensitive)
+
+(e) all test scripts must be chmod +x in order to be executed. Equally, removing execute permissions from a script will prevent it from being run (or prefixing it with an _, both approaches work)
+
+
