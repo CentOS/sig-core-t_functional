@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Steve Barnes (steve@echo.id.au)
 
 t_Log "Running $0 - checking iptraf runs and returns non-zero exit status."
 
@@ -15,10 +16,10 @@ PING=`which ping`
 STAT=`which stat`
 KILL=`which kill`
 
-[ -z "${IPTRAF}" ] && { t_log "Failed to find iptraf binary. That ain't good..."; exit $FAIL; }
-[ -z "${PING}" ] && { t_Log "Failed to find the ping binary. That ain't good..."; exit $FAIL; }
-[ -z "${STAT}" ] && { t_Log "Failed to find the stat binary. That ain't good..."; exit $FAIL; }
-[ -z "${KILL}" ] && { t_Log "Failed to find the kill binary. That ain't good..."; exit $FAIL; }
+[ "$IPTRAF" ] || { t_log "Failed to find iptraf binary. That ain't good..."; exit $FAIL; }
+[ "$PING" ] || { t_Log "Failed to find the ping binary. That ain't good..."; exit $FAIL; }
+[ "$STAT" ] || { t_Log "Failed to find the stat binary. That ain't good..."; exit $FAIL; }
+[ "$KILL" ] || { t_Log "Failed to find the kill binary. That ain't good..."; exit $FAIL; }
 
 # start iptraf running in the background on all interfaces, logging to a file.
 ${IPTRAF} -i all -t 1 -B -L ${TMP} &>/dev/null
