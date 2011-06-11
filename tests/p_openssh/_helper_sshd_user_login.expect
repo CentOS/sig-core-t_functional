@@ -1,0 +1,10 @@
+#!/usr/bin/expect -f
+# Author: Athmane Madjoudj <athmanem@gmail.com>
+
+set timeout 2
+spawn ssh -o StrictHostKeyChecking=no sshtest@localhost /bin/ls
+match_max 6000
+expect "*?assword:*"
+send -- "sshtest\r"
+send -- "\r"
+expect eof
