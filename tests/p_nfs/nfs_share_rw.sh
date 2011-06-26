@@ -9,11 +9,12 @@ mkdir -p /srv/nfs
 exportfs -ar
 
 # Mount the share
-mount -t nfs 127.0.0.1:/srv/nfs /mnt
-echo 'NFS test file' > /mnt/test.txt
+mkdir /mnt/nfs
+mount -t nfs 127.0.0.1:/srv/nfs /mnt/nfs
+echo 'NFS test file' > /mnt/nfs/test.txt
 
 # Test twice
-(cat /mnt/test.txt | grep 'NFS test file' > /dev/null 2>&1) && \
+(cat /mnt/nfs/test.txt | grep 'NFS test file' > /dev/null 2>&1) && \
 (cat /srv/nfs/test.txt | grep 'NFS test file' > /dev/null 2>&1)
 
 t_CheckExitStatus $?
