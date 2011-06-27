@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Human friendly symbols
+export readonly PASS=0
+export readonly FAIL=1
+
 # Description: call this function whenever you need to log output (preferred to calling echo)
 # Arguments: log string to display
 function t_Log
@@ -36,7 +40,7 @@ function t_RemovePackage
 }
 
 # Description: call this to process a list of folders containing test scripts
-# Arguments: a list of folder paths to process (see example in runtests.sh)
+# Arguments: a file handle from which to read the names of paths to process.
 function t_Process
 {
 	exec 7< $@
@@ -66,9 +70,9 @@ function t_CheckDeps
 }
 
 # Description: perform a service control and sleep for a few seconds to let
-# the dust settle. Failing to do this means tests that check for an
-# open network port or response banner will probably fail for no 
-# apparent reason.
+# the dust settle. Using this function avoids a race condition wherein 
+# subsequent tests execute (and typically fail) before a service has had a 
+# chance to fully start/open a network port etc.
 function t_ServiceControl
 {
 	/sbin/service $1 $2
