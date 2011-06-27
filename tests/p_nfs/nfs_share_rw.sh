@@ -10,7 +10,7 @@ exportfs -ar
 
 # Mount the share
 mkdir /mnt/nfs
-mount -t nfs 127.0.0.1:/srv/nfs /mnt/nfs
+mount -t nfs 127.0.0.1:/srv/nfs /mnt/nfs || exit 1
 echo 'NFS test file' > /mnt/nfs/test.txt
 
 # Test twice
