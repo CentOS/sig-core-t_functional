@@ -3,9 +3,6 @@
 # Author: Steve Barnes (steve@echo.id.au)
 # Description: this script sources our library functions and starts a test run.
 
-export readonly PASS=0
-export readonly FAIL=1
-
 echo -e "\n[+] `date` -> CentOS QA $0 starting."
 
 LIB_FUNCTIONS='./tests/0_lib/functions.sh'
