@@ -8,6 +8,9 @@ echo '/srv/nfs *(rw,sync,no_root_squash)' >/etc/exports
 mkdir -p /srv/nfs
 exportfs -ar
 
+# Fix SELinux boolean
+setsebool allow_nfsd_anon_write 1
+
 # Mount the share
 mkdir /mnt/nfs
 mount -t nfs 127.0.0.1:/srv/nfs /mnt/nfs || exit 1
