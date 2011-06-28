@@ -81,6 +81,12 @@ function t_ServiceControl
 	sleep 3
 }
 
+# Description: Get a package (rpm) release number
+function t_GetPkgRel
+{
+       rpm -q --queryformat '%{RELEASE}' $1 
+}
+
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
@@ -88,3 +94,4 @@ export -f t_RemovePackage
 export -f t_Process
 export -f t_CheckDeps
 export -f t_ServiceControl
+export -f t_GetPkgRel
