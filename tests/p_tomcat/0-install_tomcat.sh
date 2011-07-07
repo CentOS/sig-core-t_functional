@@ -4,7 +4,7 @@
 if (t_GetPkgRel basesystem | grep -q el6)
 then
    t_Log "$0 - installing Tomcat 6"
-   t_InstallPackage  tomcat6 tomcat6-admin-webapps
+   t_InstallPackage  tomcat6 tomcat6-admin-webapps tomcat6-webapps
    service tomcat6 start
 else
    t_Log "$0 - installing Tomcat 5"
