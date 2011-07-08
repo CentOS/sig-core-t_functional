@@ -19,9 +19,9 @@ set -e
 set -u
 
 # process our test scripts
-t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' -k3,3 -k4,4n)
-t_Process <(/usr/bin/find ./tests/p_*/ -type f|sort -t'/' -k3,3 -k4,4n)
-t_Process <(/usr/bin/find ./tests/r_*/ -type f|sort -t'/' -k3,3 -k4,4n)
+t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' )
+t_Process <(/usr/bin/find ./tests/p_*/ -type f|sort -t'/' )
+t_Process <(/usr/bin/find ./tests/r_*/ -type f|sort -t'/' )
 
 # and, we're done.
 t_Log "Finished."
