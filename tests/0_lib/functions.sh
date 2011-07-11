@@ -87,6 +87,12 @@ function t_GetPkgRel
        rpm -q --queryformat '%{RELEASE}' $1 
 }
 
+# Description: return the distro release (returns 5 or 6 now)
+function t_DistCheck
+{
+	rpm -q --queryformat '%{version}\n' centos-release
+}
+
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
@@ -95,3 +101,4 @@ export -f t_Process
 export -f t_CheckDeps
 export -f t_ServiceControl
 export -f t_GetPkgRel
+export -f t_DistCheck
