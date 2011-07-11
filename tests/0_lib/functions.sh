@@ -93,6 +93,12 @@ function t_DistCheck
 	rpm -q --queryformat '%{version}\n' centos-release
 }
 
+# Description: Get a package (rpm) version number
+function t_GetPkgVer
+{
+       rpm -q --queryformat '%{version}' $1 
+}
+
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
@@ -102,3 +108,4 @@ export -f t_CheckDeps
 export -f t_ServiceControl
 export -f t_GetPkgRel
 export -f t_DistCheck
+export -f t_GetPkgVer
