@@ -3,7 +3,8 @@
 t_Log "Running $0 - modifying yum repositories for QA purposes."
 
 # Disable the normal repositories and points to the QA repo
-mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.disabled
+#mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.disabled
+sed -i s#gpgcheck=1#gpgcheck=1\\nenabled=0#g /etc/yum.repos.d/CentOS-Base.repo
 
 cat << EOF > /etc/yum.repos.d/CentOS-QA.repo
  
