@@ -7,8 +7,7 @@ ANACONDA_PATH=/usr/lib/anaconda/
 
 (grep "id = \"centos\"" $ANACONDA_PATH/installclasses/rhel.py >/dev/null 2>&1) &&\
 
-(grep "name = N_(\"CentOS Linux\")" $ANACONDA_PATH/installclasses/rhel.py >/dev/null 2>&1) &&\
+(grep "name = N_(\"CentOS Linux\")" $ANACONDA_PATH/installclasses/rhel.py >/dev/null 2>&1) 
 
-(grep "\"CentOS\": (\"CentOS release\", )," $ANACONDA_PATH/installclasses/rhel.py >/dev/null 2>&1) 
 
 t_CheckExitStatus $?
