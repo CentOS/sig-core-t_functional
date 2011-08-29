@@ -20,7 +20,7 @@ EOF
 
 # Reload the config
 service smb restart
-
+sleep 2
 
 mkdir -p /srv/smb
 echo "SMB test file" > /srv/smb/test.txt
