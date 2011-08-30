@@ -3,3 +3,5 @@
   virtual machine host, virtual machine ( and maybe even the type of virt
   being used! )
 
+- We need to setup a CI instance so tests are auto run for all releases
+  on new tests being added in
