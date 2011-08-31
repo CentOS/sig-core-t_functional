@@ -5,15 +5,17 @@
 
 import yum
 import sys 
+import datetime
 
 yb = yum.YumBase()
 centos_default_repos = ['base','extras','updates']
-print "Check if non default repo is enabled"
+now = lambda: datetime.datetime.today().strftime("%c")
+print "[+] %s -> Check if non default repo is enabled" % now() 
 for repo in yb.repos.listEnabled():
     if not repo.id in centos_default_repos:
         print '%s is enabled, should be disabled at this stage' % repo.id
-        print '-> FAIL'
+        print '[+] %s -> FAIL' % now()
         sys.exit(1)
-print '-> PASS'
+print '[+] %s -> PASS' % now()
 sys.exit(0)
 
