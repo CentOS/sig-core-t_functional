@@ -88,6 +88,10 @@ What environment is best for writing tests?
 
 Something with a working copy of git, a text editor to write tests in, and (preferably) a virtual machine environment so you can run tests/roll back/run tests/roll back etc etc.
 
+NOTE:
+Make sure that SELinux is enabled in VM and your test does not fail 
+because of it.
+
 What should I be testing for?
 -----------------------------
 
