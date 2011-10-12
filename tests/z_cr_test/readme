@@ -1,0 +1,5 @@
+This test is disabled by default, but can be launched from the CDevQA provision script 
+when we need to test the packages from the CR repository
+It will fetch packages names from the cr repo, install those packages from base+updates
+and then will try the update process.
+After that, all the usual functional tests will be launched
