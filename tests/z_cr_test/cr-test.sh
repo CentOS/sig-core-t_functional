@@ -2,7 +2,7 @@
 # determining which packages we need to install from Base+Updates before trying the update against CR
 
 # generate local cache
-./0-common/00_qa_repo_config.sh
+/tmp/t_functional/tests/0-common/00_qa_repo_config.sh
 yum --enablerepo=qa-cr list >/dev/null 2>&1 
 sqlite3 $(find /var/cache/yum/$(t_GetArch)/$(t_DistCheck)/cr/ -iname '*.sqlite*') 'select name from packages;' > /tmp/packages.list
 
