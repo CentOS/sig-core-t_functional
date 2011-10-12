@@ -4,7 +4,7 @@
 # generate local cache
 /tmp/t_functional/tests/0_common/00_qa_repo_config.sh
 yum --enablerepo=qa-cr list >/dev/null 2>&1 
-sqlite3 $(find /var/cache/yum/$(t_GetArch)/$(t_DistCheck)/cr/ -iname '*.sqlite*') 'select name from packages;' > /tmp/packages.list
+sqlite3 $(find /var/cache/yum/$(t_GetArch)/$(t_DistCheck)/qa-cr/ -iname '*.sqlite*') 'select name from packages;' > /tmp/packages.list
 
 t_Log "Installing needed packages from Base"
 yum install -y -d0 $(cat /tmp/packages.list) 1>/dev/null
