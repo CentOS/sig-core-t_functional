@@ -100,7 +100,8 @@ function t_GetPkgVer
 }
 
 # Description: get the arch 
-function t_GetArch{
+function t_GetArch
+{
 	rpm -q --queryformat '%{arch}\n' centos-release
 }
 
