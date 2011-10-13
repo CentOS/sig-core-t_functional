@@ -40,7 +40,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-\$releasever
 
 [qa-cr]
 name=CentOS-\$releasever - CR
-baseurl=http://repo.centos.qa/srv/CentOS/\$releasever/centosplus/\$basearch/
+baseurl=http://repo.centos.qa/srv/CentOS/\$releasever/cr/\$basearch/
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-\$releasever
