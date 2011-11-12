@@ -74,7 +74,7 @@ All of the functions available in the Bash library are fully documented using co
 How do I use the library?
 -------------------------
 
-You shoud include the following statement in your test script:
+You should include the following statement in your test script:
 
 	source ../0_lib/functions.sh
 
