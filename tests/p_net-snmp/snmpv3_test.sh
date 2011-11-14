@@ -16,9 +16,10 @@ service snmpd restart
 
 #Run test
 snmpget -v 3 -u centosro  -n "" -l authPriv -a MD5 -A centosro -x DES -X centosro 127.0.0.1 sysUpTime.0 > /dev/null 2>&1
+ret_val=$?
 
 # Restore settings
 /bin/cp /etc/snmp/snmpd.conf.orig /etc/snmp/snmpd.conf
 service snmpd restart
 
-t_CheckExitStatus $?
+t_CheckExitStatus $ret_val
