@@ -2,7 +2,7 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <christoph.galuschka@tiwag.at>
 
-t_Log "Running $0 - snmp test"
+t_Log "Running $0 - snmpv2c test"
 
 t_InstallPackage net-snmp-utils 
 
