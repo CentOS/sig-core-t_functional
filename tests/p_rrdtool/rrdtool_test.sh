@@ -3,25 +3,30 @@
 # Author: Christph Galuschka <christoph.galuschka@tiwag.at>
 # RRD-sample from http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html
 
-t_Log "Running $0 - basic rrdtool test."
+if (t_GetPkgRel basesystem | grep -q el6)
 
-# creating test RRD
+    t_Log "Running $0 - basic rrdtool test."
 
-FILE="/var/tmp/temperature.rrd"
+    # creating test RRD
 
-rrdtool create $FILE --step 1 DS:temp:GAUGE:600:-273:5000 RRA:AVERAGE:0.5:1:1200
+    FILE="/var/tmp/temperature.rrd"
 
-# insert value
-rrdtool update $FILE N:30
+    rrdtool create $FILE --step 1 DS:temp:GAUGE:600:-273:5000 RRA:AVERAGE:0.5:1:1200
 
-# retrieve value and check
-WORKING=$(rrdtool fetch $FILE AVERAGE -s -80 |grep -c '3.0000000000e+01')
+    # insert value
+    rrdtool update $FILE N:30
 
-# if $WORKING > 0 -> update and retrieval works
-if [ $WORKING > 0 ]; then ret_val=0;
+    # retrieve value and check
+    WORKING=$(rrdtool fetch $FILE AVERAGE -s -80 |grep -c '3.0000000000e+01')
+
+    # if $WORKING > 0 -> update and retrieval works
+    if [ $WORKING > 0 ]; then ret_val=0;
+    fi
+
+    #remove RRD-File
+    /bin/rm $FILE
+
+    t_CheckExitStatus $ret_val
+else
+    echo "Skipped on CentOS 5"
 fi
-
-#remove RRD-File
-/bin/rm $FILE
-
-t_CheckExitStatus $ret_val
