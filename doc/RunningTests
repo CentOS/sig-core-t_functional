@@ -1,0 +1,2 @@
+To run these tests on your local machine, set SKIP_QA_REPOS=1 in the bash environment before calling runtests.sh. eg:
+SKIP_QA_REPOS=1 ./runtests.sh

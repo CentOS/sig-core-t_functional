@@ -1,6 +1,10 @@
 #!/bin/bash
 
 t_Log "Running $0 - modifying yum repositories for QA purposes."
+if [ $SKIP_QA_REPOS ]; then
+  echo 'Skip..'
+  exit 0
+fi
 
 # Disable the normal repositories and points to the QA repo
 #mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.disabled
