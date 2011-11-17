@@ -17,4 +17,4 @@ if [ $WORKING == 8 ]; then ret_val=0; fi
 # Remove file afterwards
 /bin/rm /var/tmp/centos_test.pcap
 
-t_CheckExitStatus $?
+t_CheckExitStatus $ret_val
