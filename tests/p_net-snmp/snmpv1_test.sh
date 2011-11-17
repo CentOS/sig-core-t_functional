@@ -1,7 +1,7 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-t_Log "Running $0 - snmp test"
+t_Log "Running $0 - snmpv1 test"
 
 t_InstallPackage net-snmp-utils 
 
