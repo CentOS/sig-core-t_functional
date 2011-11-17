@@ -2,18 +2,18 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <christoph.galuschka@tiwag.at>
 
-t_Log "Running $0 - very basic minicom test."
+t_Log "Running $0 - basic thunderbird test."
 
 # Only checking for correct output of '-v'
 # with respect to different versions on C5 and C6
 
 if (t_GetPkgRel basesystem | grep -q el6)
 then
-  VERSION="2.3"
+  VERSION="3.1"
 else
-  VERSION="2.1"
+  VERSION="2.0"
 fi
 
-minicom -v | grep "${VERSION}"  >/dev/null 2>&1
+thunderbird -v | grep "${VERSION}"  >/dev/null 2>&1
 
 t_CheckExitStatus $?
