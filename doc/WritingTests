@@ -2,7 +2,7 @@ Greetings! :-)
 
 This file is a continuation of the CentOS wiki page regarding writing tests for the QA process. For background information on writing tests for the t_functional QA process, please refer to:
 
-	http://wiki.centos.org/TestScripts
+	http://wiki.centos.org/QaWiki/AutomatedTests/WritingTests/t_functional
 
 As a newcomer, you should read this document from start to finish. Questions/comments/suggestions should be voiced in the #centos-devel channel on Freenode IRC, or via email on the centos-devel@centos.org mailing list.
 
