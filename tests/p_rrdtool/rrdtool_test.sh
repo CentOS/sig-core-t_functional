@@ -4,7 +4,7 @@
 # RRD-sample from http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html
 
 if (t_GetPkgRel basesystem | grep -q el6)
-
+then
     t_Log "Running $0 - basic rrdtool test."
 
     # creating test RRD
