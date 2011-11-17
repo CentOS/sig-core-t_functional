@@ -141,8 +141,6 @@ Start your tests with a comment block which includes your name and e-mail addres
 
 We'll now assemble all of the above information into a practical example, to help get you started. For the purposes of this example, we're going to stick to Bash - adapt as required based on your language of choice.
 
-Note, before running any tests, you should add the following entry to your /etc/hosts:
-
 Firstly, get yourself a copy of the current testing repository. This is available via 
 
 	https://gitorious.org/testautomation/t_functional
