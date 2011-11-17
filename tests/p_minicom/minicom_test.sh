@@ -14,6 +14,6 @@ else
   VERSION="2.1"
 fi
 
-minicom -v | grep "${CHECK_FOR}"  >/dev/null 2>&1
+minicom -v | grep "${VERSION}"  >/dev/null 2>&1
 
 t_CheckExitStatus $?

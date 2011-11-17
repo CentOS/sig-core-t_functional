@@ -3,7 +3,9 @@
 
 t_Log "Running $0 - check if SELinux is in enforcing mode"
 
-cat /selinux/enforce | grep 1  > /dev/null 2>&1
-
-t_CheckExitStatus $?
-
+if [ $SKIP_QA_HARNESS ]; then
+    echo "Skipping this test ..."
+else
+    cat /selinux/enforce | grep 1  > /dev/null 2>&1
+    t_CheckExitStatus $?
+fi

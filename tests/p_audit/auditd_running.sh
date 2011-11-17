@@ -3,6 +3,9 @@
 
 t_Log "Running $0 -  check if auditd is running."
 
-service auditd status > /dev/null 2>&1
-
-t_CheckExitStatus $?
+if [ $SKIP_QA_HARNESS ]; then
+    echo "Skipping this test ..."
+else
+    service auditd status > /dev/null 2>&1
+    t_CheckExitStatus $?
+fi
