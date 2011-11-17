@@ -1,9 +1,14 @@
 #!/bin/bash
 
 t_Log "Running $0 - testing to see if DNS works"
+if [ $SKIP_QA_HARNESS ]; then 
+  HOST=wiki.centos.org 
+else
+  HOST=repo.centos.qa
+fi
 
 # its important we dont hit a dns record with a wildcard like centos.org
-/bin/ping -c 1 repo.centos.qa &>/dev/null
+/bin/ping -c 1 $HOST &>/dev/null
 
 t_CheckExitStatus $?
 
