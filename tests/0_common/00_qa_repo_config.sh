@@ -19,7 +19,7 @@ name=CentOS-\$releasever - OS
 baseurl=http://repo.centos.qa/srv/CentOS/\$releasever/os/\$basearch/
 gpgcheck=1
 enabled=1
-igpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-\$releasever
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-\$releasever
 
 [QA-updates]
 name=CentOS-\$releasever - Updates
@@ -52,8 +52,10 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-\$releasever
 
 EOF
 
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$(t_DistCheck)
 yum clean all
 yum repolist >/dev/null 2>&1
+
 
 t_CheckExitStatus $?
 
