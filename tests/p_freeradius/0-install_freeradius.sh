@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: Christoph Galuschka <christoph.galuschka@tiwag.at>
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 # Install freeradius
 # On C5 both freeradius and freeradius2 are provided, however only freeradius2-utils are provided as well

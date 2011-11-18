@@ -1,6 +1,6 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
-# Author: Christoph Galuschka <christoph.galuschka@tiwag.at>
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - snmpv3 test"
 

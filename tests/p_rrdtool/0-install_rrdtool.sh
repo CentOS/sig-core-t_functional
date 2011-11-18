@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: Christoph Galuschka <christoph.galuschka@tiwag.at>
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
 #         Athmane Madjoudj <athmanem@gmail.com>
 
 if (t_GetPkgRel basesystem | grep -q el6)
