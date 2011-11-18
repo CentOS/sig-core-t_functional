@@ -9,5 +9,5 @@ else
   pn="vixie-cron"
 fi
 
-t_InstallPackage  cronie
-service crond cycle
+t_InstallPackage  $pn
+t_ServiceControl crond cycle
