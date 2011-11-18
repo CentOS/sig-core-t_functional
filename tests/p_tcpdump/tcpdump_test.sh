@@ -2,7 +2,7 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 #         Athmane Madjoudj <athmanem@gmail.com>
 
-t_Log "Running $0 - TCPdump test"
+t_Log "Running $0 - TCPdump can capture ICMP from localhost"
 
 #Dumping 4 pings to loopback to file
 tcpdump -q -n -p -i lo -w /var/tmp/centos_test.pcap &
@@ -17,6 +17,6 @@ WORKING=$( tcpdump -r /var/tmp/centos_test.pcap | grep -ci icmp )
 if [ $WORKING == 8 ]; then ret_val=0; fi
 
 # Remove file afterwards
-# /bin/rm /var/tmp/centos_test.pcap
+ /bin/rm /var/tmp/centos_test.pcap
 
 t_CheckExitStatus $ret_val
