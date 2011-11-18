@@ -2,7 +2,7 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - php functional test."
+t_Log "Running $0 - php can detect correct hostname."
 
 # Comparing hostname with output of phpinfo()
 HOST=$(hostname)
