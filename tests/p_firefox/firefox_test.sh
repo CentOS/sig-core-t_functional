@@ -11,4 +11,8 @@ VERSION="3.6"
 
 firefox -v | grep "${VERSION}" >/dev/null 2>&1
 
+# If checking versions is not desired
+#firefox -v | grep "Firefox" >/dev/null 2>&1
+# Please choose the preferred method
+
 t_CheckExitStatus $?

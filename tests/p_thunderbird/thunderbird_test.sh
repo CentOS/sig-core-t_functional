@@ -16,4 +16,8 @@ fi
 
 thunderbird -v | grep "${VERSION}"  >/dev/null 2>&1
 
+# If Versions are not dedsired
+#thunderbird -v | grep "Thunderbird" >/dev/null 2>&1
+# works on both C5 and C6; please choose prefered way
+
 t_CheckExitStatus $?
