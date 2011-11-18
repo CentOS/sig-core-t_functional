@@ -4,9 +4,8 @@
 
 if (t_GetPkgRel basesystem | grep -q el6)
 then
-    # Install rrdtool
-    t_InstallPackage rrdtool
+    # Install wireshark
+    t_InstallPackage wireshark
 else 
     echo "Skipped on CentOS 5"
 fi
-

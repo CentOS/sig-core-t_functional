@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: Christoph Galuschka <christoph.galuschka@tiwag.at>
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 # Install net-snmp
 t_InstallPackage net-snmp

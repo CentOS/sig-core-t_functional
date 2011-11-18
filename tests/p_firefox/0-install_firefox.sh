@@ -1,6 +1,5 @@
 #!/bin/bash
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-# Install tcpdump
-t_InstallPackage tcpdump
-
+# Install firefox
+t_InstallPackage firefox

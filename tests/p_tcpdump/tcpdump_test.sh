@@ -1,5 +1,5 @@
 #!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@tiwag.at>
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
 #         Athmane Madjoudj <athmanem@gmail.com>
 
 t_Log "Running $0 - TCPdump test"

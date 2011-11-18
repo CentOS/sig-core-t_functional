@@ -1,6 +1,6 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
-# Author: Christph Galuschka <christoph.galuschka@tiwag.at>
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
 # RRD-sample from http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html
 
 if (t_GetPkgRel basesystem | grep -q el6)
