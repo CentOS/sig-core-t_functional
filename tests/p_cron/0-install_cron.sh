@@ -4,10 +4,10 @@
 t_Log "$0 - Installing crond"
 if (t_GetPkgRel basesystem | grep -q el6)
 then
-    t_InstallPackage  cronie
-    service crond start
+  pn="cronie"
 else
-    t_InstallPackage  vixie-cron
-    service crond start
+  pn="vixie-cron"
 fi
 
+t_InstallPackage  cronie
+service crond cycle
