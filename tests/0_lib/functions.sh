@@ -27,6 +27,8 @@ function t_InstallPackage
 {
 	t_Log "Attempting yum install: $*"
 	/usr/bin/yum -y -d0 install "$@"
+  # TODO: add a hook here, to make sure all binary files have ldd run
+  # against them, and that there are no missing linker targets
 	t_CheckExitStatus $?
 }
 
@@ -70,12 +72,20 @@ function t_CheckDeps
 }
 
 # Description: perform a service control and sleep for a few seconds to let
-# the dust settle. Using this function avoids a race condition wherein 
-# subsequent tests execute (and typically fail) before a service has had a 
-# chance to fully start/open a network port etc.
+#   the dust settle. Using this function avoids a race condition wherein 
+#   subsequent tests execute (and typically fail) before a service has had a 
+#   chance to fully start/open a network port etc.
+# Call it with cycle instead of start, and it will stop+start
+#   handy, if you dont know the service might already be running
 function t_ServiceControl
 {
-	/sbin/service $1 $2
+  if [ $2 -eq 'cycle' ]; then
+    /sbin/service $1 stop > /dev/null 2>&1
+    sleep 3
+    /sbin/service $1 start
+  else
+  	/sbin/service $1 $2
+  fi
 
 	# aaaand relax...
 	sleep 3
