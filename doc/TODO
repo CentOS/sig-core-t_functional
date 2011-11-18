@@ -5,3 +5,7 @@
 
 - We need to setup a CI instance so tests are auto run for all releases
   on new tests being added in
+
+- Find a solution on how we test desktop applications such as using:
+  1. GNU LDTP (Linux Desktop Testing Project) <http://ldtp.freedesktop.org/wiki/>
+  2. Dogtail <https://fedorahosted.org/dogtail/>
