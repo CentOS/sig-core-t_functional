@@ -11,8 +11,7 @@ EOF
 
 chmod +x /etc/cron.weekly/test.sh
 
-run-parts /etc/cron.weekly
-tail /var/log/cron | grep -q 'run-parts(/etc/cron.weekly)'
+run-parts /etc/cron.weekly | grep -q "test" 
 
 
 t_CheckExitStatus $?
