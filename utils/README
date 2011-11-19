@@ -1,0 +1,3 @@
+the utils dir contains helper scripts and metadata not actually used by the tests themselves.
+
+this includes scripts needed by the CI infrastructure etc
