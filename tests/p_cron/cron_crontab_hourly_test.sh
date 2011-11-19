@@ -10,8 +10,7 @@ echo 'test'
 EOF
 chmod +x /etc/cron.hourly/test.sh
 
-run-parts /etc/cron.hourly
-tail /var/log/cron | grep -q 'run-parts(/etc/cron.hourly)'
+run-parts /etc/cron.hourly | grep -q "test" 
 
 
 t_CheckExitStatus $?
