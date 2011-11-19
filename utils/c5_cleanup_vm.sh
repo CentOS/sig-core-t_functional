@@ -1,11 +1,12 @@
 #!/bin/sh
 
 # you will almost never want to run this script.
+# $1 = file name ( full path ) with rpms to retain
 
 echo -n 'erase ' > /tmp/yum-cleanup 
 for f in `rpm -qa`; do 
   pn=$(rpm --qf "%{name}\n" -q $f)
-  if [ `grep $pn c5_req_list | wc -l ` -lt 1 ] ; then 
+  if [ `grep $pn $1 | wc -l ` -lt 1 ] ; then 
     echo -n $f ' ' >> /tmp/yum-cleanup 
   fi
 done
