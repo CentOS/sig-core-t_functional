@@ -19,6 +19,7 @@ if [[ $IP =~ $regex ]]
   ping -q -c $COUNT -i 0.25 ${BASH_REMATCH[1]}
   sleep 1
   killall -s SIGINT tcpdump
+  sleep 1
   # reading from file, for each ping we should see two pakets
   WORKING=$( tcpdump -r $FILE | grep -ci icmp )
   # The script will allways work, but if we the log does not contain

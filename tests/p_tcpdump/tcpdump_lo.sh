@@ -14,7 +14,7 @@ sleep 1
 ping -q -c $COUNT -i 0.25 127.0.0.1
 sleep 1
 killall -s SIGINT tcpdump
-
+sleep 1
 # reading from file, for each ping we should see two pakets
 WORKING=$( tcpdump -r $FILE | grep -ci icmp )
 if [ $WORKING == $[COUNT*2] ]
