@@ -79,7 +79,7 @@ function t_CheckDeps
 #   handy, if you dont know the service might already be running
 function t_ServiceControl
 {
-  if [ $2 -eq 'cycle' ]; then
+  if [ $2 = "cycle" ]; then
     /sbin/service $1 stop > /dev/null 2>&1
     sleep 3
     /sbin/service $1 start
