@@ -3,16 +3,17 @@
 # you will almost never want to run this script.
 # $1 = file name ( full path ) with rpms to retain
 
-echo -n 'erase ' > /tmp/yum-cleanup 
+rm /tmp/yum-cleanup
+
 for f in `rpm -qa`; do 
-  pn=$(rpm --qf "%{name}\n" -q $f)
+  pn=$(rpm --qf "%{name}" -q $f)
   if [ `grep $pn $1 | wc -l ` -lt 1 ] ; then 
-    echo -n $f ' ' >> /tmp/yum-cleanup 
+    echo 'erase ' $f  >> /tmp/yum-cleanup 
   fi
 done
 echo >> /tmp/yum-cleanup
 echo 'install ' >> /tmp/cleanp
-cat req_list | tr '\n' ' ' >> /tmp/yum-cleanup
+cat req_list | sed -e 's/^/install /' >> /tmp/yum-cleanup
 
 yum -y shell /tmp/yum-cleanup
 yum -y reinstall \*
