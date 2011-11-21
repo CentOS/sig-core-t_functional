@@ -19,18 +19,11 @@ echo '       Service-Type = Framed-User,' >> /etc/raddb/users
 # Restart Service
 service radiusd restart
 
-#Run test, treat C6 and C5 differently
+#Run test
 
-if (t_GetPkgRel basesystem | grep -q el6)
-  then
-  t_Log "Running C6-Test"
-  radtest -d /etc/raddb -x steve centos 127.0.0.1:1812 1 testing123 |grep -qc 'Access-Accept'
+  t_Log "Running Test"
+  echo "User-Name=steve,Password=centos " | radclient -x localhost:1812 auth testing123 |grep -qc 'Access-Accept'
   ret_val=$?
-else
-  t_Log "Running C5-Test"
-  radtest steve centos 127.0.0.1:1812 1 testing123 |grep -qc 'Access-Accept'
-  ret_val=$?
-fi
 
 # Restore settings
 /bin/cp /etc/raddb/users.orig /etc/raddb/users
