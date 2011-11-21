@@ -15,3 +15,5 @@ then
 fi
 
 t_CheckExitStatus $?
+
+userdel -rf pop3test
