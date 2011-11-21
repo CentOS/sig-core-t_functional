@@ -3,3 +3,6 @@
 
 # IPTraf traffic monitoring package
 t_InstallPackage iptraf
+
+# Required by the test
+t_InstallPackage which
