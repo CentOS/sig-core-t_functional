@@ -11,16 +11,16 @@ for f in `rpm -qa`; do
     echo 'erase ' $f  >> /tmp/yum-cleanup 
   fi
 done
-echo >> /tmp/yum-cleanup
-echo 'install ' >> /tmp/cleanp
-cat req_list | sed -e 's/^/install /' >> /tmp/yum-cleanup
+cat $1 | sed -e 's/|//g' | sed -e 's/^/install /' >> /tmp/yum-cleanup
 
-yum -y shell /tmp/yum-cleanup
-yum -y reinstall \*
 if [ `uname -m` = 'x86_64' ]; then
   yum -y erase *.i?86
+  yum -y --exclude=*.i?86 shell /tmp/yum-cleanup
+else
+  yum -y shell /tmp/yum-cleanup
 fi
 
+yum -y reinstall \*
 cd /etc
 for x in `find . -maxdepth=2 -type f -name \*.rpmnew`; do
   a=$( echo $x | sed -e 's/.rpmnew//' )
