@@ -12,3 +12,5 @@ setsebool ftp_home_dir 1
 echo -e "user ftptest\npass ftptest\nquit" | nc localhost 21 | grep "230 Login successful."
 
 t_CheckExitStatus $?
+
+userdel -rf ftptest
