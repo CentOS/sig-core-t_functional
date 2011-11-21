@@ -13,3 +13,5 @@ t_Log "Running $0 - SSH user login test."
 
 t_CheckExitStatus $?
 
+userdel -rf sshtest
+
