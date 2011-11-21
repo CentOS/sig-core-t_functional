@@ -22,7 +22,7 @@ fi
 
 yum -y reinstall \*
 cd /etc
-for x in `find . -maxdepth=2 -type f -name \*.rpmnew`; do
+for x in `find . -maxdepth 2 -type f -name \*.rpmnew`; do
   a=$( echo $x | sed -e 's/.rpmnew//' )
   rm -f $a
   mv $x $a
