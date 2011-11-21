@@ -6,7 +6,7 @@
 rm /tmp/yum-cleanup
 
 for f in `rpm -qa`; do 
-  pn=$(rpm --qf "%{name}" -q $f)
+  pn=$(rpm --qf "|%{name}|" -q $f)
   if [ `grep $pn $1 | wc -l ` -lt 1 ] ; then 
     echo 'erase ' $f  >> /tmp/yum-cleanup 
   fi
