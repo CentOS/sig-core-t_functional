@@ -36,4 +36,11 @@ sleep 1
 # Test 
 cat /mnt/smb/test.txt | grep 'SMB test file' > /dev/null 2>&1
 
-t_CheckExitStatus $?
+ret_val=$?
+ 
+# Clean up
+umount /mnt/smb
+/bin/rm -fr /mnt/smb
+ 
+t_CheckExitStatus $ret_val  
+

@@ -19,5 +19,10 @@ echo 'NFS test file' > /mnt/nfs/test.txt
 # Test twice
 (cat /mnt/nfs/test.txt | grep 'NFS test file' > /dev/null 2>&1) && \
 (cat /srv/nfs/test.txt | grep 'NFS test file' > /dev/null 2>&1)
+ret_val=$?
 
-t_CheckExitStatus $?
+# Clean up
+umount /mnt/nfs
+/bin/rm -fr /mnt/nfs
+
+t_CheckExitStatus $ret_val
