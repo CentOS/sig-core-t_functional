@@ -21,13 +21,13 @@ DRIVE=$(fdisk -l|grep -Po -m1 '^/dev/[\D]+')
 /usr/bin/iostat -c 1 5 >$TMP &
 
 # Let the dust settle
-sleep 1
+sleep 4
 
 # Give the CPU something to chew on
 /bin/dd if=$DRIVE bs=4k count=25000 2>/dev/null|sha1sum -b - &>/dev/null
 
 # Give iostat a chance to log our task
-sleep 3
+sleep 6
 
 # Extract the CPU utilisation (user field, percentage)
 CPU_USER_PCENT=$(awk '$1 ~ /[0-9]/ {$1>a ? a=$1 : $1} END {print int(a)}' $TMP)

@@ -26,13 +26,13 @@ DRIVE=$(fdisk -l|grep -Po -m1 '^/dev/[\D]+')
 /usr/bin/iostat -dkx 1 5 $DRIVE >$TMP &
 
 # Let the dust settle
-sleep 1
+sleep 4
 
 # Generate some read traffic
 /bin/dd if=$DRIVE of=/dev/null bs=$BS count=$COUNT &>/dev/null
 
 # Give iostat a chance to log our traffic
-sleep 3
+sleep 6
 
 # Confirm our read bytes are >0, excluding the first 
 # line since that's the average since boot.

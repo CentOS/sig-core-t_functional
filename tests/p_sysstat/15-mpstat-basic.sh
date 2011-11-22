@@ -15,13 +15,13 @@ trap "[ -e $TMP ] && { /bin/rm -f $TMP; }" EXIT
 /usr/bin/mpstat -P 0 1 5 >$TMP &
 
 # Let the dust settle
-sleep 1
+sleep 4
 
 # Give the CPU something to chew on
 /bin/dd if=/dev/urandom bs=1k count=10000 2>/dev/null|sha1sum -b - &>/dev/null
 
 # Give mpstat a chance to log our task
-sleep 3
+sleep 6
 
 # Confirm our read bytes are >0, excluding the first 
 # line since that's the average since boot.
