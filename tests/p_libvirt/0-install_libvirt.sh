@@ -3,4 +3,4 @@
 
 t_Log "$0 - installing libvirt"
 t_InstallPackage  libvirt
-service libvirtd start
+service libvirtd restart
