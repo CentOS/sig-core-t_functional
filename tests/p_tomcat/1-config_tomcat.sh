@@ -18,4 +18,4 @@ sed -i 's/<\/tomcat-users>/<user username="admin" password="admin" roles="admin,
 service $TOMCAT_SRV_NAME restart
 
 # we need extra sec for tomcat
-sleep 5
+sleep 10
