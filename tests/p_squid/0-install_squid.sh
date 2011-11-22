@@ -3,4 +3,8 @@
 
 t_Log "$0 - installing Squid"
 t_InstallPackage  squid
-service squid start
+
+# Add host entry
+echo "127.0.0.1   `hostname`" >> /etc/hosts
+
+service squid restart
