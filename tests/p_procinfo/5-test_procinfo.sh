@@ -11,12 +11,8 @@ else
 
     PROCINFO=`which procinfo`
 
-    [ "$PROCINFO" ] || { t_Log "Failed to find procinfo binary. Cannot continue."; exit $FAIL; }
-
     $PROCINFO &>/dev/null
 
-    [ $? -eq 0 ] || { t_Log "Procinfo exited with non-zero status. That ain't good..."; exit $FAIL; }
-    
     t_CheckExitStatus $?
 
 fi
