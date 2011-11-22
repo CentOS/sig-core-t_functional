@@ -25,4 +25,4 @@ t_Process <(/usr/bin/find ./tests/r_*/ -type f|sort -t'/' )
 
 # and, we're done.
 t_Log "QA t_functional tests finished."
-
+exit 0
