@@ -7,7 +7,7 @@ t_ServiceControl mysqld start
 t_ServiceControl httpd start
 
 # Initializing a small MySQL db
-cat >>/tmp/mysql-QA.sql <<EOF
+cat >/tmp/mysql-QA.sql <<EOF
 create database qatests;
 use qatests;
 create table tests (name varchar(20)) ;
@@ -20,7 +20,7 @@ mysql </tmp/mysql-QA.sql
 
 # Creating a simple php query page to insert Data in the MySQL DB
 
-cat >>/var/www/html/mysql.php <<EOF
+cat >/var/www/html/mysql.php <<EOF
 <?php
 \$dbconnect = mysql_connect("localhost","centos","qa");
 if (!\$dbconnect)
@@ -41,7 +41,7 @@ EOF
 # testing
 ####################################################
 
-wget http://localhost/mysql.php
+curl -s  http://localhost/mysql.php 
 
 t_Log "Performing basic LAMP test"
 content=`echo "select * from qatests.tests where name='mysqltest'"|mysql -B --skip-column-names`
