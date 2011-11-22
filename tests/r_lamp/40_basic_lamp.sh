@@ -45,6 +45,10 @@ wget http://localhost/mysql.php
 
 t_Log "Performing basic LAMP test"
 content=`echo "select * from qatests.tests where name='mysqltest'"|mysql -B --skip-column-names`
+
+# Clean up
+mysql -u root -e 'drop database qatests;'
+
 if [ "$content" = "mysqltest" ] ; then
 	t_Log PASS;
 	exit 0;
