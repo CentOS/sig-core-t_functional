@@ -5,7 +5,6 @@
 t_Log "Running $0 - php phpinfo() function test."
 
 # Comparing hostname with output of phpinfo()
-#HOST=$(hostname)
 FILE='/var/tmp/php-test.php'
 
 cat > $FILE <<EOF
