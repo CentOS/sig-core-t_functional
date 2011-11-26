@@ -27,3 +27,7 @@ for x in `find . -maxdepth 2 -type f -name \*.rpmnew`; do
   rm -f $a
   mv $x $a
 done
+
+# Package specific cleanup 
+# Clean pgsql data dir
+/bin/rm -rf /var/lib/pgsql/
