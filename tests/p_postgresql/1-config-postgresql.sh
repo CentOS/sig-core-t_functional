@@ -6,6 +6,7 @@ then
    t_Log "Initialize PostgreSQL DB "     
    service postgresql initdb
    service postgresql restart
+   sleep 5
 else
    t_Log "This script is not required for CentOS 5.x"
 fi 
