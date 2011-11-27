@@ -5,6 +5,8 @@ t_Log "Running $0 -  repoclosure test ."
 
 t_InstallPackage yum-utils
 
+t_Log "Running repoclosure test ..."
+
 repoclosure > /tmp/repoclosure.log 2>&1
 grep -q 'unresolved deps' /tmp/repoclosure.log
 if [ $? -eq 0 ] ; then
