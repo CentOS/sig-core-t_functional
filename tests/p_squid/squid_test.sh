@@ -7,7 +7,7 @@ if [ $SKIP_QA_HARNESS ]; then
   HOST=wiki.centos.org
   CHECK_FOR="Page templates"
 else
-  HOST=qa.centos.repo
+  HOST=repo.centos.qa
   CHECK_FOR="ks_cfg"
 fi
 
