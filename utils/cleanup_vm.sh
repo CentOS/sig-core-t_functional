@@ -20,12 +20,6 @@ else
   yum -y shell /tmp/yum-cleanup
 fi
 
-# Package specific cleanup 
-# Clean pgsql data dir
-/bin/rm -rf /var/lib/pgsql/
-
-## EOF
-
 yum -y reinstall \*
 cd /etc
 for x in `find . -maxdepth 2 -type f -name \*.rpmnew`; do
@@ -34,3 +28,8 @@ for x in `find . -maxdepth 2 -type f -name \*.rpmnew`; do
   mv $x $a
 done
 
+# Package specific cleanup 
+# Clean pgsql data dir
+(rpm -q postgresql | grep -q el6) && /bin/rm -rf /var/lib/pgsql/
+
+## EOF
