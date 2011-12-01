@@ -1,7 +1,7 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-t_Log "Running $0 - httpd virtual host test."
+t_Log "Running $0 - httpd: NameVirtualHost is functional"
 
 echo "127.0.0.1   test" >>  /etc/hosts
 cat > /etc/httpd/conf.d/vhost-test.conf <<EOF

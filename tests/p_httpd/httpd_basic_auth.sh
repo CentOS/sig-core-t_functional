@@ -1,7 +1,7 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-t_Log "Running $0 - httpd basic authentication test."
+t_Log "Running $0 - httpd: basic authentication"
 
 cat > /etc/httpd/conf.d/dir-test-basic-auth.conf <<EOF
 Alias /basic_auth_test /var/www/html/basic_auth_test
