@@ -136,6 +136,20 @@ Start your tests with a comment block which includes your name and e-mail addres
 
 	t_Log "Running $0 - Postfix SMTP socket connect + 220 banner response test."
 
+Make the comment relevant to what you are really testing. Some good examples are :
+- php: testing mysql connection
+- mysql: create database, load sample schema, drop database
+- sshd: local connections over ssh work
+- sshd: testing key based access is functional
+
+Examples of not so good comments:
+- php test
+- does this work
+- another test
+
+If you are writing a test to satisfy or check for a regression or issue reported at bugs.centos.org, make sure you include reference to that issue number. One way to achieve that is in the test comment above. eg: to test if the issue reported in bugs.centos.org/view.php?id=4955 is being satisfied :
+
+ t_Log "Running $0 - NTP should use the CentOS pool (#4955)"
 
 === A Practical Example ===
 

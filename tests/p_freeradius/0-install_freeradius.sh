@@ -5,6 +5,8 @@
 # On C5 both freeradius and freeradius2 are provided, however only freeradius2-utils are provided as well
 # so we will install freeradius2 on C5 and freeradius (being freeradius2) on C6
 
+t_Log "Running $0 - installation and startup of freeradius."
+
 if (t_GetPkgRel basesystem | grep -q el6)
 then
   #Install Freeradius (V2)

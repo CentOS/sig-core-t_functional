@@ -2,7 +2,7 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 #         Athmane Madjodj <athmanem@gmail.com>
 
-t_Log "Running $0 - simple gcc compilation test"
+t_Log "Running $0 - gcc can build a hello world .c"
 
 # creating source code
 FILE='/var/tmp/gcc-test.c'

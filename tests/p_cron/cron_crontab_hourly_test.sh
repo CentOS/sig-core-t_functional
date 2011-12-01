@@ -1,7 +1,7 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-t_Log "Running $0 - crontab test."
+t_Log "Running $0 - crontab will run hourly jobs."
 
 # Add a test cron
 cat > /etc/cron.hourly/test.sh<<EOF
