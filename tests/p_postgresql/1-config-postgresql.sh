@@ -5,8 +5,9 @@ if (t_GetPkgRel postgresql | grep -q el6)
 then
    t_Log "Initialize PostgreSQL DB "     
    service postgresql initdb
-   service postgresql restart
-   sleep 5
+   t_ServiceControl postgresql start
+   sleep 15
 else
-   t_Log "This script is not required for CentOS 5.x"
+   t_ServiceControl postgresql start
+   sleep 15
 fi 
