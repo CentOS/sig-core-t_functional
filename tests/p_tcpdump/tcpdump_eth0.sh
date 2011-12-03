@@ -32,7 +32,7 @@ if [[ $IP =~ $regex ]]
     ret_val=1
   fi
 else
-  t_Log "Found Default-GW - skiping test"
+  t_Log "No Default-GW found - skiping test"
   ret_val=0
 fi
 # Remove file afterwards

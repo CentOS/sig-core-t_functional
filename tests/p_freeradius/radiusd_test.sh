@@ -21,9 +21,9 @@ service radiusd restart
 
 #Run test
 
-  t_Log "Running Test"
-  echo "User-Name=steve,Password=centos " | radclient -x localhost:1812 auth testing123 |grep -qc 'Access-Accept'
-  ret_val=$?
+t_Log "Running Test"
+echo "User-Name=steve,Password=centos " | radclient -x localhost:1812 auth testing123 |grep -qc 'Access-Accept'
+ret_val=$?
 
 # Restore settings
 /bin/cp /etc/raddb/users.orig /etc/raddb/users
