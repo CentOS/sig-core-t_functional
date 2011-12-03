@@ -16,7 +16,6 @@ t_ServiceControl mysqld start >/dev/null 2>&1
 CREATE='/var/tmp/mysql-php-QA.sql'
 
 cat >$CREATE <<EOF
-drop database phptests;
 create database phptests;
 use phptests;
 create table tests (name varchar(20)) ;
