@@ -7,7 +7,7 @@ import sys
 import re
     
 def is_valide_changelog_entry(entry):
-    regex = re.compile(r"\w+\ ?\w*\ ?<\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b>\ ?-?\ ?[0-9_\.]+-[a-zA-Z0-9_\.]+")
+    regex = re.compile(r"\w+\ ?\w*\ ?<\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b>\ ?-?\ ?[\w_\.]+-[\w_\.]+")
     if regex.match(entry) is None:
         return False
     else:
