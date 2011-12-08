@@ -6,7 +6,7 @@ import rpm
 import sys
 import re
     
-def is_valide_changelog_entry(entry):
+def is_valid_changelog_entry(entry):
     regex = re.compile(r"\w+\ ?\w*\ ?<\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b>\ ?-?\ ?[\w_\.]+-[\w_\.]+")
     if regex.match(entry) is None:
         return False
@@ -32,7 +32,7 @@ def main():
             ret=False
         try:
             changelog = hdr['changelogname'][0]
-            if not is_valide_changelog_entry(changelog):
+            if not is_valid_changelog_entry(changelog):
                  print "  Bad changelog entry in: %s" % hdr['name']
                  ret=False
         except Exception, e:
