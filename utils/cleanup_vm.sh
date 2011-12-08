@@ -32,4 +32,7 @@ done
 # Clean pgsql data dir
 (rpm -q postgresql | grep -q el6) && /bin/rm -rf /var/lib/pgsql/
 
+# Keep yum cache
+sed -i 's/keepcache=0/keepcache=1/' /etc/yum.conf
+
 ## EOF
