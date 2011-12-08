@@ -32,7 +32,7 @@ t_ServiceControl xinetd restart
 
 
 # Fix SELinux
-chcon -t public_content_t $PATH2FILE
+chcon -R -t public_content_t $PATH2FILE
 
 # Trying to rsync
 rsync --recursive --verbose --include=$FILE --exclude=* rsync://127.0.0.1/centos-test /var/log/
