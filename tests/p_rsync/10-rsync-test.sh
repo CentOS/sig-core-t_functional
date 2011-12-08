@@ -6,7 +6,8 @@ t_Log "Running $0 - rsyncd can rsync from/to local machine."
 
 # create settings to run test
 
-PATH2FILE='/var/tmp'
+PATH2FILE='/var/tmp/rsync'
+mkdir -p $PATH2FILE
 FILE='rsync-test'
 cat > $PATH2FILE/$FILE <<EOF
 Testing rsync
@@ -28,6 +29,10 @@ hosts allow = 127.0.0.1
 EOF
 
 t_ServiceControl xinetd restart
+
+
+# Fix SELinux
+chcon -t public_content_t $PATH2FILE
 
 # Trying to rsync
 rsync --recursive --verbose --include=$FILE --exclude=* rsync://127.0.0.1/centos-test /var/log/
