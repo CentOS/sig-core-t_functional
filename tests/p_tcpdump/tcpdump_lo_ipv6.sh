@@ -4,7 +4,7 @@
 
 t_Log "Running $0 - TCPdump test IPv6 to lo"
 
-# Grabing IPv6 address of lo to checl if IPv6 is enabled
+# Grabing IPv6 address of lo to check if IPv6 is enabled
 IP=$(ip addr list lo | grep 'inet6 ')
 regex='\t*inet6\ (.*)\/.*'
 if [[ $IP =~ $regex ]]
