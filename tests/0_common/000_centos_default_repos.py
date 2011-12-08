@@ -11,7 +11,7 @@ import sys
 import datetime
 
 yb = yum.YumBase()
-centos_default_repos = ['base','extras','updates']
+centos_default_repos = ['base','extras','updates','cr']
 now = lambda: datetime.datetime.today().strftime("%c")
 print "[+] %s -> Check if non default repo is enabled" % now() 
 for repo in yb.repos.listEnabled():
