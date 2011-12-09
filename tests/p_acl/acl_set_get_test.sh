@@ -7,7 +7,7 @@ t_Log "Running $0 - Check that we can get and set acl"
 touch /tmp/acl_test_file
 
 setfacl -m user:nobody:r-- /tmp/acl_test_file
-getfacl -a /tmp/acl_test_file |grep -q 'user:nobody:r--' 
+getfacl  /tmp/acl_test_file |grep -q 'user:nobody:r--' 
 
 t_CheckExitStatus $?
 
