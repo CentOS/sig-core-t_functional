@@ -5,7 +5,7 @@
 
 t_Log "Running $0 -  check that bash version info is the same with upstream."
 
-ARCH=`uname -m | sed 's/i6/i3/'`
+ARCH=`uname -m`
 bash --version | grep -q "$ARCH-redhat-linux-gnu"
 
 t_CheckExitStatus $?
