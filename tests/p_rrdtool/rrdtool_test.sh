@@ -5,7 +5,7 @@
 
 if (t_GetPkgRel basesystem | grep -q el6)
 then
-    t_Log "Running $0 - basic rrdtool test."
+    t_Log "Running $0 - rrdtool: create rrd, write values and retrieve values test."
 
     # creating test RRD
 
