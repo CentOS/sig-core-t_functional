@@ -11,7 +11,7 @@ if [ $SKIP_QA_HARNESS ]; then
 else
   HOST=repo.centos.qa
   # athmane: could you please insert something here that is returned from qa-host
-  CHECK_FOR="ks_cfg"
+  CHECK_FOR="CentOS"
 fi
 
 t_Log "Querying http://${HOST}"
