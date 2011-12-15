@@ -3,7 +3,6 @@
 # Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - wget can access http-host and download index.html."
-SKIP_QA_HARNESS=1
 FILE=/var/tmp/index.html
 
 if [ $SKIP_QA_HARNESS ]; then
