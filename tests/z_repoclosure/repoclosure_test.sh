@@ -16,6 +16,6 @@ else
 fi
 
 # print the output of repoclosure when it fails
-[ $ret_val -eq 1 ] && tail /tmp/repoclosure.log
+[ $ret_val -eq 1 ] && cat /tmp/repoclosure.log
 
 t_CheckExitStatus $ret_val
