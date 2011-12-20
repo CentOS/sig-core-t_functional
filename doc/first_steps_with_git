@@ -70,4 +70,7 @@ With time your gitorious clone and your local copy will drift from the t_functio
 "git fetch upstream" will fetch the current master from gitorious.
 "git merge upstream/master" will now merge your local copy with the previously fetched master. This effectively writes all master changes to your local copy.
 
+If - for any reason - you are unable to sync your repos correctly, you can always delete your clone at gitorious and
+create a new one.
+
 Happy git'ing and testing!
