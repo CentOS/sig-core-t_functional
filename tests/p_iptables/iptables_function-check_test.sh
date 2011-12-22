@@ -28,6 +28,8 @@ if [ $? == 1 ]
   then
   t_Log "iptables REJECT works fine"
   ret_val=0
+else
+  ret_val=1
 fi
 
 # cleanup
