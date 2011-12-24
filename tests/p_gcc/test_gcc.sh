@@ -20,18 +20,11 @@ EOF
 gcc $FILE -o $EXE
 
 # run EXE
-WORKING=$( $EXE |grep -c 'hello, centos')
-
-if [ $WORKING -eq 1 ]
-then
-  ret_val=0
-else
-  ret_val=1
-fi
+$EXE |grep -cq 'hello, centos'
+t_CheckExitStatus $?
 
 # remove files
 /bin/rm $FILE
 /bin/rm $EXE
 
-t_CheckExitStatus $ret_val
 

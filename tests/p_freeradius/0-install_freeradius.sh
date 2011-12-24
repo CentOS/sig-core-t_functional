@@ -23,8 +23,8 @@ if (t_GetPkgRel basesystem | grep -q el6)
 then
   t_ServiceControl radiusd start
 else
-  # C5 has an eap-setting in radiusd.conf and 3 "sites-available" which prevent successfull start (probably missing some dep)
-  # as the basic test works without these, the eap settings and 2 sites-available will be removed for the test and later restored
+  # C5 has an eap-setting in radiusd.conf and 3 "sites-enabled" which prevent successfull start (probably missing some dep)
+  # as the basic test works without these, the eap settings and 2 sites-enabled will be removed for the test and later restored
   # Check if we allready did this
   if [ ! -e /etc/raddb/radiusd.conf.orig ]
     then

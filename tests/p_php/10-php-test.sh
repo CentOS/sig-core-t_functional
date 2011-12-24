@@ -2,9 +2,8 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - php phpinfo() function test."
+t_Log "Running $0 - php test: looking for Zend Engine in phpinfo()."
 
-# Comparing hostname with output of phpinfo()
 FILE='/var/tmp/php-test.php'
 
 cat > $FILE <<EOF
