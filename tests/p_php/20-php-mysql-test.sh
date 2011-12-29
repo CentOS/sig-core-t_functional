@@ -25,7 +25,6 @@ flush privileges;
 EOF
 
 mysql <$CREATE
-/bin/rm $CREATE
 
 # create PHP Script and write something into DB
 INSERT='/var/tmp/test.php'
@@ -47,7 +46,7 @@ EOF
 php $INSERT
 if [ $? -ne 0 ]
   then
-  t_Log FAIL
+  t_Log "Inserting into DB failed"
   exit 1
 fi
 
@@ -73,3 +72,5 @@ php $READ | grep -q '1'
 
 t_CheckExitStatus $?
 
+#cleaning up
+/bin/rm $READ $CREATE $INSERT
