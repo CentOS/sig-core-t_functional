@@ -8,11 +8,11 @@ t_Log "Running $0 - python can print Hello World"
 FILE='/var/tmp/python-test.py'
 
 cat > $FILE <<EOF
-print "hello, centos!\n"
+print "hello centos"
 EOF
 
 # Executing python
-python $FILE -o $EXE | grep -cq 'hello. centos!'
+python $FILE | grep -cq "hello centos"
 
 t_CheckExitStatus $?
 

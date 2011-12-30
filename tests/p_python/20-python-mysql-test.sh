@@ -1,8 +1,6 @@
 #!/bin/sh
-#http://www.kitebird.com/articles/pydbapi.html
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
-# reusing the script from LAMP-Tests
 
 t_Log "Running $0 - python can retrieve mysql-server version information."
 
