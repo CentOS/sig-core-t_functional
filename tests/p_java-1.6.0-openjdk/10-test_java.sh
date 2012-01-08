@@ -17,10 +17,6 @@ public class HelloWorld {
 }
 EOF
 
-# Installing Java compiler
-t_Log "installing openjdk compiler."
-t_InstallPackage java-1.6.0-openjdk-devel
-
 # Compiling
 javac $FILE2
 if [ $? == 1 ]
