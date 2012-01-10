@@ -28,7 +28,7 @@ fi
 # executing java
 workpath=$(pwd)
 cd $PATH2FILE
-java $FILE |grep -cq 'hello centos'
+java $FILE |grep -q 'hello centos'
 
 t_CheckExitStatus $?
 
