@@ -22,7 +22,7 @@ service radiusd restart
 #Run test
 
 t_Log "Running Test"
-echo "User-Name=steve,Password=centos " | radclient -x localhost:1812 auth testing123 |grep -qc 'Access-Accept'
+echo "User-Name=steve,Password=centos " | radclient -x localhost:1812 auth testing123 |grep -q 'Access-Accept'
 ret_val=$?
 
 # Restore settings

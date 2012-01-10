@@ -20,7 +20,7 @@ EOF
 gcc $FILE -o $EXE
 
 # run EXE
-$EXE |grep -cq 'hello, centos'
+$EXE |grep -q 'hello, centos'
 t_CheckExitStatus $?
 
 # remove files

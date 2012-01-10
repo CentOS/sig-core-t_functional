@@ -12,7 +12,7 @@ print "hello centos"
 EOF
 
 # Executing python
-python $FILE | grep -cq "hello centos"
+python $FILE | grep -q "hello centos"
 
 t_CheckExitStatus $?
 

@@ -93,7 +93,7 @@ fi
 ln -s $sslpath/certs/server.crt $sslpath/certs/${HASH}.0
 
 #do verification
-openssl verify /var/tmp/openssl-test/server.crt |grep -c -q OK
+openssl verify /var/tmp/openssl-test/server.crt |grep -cq OK
 if [ $? == 1 ]
   then t_Log "Self signed Cert verification failed."       
   ret_val=1
