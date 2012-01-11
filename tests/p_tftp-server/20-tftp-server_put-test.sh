@@ -15,6 +15,10 @@ chmod 777 $TFTP_DIR
 echo "t_functional_test" > put_test
 touch $TFTP_DIR/put_test
 chmod 666 $TFTP_DIR/put_test
+
+# Fix selinux bool
+setsebool tftp_anon_write 1
+
 tftp 127.0.0.1  -c put put_test
 
 cat $TFTP_DIR/put_test | grep -q 't_functional_test' 
