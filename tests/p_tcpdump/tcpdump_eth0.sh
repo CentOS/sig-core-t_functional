@@ -22,7 +22,7 @@ if [[ $IP =~ $regex ]]
   sleep 1
   # reading from file, for each ping we should see two pakets
   WORKING=$( tcpdump -r $FILE | grep -ci icmp )
-  # The script will allways work, but if we the log does not contain
+  # The script will allways work, but if the log does not contain
   # what we expect, we will log it
   if [ $WORKING == $[COUNT*2] ]
     then
