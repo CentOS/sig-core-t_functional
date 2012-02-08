@@ -1,6 +1,7 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 #       Christoph Galuschka <christoph.galuschka@chello.at>
+#       Fabian Arrotin <arrfab@centos.org>
 
 t_Log "Running $0 - tftp-server put file test."
 
