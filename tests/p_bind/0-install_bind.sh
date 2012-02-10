@@ -31,7 +31,7 @@ EOF
     cp /usr/share/doc/bind-*/sample/etc/named.rfc1912.zones /etc/
     cp -R /usr/share/doc/bind-*/sample/var/named/local* /var/named/
     cp -R /usr/share/doc/bind-*/sample/var/named/named.* /var/named/
-    chown -R named:named /var/named/* /etc/named.*
+    chown -R root:named /var/named/* /etc/named.*
 fi
 
 t_ServiceControl named start
