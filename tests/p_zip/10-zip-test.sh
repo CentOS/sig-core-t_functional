@@ -11,11 +11,11 @@ FILE2=$ZIPDIR/file2.txt
 
 mkdir -p $ZIPDIR
 cat > $FILE1 <<EOF
-file #1
+file 1
 EOF
 
 cat > $FILE2 <<EOF
-file #2
+file 2
 EOF
 
 # creating archive, remove source-dir
@@ -30,9 +30,9 @@ fi
 #reextract from zip
 unzip -q /var/tmp/testfile.zip -d /
 #checking file contents
-grep -q 'file #1' $FILE1
+grep -q 'file 1' $FILE1
 RESULT1=$?
-grep -q 'file #2' $FILE2
+grep -q 'file 2' $FILE2
 RESULT2=$?
 
 if ([ $RESULT1 == 0 ] && [ $RESULT2 == 0 ])
