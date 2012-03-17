@@ -13,7 +13,7 @@ else
   URL="http://repo.centos.qa/srv/CentOS/"
 fi
 
-t_Log "Querying http://${HOST}"
+t_Log "Querying http://${URL}"
 wget -q --output-document=${FILE} ${URL}
 grep -q "${CHECK_FOR}" ${FILE}
 ret_val=$?
