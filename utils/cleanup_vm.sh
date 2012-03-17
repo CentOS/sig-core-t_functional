@@ -3,6 +3,26 @@
 # you will almost never want to run this script.
 # $1 = file name ( full path ) with rpms to retain
 
+# stop some services
+service httpd stop
+service libvirtd stop
+service mailman stop
+service mysqld stop
+service named stop
+service nfs stop
+service portmap stop
+service postfix stop
+service postgresql stop
+service radiusd stop
+service rpcbind stop
+service sendmail stop
+service smb stop
+service snmpd stop
+service squid stop
+service vsftpd stop
+service xinetd stop
+
+# packages cleanup
 rm /tmp/yum-cleanup
 
 for f in `rpm -qa`; do 
