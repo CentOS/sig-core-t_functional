@@ -11,7 +11,7 @@ mkdir -m 700 -p /home/pop3test/mail/.imap/INBOX
 chown -R pop3test:pop3test /home/pop3test/mail/.imap/INBOX
 
 t_Log "Dovecot POP3 login test"
-echo -e "user pop3test\npass pop3test\n" | nc localhost 110 | grep -q "+OK Logged in."
+echo -e "user pop3test\npass pop3test\n" | nc -w 5 localhost 110 | grep -q "+OK Logged in."
 
 t_CheckExitStatus $?
 
