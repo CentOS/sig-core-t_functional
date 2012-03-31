@@ -11,7 +11,7 @@ COUNT='4'
 tcpdump -q -n -p -i lo -w $FILE &
 # If we don't wait a short time, the first paket will be missed by tcpdump
 sleep 1
-ping -q -c $COUNT -i 0.25 127.0.0.1
+ping -q -c $COUNT -i 0.25 127.0.0.1 > /dev/null 2>&1
 sleep 1
 killall -s SIGINT tcpdump
 sleep 1

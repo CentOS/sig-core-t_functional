@@ -8,7 +8,7 @@ t_Log "Running $0 - Checking to see if setfattr, getfattr work"
 dd if=/dev/zero of=/tmp/attrtest.img bs=1024000 count=100 &>/dev/null
 t_CheckExitStatus $?
 
-echo -e 'y\n' | mkfs.ext3 /tmp/attrtest.img
+echo -e 'y\n' | mkfs.ext3 /tmp/attrtest.img > /dev/null 2>&1
 
 mkdir /mnt/attr_test
 mount -t ext3 -o loop,user_xattr /tmp/attrtest.img /mnt/attr_test

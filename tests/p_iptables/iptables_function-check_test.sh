@@ -23,7 +23,7 @@ fi
 # Applying ACL
 iptables -I ${ACL}
 
-ping -q -c $COUNT -i 0.25 -w $DEADTIME 127.0.0.1
+ping -q -c $COUNT -i 0.25 -w $DEADTIME 127.0.0.1 > /dev/null 2>&1
 if [ $? == 1 ]
   then
   t_Log "iptables REJECT works fine"
