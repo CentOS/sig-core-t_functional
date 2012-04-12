@@ -23,8 +23,8 @@ def application(environ, start_response):
     return [output]
 EOF
 
-t_ServiceControl httpd reload
-
+t_ServiceControl httpd restart
+sleep 2
 
 curl -s http://localhost/tfapp | grep -q 't_functional_mod_wsgi_test'
 
