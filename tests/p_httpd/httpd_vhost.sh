@@ -24,5 +24,5 @@ t_CheckExitStatus $?
 # SteveCB: remove vhost-test.conf to prevent later tests 
 # that assume DocumentRoot is /var/www/html from failing
 rm /etc/httpd/conf.d/vhost-test.conf
-t_ServiceControl httpd reload
+t_ServiceControl httpd stop
 

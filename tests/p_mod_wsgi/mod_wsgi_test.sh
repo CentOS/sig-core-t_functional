@@ -30,8 +30,6 @@ curl -s http://localhost/tfapp | grep -q 't_functional_mod_wsgi_test'
 
 t_CheckExitStatus $?
 
-t_ServiceControl httpd stop
-
 else 
     echo "Skipped on CentOS 5"
 fi
