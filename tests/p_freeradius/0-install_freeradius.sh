@@ -16,8 +16,6 @@ else
   t_InstallPackage freeradius2
 fi
 
-# activate at boot
-chkconfig radiusd on
 # start daemon with default settings
 if (t_GetPkgRel basesystem | grep -q el6)
 then
