@@ -64,3 +64,5 @@ if [ $RETVAL -ne 0 ]; then
 	exit $FAIL
 
 fi
+
+t_CheckExitStatus $RETVAL

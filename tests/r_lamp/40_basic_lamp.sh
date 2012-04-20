@@ -51,9 +51,9 @@ mysql -u root -e 'drop database qatests;'
 service httpd stop
 
 if [ "$content" = "mysqltest" ] ; then
-	t_Log PASS;
-	exit 0;
+	ret_val=0;
 else
-	t_Log FAIL;
-	exit 1;
+	ret_val=1;
 fi
+
+t_CheckExitStatus $ret_val
