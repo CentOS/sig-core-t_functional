@@ -61,7 +61,6 @@ RETVAL=$PHP_BIN $PHP_CHECK &>/dev/null
 if [ $RETVAL -ne 0 ]; then
 
 	t_Log "FAIL: php_info() check failed ($RETVAL)"
-	exit $FAIL
 
 fi
 
