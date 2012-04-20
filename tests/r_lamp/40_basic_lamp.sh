@@ -3,8 +3,8 @@
 t_Log "Running $0 - install a minimal lamp stack, and test it"
 
 t_InstallPackage httpd mysql mysql-server php php-mysql wget
-t_ServiceControl mysqld start
-t_ServiceControl httpd start
+t_ServiceControl mysqld restart
+t_ServiceControl httpd restart
 
 # Initializing a small MySQL db
 cat >/tmp/mysql-QA.sql <<EOF
