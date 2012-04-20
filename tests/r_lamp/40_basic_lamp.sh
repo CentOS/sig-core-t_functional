@@ -48,6 +48,7 @@ content=`echo "select * from qatests.tests where name='mysqltest'"|mysql -B --sk
 
 # Clean up
 mysql -u root -e 'drop database qatests;'
+service httpd stop
 
 if [ "$content" = "mysqltest" ] ; then
 	t_Log PASS;
