@@ -4,11 +4,12 @@
 
 t_Log "Running $0 - curl can access http-host and retrieve index.html."
 
-CHECK_FOR="CentOS Wiki"
 
 if [ $SKIP_QA_HARNESS ]; then
+  CHECK_FOR="CentOS Wiki"
   URL="http://wiki.centos.org/"
 else
+  CHECK_FOR="Index of /srv"
   URL="http://repo.centos.qa/srv/CentOS/"
 fi
 
