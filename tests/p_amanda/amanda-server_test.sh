@@ -119,6 +119,5 @@ fi
 /bin/rm -rf /etc/amanda/MyConfig
 /bin/rm -rf /etc/amandabackup-test
 
-echo $ret_val
-#t_CheckExitStatus $ret_val
+t_CheckExitStatus $ret_val
 
