@@ -1,5 +1,5 @@
 #!/bin/sh
-#         Athmane Madjoudj <athmanem@gmail.com>
+#         Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - arpwatch on eth0"
 
