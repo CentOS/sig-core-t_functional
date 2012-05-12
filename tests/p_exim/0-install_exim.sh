@@ -9,7 +9,9 @@ then
   t_ServiceControl postfix stop
   t_ServiceControl sendmail stop
   sleep 3
-  t_RemovePackage postfix exim sendmail
+  t_RemovePackage postfix sendmail
+  # Fix exim.conf to not use IPv6
+  sed -i 's/\:\:1//' /etc/exim/exim.conf
   t_ServiceControl exim start
 else
   t_Log "This seems to be a C6 system - skipping"
