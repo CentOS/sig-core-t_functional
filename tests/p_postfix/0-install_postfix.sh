@@ -4,6 +4,7 @@
 # Remove other MTAs
 t_ServiceControl sendmail stop
 t_ServiceControl exim stop
+sleep 3
 t_RemovePackage sendmail
 t_RemovePackage exim
 
