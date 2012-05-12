@@ -15,12 +15,13 @@ else
 fi
 
 # beginning and running test
-arp -d $defgw
 arpwatch
-sleep 2
+sleep 1
+arp -d $defgw
+sleep 1
 ping -q -i 0.25 -c 5 $defgw
 killall arpwatch
-
+sleep 1
 grep -q $defgw $arpdat
 ret_val=$?
 
