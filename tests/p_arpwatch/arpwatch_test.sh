@@ -3,6 +3,9 @@
 
 t_Log "Running $0 - arpwatch on eth0"
 
+# Kill arpwatch instance from previous test
+killall arpwatch
+
 # getting IP-address of default gateway
 defgw=$(ip route list | grep default | cut -d' ' -f3)
 
