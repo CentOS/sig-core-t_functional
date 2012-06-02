@@ -4,7 +4,6 @@
 t_Log "Running $0 - running traceroute to webhost"
 
 # Testing availability of network
-SKIP_QA_HARNESS=1
 if [ $SKIP_QA_HARNESS ]; then
   HOST="www.centos.org"
 else
