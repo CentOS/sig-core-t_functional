@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-# Install tcpdump
+t_Log "Running $0 -  install package tcpdump"
 t_InstallPackage tcpdump
 
