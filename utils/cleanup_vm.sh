@@ -50,7 +50,7 @@ done
 
 # Package specific cleanup 
 # Clean pgsql data dir
-(rpm -q postgresql | grep -q el6) && /bin/rm -rf /var/lib/pgsql/
+/bin/rm -rf /var/lib/pgsql/
 
 # Clean tmp
 rm -rf /tmp/*
