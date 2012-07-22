@@ -115,6 +115,12 @@ function t_GetArch
 	rpm -q --queryformat '%{arch}\n' centos-release
 }
 
+function t_Assert
+{
+ $@ >/dev/null 2>&1
+ t_CheckExitStatus $?
+}
+
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
@@ -126,3 +132,4 @@ export -f t_GetPkgRel
 export -f t_DistCheck
 export -f t_GetPkgVer
 export -f t_GetArch
+export -f t_Assert
