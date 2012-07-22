@@ -1,4 +1,8 @@
 #!/bin/sh
+# Author: Piyush Kumar <piykumar@gmail.com>
+# Author: Munish Kumar <munishktotech@gmail.com>
+# Author: Ayush Gupta <ayush.001@gmail.com>
+# Author: Konark Modi <modi.konark@gmail.com>
 FILE=/tmp/test_lftp_ftp.txt
 
 if [ $SKIP_QA_HARNESS ]; then
