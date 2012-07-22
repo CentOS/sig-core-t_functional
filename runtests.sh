@@ -20,7 +20,7 @@ set -u
 
 # process our test scripts
 if [ $1 ]; then
-  t_Process tests/$1
+  t_Process <(/usr/bin/find ./tests/$1/ -type f|sort -t'/' )
 else
   t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' )
   t_Process <(/usr/bin/find ./tests/p_*/ -type f|sort -t'/' )
