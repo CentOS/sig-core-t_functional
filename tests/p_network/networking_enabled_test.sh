@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - Check if networking is enabled."
 
-grep -q 'NETWORKING=yes' /etc/sysconfig/network
+grep -Eqi "NETWORKING=.*yes" /etc/sysconfig/network
 
 
 t_CheckExitStatus $?
