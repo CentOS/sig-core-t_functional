@@ -19,7 +19,7 @@ set -e
 set -u
 
 # process our test scripts
-if [ $1 ]; then
+if [ $# -gt 0 ]; then
   t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' )
   t_Process <(/usr/bin/find ./tests/$1/ -type f|sort -t'/' )
 else
