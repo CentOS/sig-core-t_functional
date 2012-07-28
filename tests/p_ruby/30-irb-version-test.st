@@ -5,16 +5,16 @@
 # Author: Saager Mhatre <saager.mhatre@gmail.com>
 #	  Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - Check version of ruby."
-v=$( ruby -v )
+t_Log "Running $0 - Check version of irb."
+
+#allready prepared just in case versions should change between C5 and C6
 if (t_GetPkgRel basesystem | grep -q el5)
   then
-  ruby -v | grep -q '1.8.5'
+  irb -v | grep -q '0.9.5'
   ret_val=$?
 else
-  ruby -v | grep -q '1.8.7'
+  irb -v | grep -q '0.9.5'
   ret_val=$?
 fi
 
 t_CheckExitStatus $ret_val
-
