@@ -6,7 +6,7 @@
 
 t_Log "Running $0 - checking git installation"
 
-if [ $OS_VERSION -eq '6' ]
+if [ $centos_ver -eq '6' ]
   then
   git --version
   ret_val=$?
