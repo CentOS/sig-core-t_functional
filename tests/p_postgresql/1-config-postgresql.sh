@@ -1,5 +1,8 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
+#	  Christoph Galuschka <christoph.galuschka@chello.at>
+
+t_Log "Running $0 - initializing and starting PostgreSQL"
 
 if (t_GetPkgRel postgresql | grep -q el6)
 then
