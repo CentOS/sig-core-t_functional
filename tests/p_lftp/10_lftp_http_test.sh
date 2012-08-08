@@ -7,10 +7,10 @@
 t_Log "Running $0 - lftp: HTTP test"
 if [ $SKIP_QA_HARNESS ]; then
 CHECK_FOR="UTC"
-URL="http://mirror.centos.org/centos//timestamp.txt"
+URL="http://mirror.centos.org/centos/timestamp.txt"
 else
 CHECK_FOR="UTC"
-URL="http://mirror.centos.org/centos//timestamp.txt"
+URL="http://mirror.centos.org/centos/timestamp.txt"
 fi
 
 t_Log "Querying ${URL}"
