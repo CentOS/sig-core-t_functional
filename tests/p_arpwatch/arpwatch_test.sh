@@ -19,7 +19,7 @@ fi
 
 # beginning and running test
 arpwatch
-sleep 2
+sleep 4
 arp -d $defgw
 sleep 2
 ping -q -i 0.5 -c 5 $defgw
