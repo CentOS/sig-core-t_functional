@@ -102,6 +102,8 @@ function t_DistCheck
 {
 	rpm -q --queryformat '%{version}\n' centos-release
 }
+# Additionally set distro release to $centos_ver
+#centos_ver=$(t_DistCheck)
 
 # Description: Get a package (rpm) version number
 function t_GetPkgVer
