@@ -18,7 +18,7 @@ else
 fi
 
 # beginning and running test
-arpwatch
+arpwatch &
 sleep 4
 arp -d $defgw
 sleep 2

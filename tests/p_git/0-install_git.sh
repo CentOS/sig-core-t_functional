@@ -5,7 +5,7 @@
 t_Log "Running $0 - installing git"
 
 # Install git
-if [ $centos_ver -eq '6' ]
+if [ $centos_ver == '6' ]
   then
   t_InstallPackage git
 else
