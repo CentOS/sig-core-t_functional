@@ -11,6 +11,7 @@ then
    t_ServiceControl postgresql start
    sleep 15
 else
+   chmod 644 /etc/nsswitch.conf
    t_ServiceControl postgresql start
    sleep 15
 fi 
