@@ -16,7 +16,7 @@ EOF
 htpasswd -c -b /etc/httpd/htpasswd test test
 mkdir -p /var/www/html/basic_auth_test
 echo "Basic authentication Test Page" > /var/www/html/basic_auth_test/index.html
-t_ServiceControl httpd reload
+t_ServiceControl httpd cycle
 curl -s -u test:test http://localhost/basic_auth_test/ | grep 'Basic authentication Test Page' > /dev/null 2>&1
 
 t_CheckExitStatus $?
