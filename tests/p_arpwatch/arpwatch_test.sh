@@ -37,4 +37,4 @@ fi
 # cleaning up
 cat /dev/null > $arpdat
 
-#t_CheckExitStatus $ret_val
+t_CheckExitStatus $ret_val
