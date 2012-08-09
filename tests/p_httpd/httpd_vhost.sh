@@ -16,10 +16,13 @@ EOF
 
 mkdir -p /var/www/vhosts/test/
 echo "Virtual Host Test Page" > /var/www/vhosts/test/index.html
-t_ServiceControl httpd cycle
+t_ServiceControl httpd stop
+killall httpd
+t_ServiceControl httpd start
+
 curl -s http://test/ | grep 'Virtual Host Test Page' > /dev/null 2>&1
 
-#t_CheckExitStatus $?
+t_CheckExitStatus $?
 
 # SteveCB: remove vhost-test.conf to prevent later tests 
 # that assume DocumentRoot is /var/www/html from failing

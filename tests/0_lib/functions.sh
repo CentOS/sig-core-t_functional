@@ -135,3 +135,4 @@ export -f t_DistCheck
 export -f t_GetPkgVer
 export -f t_GetArch
 export -f t_Assert
+export centos_ver
