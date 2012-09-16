@@ -22,14 +22,27 @@ if [[ $IP =~ $regex ]]
   sleep 1
   # reading from file, for each ping we should see two pakets
   WORKING=$( tcpdump -r $FILE | grep -ci icmp )
-  # The script will allways work, but if the log does not contain
-  # what we expect, we will log it
-  if [ $WORKING == $[COUNT*2] ]
+  if [ $SKIP_QA_HARNESS ]
     then
+    # treat qa-harness and non qa-harness differently,
+    # the script will always succeed outside qa, but will log results
     ret_val=0
+    if [ $WORKING != $[COUNT*2] ]
+      then
+      t_Log "ping to Default-Gateway did not return the number of pakets we expect. "$WORKING" of "$[COUNT*2]" pakets were dumped to file"
+    else
+      t_Log "ping to Default-Gateway looks OK. "$WORKING" of "$[COUNT*2]" pakets were dumped to file"
+    fi
   else
-    t_Log "ping to Default-Gateway droped pakets!! Only "$WORKING" of "$[COUNT*2]" entries were found!!"
-    ret_val=1
+    # in qa-harness, which is a controlled environment, the script will fail at odd results
+    if [ $WORKING == $[COUNT*2] ]
+      then
+      t_Log "QA-harness: ping to Default-Gateway looks OK. "$WORKING" of "$[COUNT*2]" pakets were dumped to file"
+      ret_val=0
+    else
+      t_Log "QA-harness: ping to Default-Gateway droped pakets!! Only "$WORKING" of "$[COUNT*2]" entries were found!!"
+      ret_val=1
+    fi
   fi
 else
   t_Log "No Default-GW found - skiping test"
