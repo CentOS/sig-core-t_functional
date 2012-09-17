@@ -4,8 +4,6 @@
 
 t_Log "Running $0 - testing lsof against ssh port"
 
-../p_openssh/0-install_sshd.sh
-
 sshd_status=`service sshd status | grep running`
 if ! [ "$sshd_status" ]
 then
