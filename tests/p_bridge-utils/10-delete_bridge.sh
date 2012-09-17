@@ -2,7 +2,7 @@
 # Author : Madhurranjan Mohaan <madhurranjan.mohaan@gmail.com>
 #add bridge
 bridge=testbridge2
-./05-add_bridge.sh $bridge
+./tests/p_bridge-utils/05-add_bridge.sh $bridge
 #delete the bridge created
 bridge_present=`brctl show | grep $bridge`
 t_Log "Running $0 - Deleting the dummy bridge: $bridge"
