@@ -9,6 +9,9 @@ if ! [ "$sshd_status" ]
 then
   service sshd start
 fi
+t_InstallPackage openssh-server openssh-clients 
+t_ServiceControl sshd start
+
 sshd_port_listening=`lsof -i:22 | grep LISTEN`
 if [ "$sshd_port_listening" ]
 then
