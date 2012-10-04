@@ -49,8 +49,8 @@ for x in `find . -maxdepth 2 -type f -name \*.rpmnew`; do
 done
 
 # Package specific cleanup 
-# Clean pgsql data dir
-/bin/rm -rf /var/lib/pgsql/
+# Clean pgsql data dir on c6
+(rpm -q postgresql | grep -q el6) && /bin/rm -rf /var/lib/pgsql/
 
 # Clean tmp
 rm -rf /tmp/*
