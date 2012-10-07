@@ -23,8 +23,8 @@ if [ $# -gt 0 ]; then
   t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' )
   t_Process <(/usr/bin/find ./tests/$1/ -type f|sort -t'/' )
 else
-  t_Process <(/usr/bin/find ./tests/p_*/ -type f|sort -t'/' )
   t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' )
+  t_Process <(/usr/bin/find ./tests/p_*/ -type f|sort -t'/' )
   t_Process <(/usr/bin/find ./tests/r_*/ -type f|sort -t'/' )
   t_Process <(/usr/bin/find ./tests/z_*/ -type f|sort -t'/' )
 fi
