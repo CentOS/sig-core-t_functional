@@ -12,7 +12,7 @@ if [ $SKIP_QA_HARNESS ]; then
   FILE="timestamp.txt"
 else
   CHECK_FOR="CentOS"
-  URL="http://repo.centos.qa/CentOS/6/os/x86_64/"
+  URL="http://repo.centos.qa/srv/CentOS/6/os/x86_64/"
   FILE="RELEASE-NOTES-en-US.html"
 fi
 
