@@ -4,6 +4,7 @@
 # NOTE: squirrelmail rpm has require: httpd php php-mbstring
 # Squirellmail has been removed from el6
 
+t_Log "Running $0 - install squirrelmail"
 if (t_GetPkgRel basesystem | grep -q el6)
 then
    t_Log It seems to be a CentOS 6.x system, this test will be disabled
