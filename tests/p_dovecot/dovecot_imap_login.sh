@@ -8,21 +8,21 @@ t_Log "Running $0 - adding imaptest local user account + attempting IMAP login"
 
 # creating maildir in HOME, else test will fail at first try
 mkdir -m 700 -p /home/imaptest/mail/.imap/INBOX 
-chown -R imaptest:imaptest /home/imaptest/mail/.imap/INBOX
+chown -R imaptest:imaptest /home/imaptest/mail
 
 ret_val=1
 
 t_Log "Dovecot IMAP login test"
+# after a restart of dovecot this always results with
+# 'imap-login: Disconnected (no auth attempts)' in /var/log/maillog
+# first try will be ignored
+echo -e "01 LOGIN imaptest imaptest\n" | nc -w 5 localhost 143 | grep -q "Logged in."
+
+# and we need some time between login attempts
+sleep 3
+
 echo -e "01 LOGIN imaptest imaptest\n" | nc -w 5 localhost 143 | grep -q "Logged in."
 ret_val=$?
-
-if [ $ret_val == 1 ]
-  then
-  t_Log "Sometimes the first login fails (reason yet unknown to me)"
-  t_Log "Trying a second time, as this seems to work, if not somethings really not working"
-  echo -e "01 LOGIN imaptest imaptest\n" | nc -w 5 localhost 143 | grep -q "Logged in."
-  ret_val=$?
-fi
 
 t_CheckExitStatus $ret_val
 
