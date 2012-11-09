@@ -2,7 +2,7 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 TEST=mtr
-t_Log "Running $0 - running "${TEST}" to webhost"
+t_Log "Running $0 - running ${TEST} to webhost"
 
 # Testing availability of network
 if [ $SKIP_QA_HARNESS -eq 1 ]; then

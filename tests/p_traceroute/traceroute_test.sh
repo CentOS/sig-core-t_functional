@@ -1,7 +1,8 @@
 #!/bin/sh
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - running traceroute to webhost"
+TEST=traceroute
+t_Log "Running $0 - running ${TEST} to webhost"
 
 # Testing availability of network
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
@@ -23,10 +24,10 @@ then
     COUNT=$( traceroute -n ${HOST} | grep -c ${BASH_REMATCH[1]} )
     if [ $COUNT = 2 ]
     then
-      t_Log "traceroute reached ${HOST} and nslookup seems to work, too"
+      t_Log "${TEST} reached ${HOST}"
       ret_val=0
     else
-      t_Log "traceroute didn't reach ${HOST}"
+      t_Log "${TEST} didn't reach ${HOST}"
       ret_val=1
     fi
   fi
@@ -35,5 +36,4 @@ else
   ret_val=0
 fi
 
-echo $ret_val
-#t_CheckExitStatus $ret_val
+t_CheckExitStatus $ret_val
