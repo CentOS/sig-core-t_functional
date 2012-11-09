@@ -1,16 +1,16 @@
 #!/bin/sh
 
 # Ensure plugin is enabled :
-set +x
+
 t_Log "Running $0 - is y-p-fastestmirror enabled."
 grep 'enabled=1' /etc/yum/pluginconf.d/fastestmirror.conf > /dev/null
 t_CheckExitStatus $?
 
 # timedhosts file ends up in different places on c5 and c6
 if [ $centos_ver == 5 ]; then 
-	$BaseDir=/var/cache/yum/
+	BaseDir=/var/cache/yum/
 else
-	$BaseDir=/var/cache/yum/`uname -m`/$centos_ver
+	BaseDir=/var/cache/yum/`uname -m`/$centos_ver
 fi
 
 t_Log "Running $0 - Ensure we have mirrorlist enabled."
@@ -21,18 +21,17 @@ t_Log "Running $0 - is y-p-fastestmirror can get hosts"
 find $BaseDir -type f -name timedhosts.txt -exec rm -f {} \;
 yum -d0 list kernel > /dev/null
 
-hostsfound=`wc -l $BaseDir/timedhosts.txt` > /dev/null
+hostsfound=`cat $BaseDir/timedhosts.txt | wc -l` > /dev/null
 
 # we need to make sure the file was recreated
-if [ ! -f ${BaseDir}/timedhosts.txt ]; then 
-	$retval=1
-else
-	# and that it has a few hosts in it
+if [ -f ${BaseDir}/timedhosts.txt ]; then 
 	if [ $hostsfound -lt 1 ]; then
-		$retval=0
+		retval=1
 	else
-		$retval=1
+		retval=0
 	fi
+else
+	retval=1
 fi
 t_CheckExitStatus $retval
 
