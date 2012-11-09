@@ -18,7 +18,7 @@ egrep '^mirrorlist' /etc/yum.repos.d/*.repo > /dev/null
 t_CheckExitStatus $?
 
 t_Log "Running $0 - is y-p-fastestmirror can get hosts + time them."
-find $BaseDir -type f -name timedhosts.txt -exec rm -f {}\;
+find $BaseDir -type f -name timedhosts.txt -exec rm -f {} \;
 yum -d0 list kernel > /dev/null
 hostsfound=$( wc -l ${BaseDir}/timedhosts.txt )
 [ $hostsfound -gt 0 ]
