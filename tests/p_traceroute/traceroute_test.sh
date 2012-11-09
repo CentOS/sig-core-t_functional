@@ -1,30 +1,25 @@
 #!/bin/sh
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - running traceroute to webhost"
+t_Log "Running $0 - running traceroute to default gateway"
 
-# Testing availability of network
-if [ $SKIP_QA_HARNESS -eq 1 ]; then
-  HOST="www.centos.org"
-else
-  HOST="repo.centos.qa"
-fi
-
-ping -q -c 5 -i 0.25 ${HOST}
-if [ $? = 0 ]
-then
-  t_Log "$HOST is available - continuing"
-  COUNT=$( traceroute ${HOST} | grep -c ${HOST} )
+# Grabing default gateway of eth0
+IP=$(ip route list default | grep 'default via ')
+regex='.*via\ (.*)\ dev.*'
+if [[ $IP =~ $regex ]]
+  then
+  t_Log "Found default gw (${BASH_REMATCH[1]}) - starting traceroute test"
+  COUNT=$( traceroute -n ${BASH_REMATCH[1]} | grep -c ${BASH_REMATCH[1]} )
   if [ $COUNT = 2 ]
   then
-    t_Log "traceroute reached ${HOST} and nslookup seems to work, too"
+    t_Log "traceroute reached default gw"
     ret_val=0
   else
-    t_Log "traceroute didn't reach ${HOST}"
+    t_Log "traceroute didn't reach default gw ${BASH_REMATCH[1]}"
     ret_val=1
   fi
 else
-  t_Log "$HOST seems to be unavailable - skipping"
+  t_Log "no default gateway found - skipping"
   ret_val=0
 fi
 
