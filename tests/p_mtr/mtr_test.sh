@@ -18,7 +18,6 @@ IP=$(host ${HOST})
 regex='.*address\ ([0-9.]*)'
 if [[ $IP =~ $regex ]]
 then
-  mtr -nr -c1 ${HOST}
   COUNT=$( mtr -nr -c1 ${HOST} | grep -c ${BASH_REMATCH[1]} )
   if [ $COUNT = 1 ]
   then
@@ -30,5 +29,4 @@ then
   fi
 fi
 
-echo $ret_val
-#t_CheckExitStatus $ret_val
+t_CheckExitStatus $ret_val

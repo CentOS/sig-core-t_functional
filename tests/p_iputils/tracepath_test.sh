@@ -14,18 +14,22 @@ t_Log "Running $0 - running ${TEST} to ${HOST}"
 ret_val=1
 
 IP=$(host ${HOST})
+FILE=/var/tmp/tracepath_result
 
 regex='.*address\ ([0-9.]*)'
 if [[ $IP =~ $regex ]]
 then
-  tracepath -n ${HOST}
-  COUNT=$( tracepath -n ${HOST} | grep -c ${BASH_REMATCH[1]} )
+  tracepath -n ${HOST} > ${FILE}
+  COUNT=$(grep -c ${BASH_REMATCH[1]} ${FILE})
+  TTL=$(grep -c 'Too many hops' ${FILE})
   if [ $COUNT = 1 ]
   then
     t_Log "${TEST} reached ${HOST}"
     ret_val=0
-  else
-    t_Log "${TEST} didn't reach ${HOST}"
+  fi
+  if ([ $COUNT = 0 ] && $ [ TTL = 1 ])
+  then
+    t_Log "${TEST} didn't reach ${HOST} because of too many hops. This is treated as SUCCESS."
     ret_val=1
   fi
 fi

@@ -18,7 +18,6 @@ IP=$(host ${HOST})
 regex='.*address\ ([0-9.]*)'
 if [[ $IP =~ $regex ]]
 then
-  traceroute -n ${HOST}
   COUNT=$( traceroute -n ${HOST} | grep -c ${BASH_REMATCH[1]} )
   if [ $COUNT = 2 ]
   then
@@ -30,5 +29,4 @@ then
   fi
 fi
 
-echo $ret_val
-#t_CheckExitStatus $ret_val
+t_CheckExitStatus $ret_val
