@@ -30,7 +30,7 @@ then
   if ([ $COUNT = 0 ] && [ $TTL = 1 ])
   then
     t_Log "${TEST} didn't reach ${HOST} because of too many hops. This is treated as SUCCESS."
-    ret_val=1
+    ret_val=0
   fi
 fi
 
