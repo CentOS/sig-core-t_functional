@@ -1,7 +1,7 @@
 #!/bin/bash
 
 t_Log "Running $0 - modifying yum repositories for QA purposes."
-if [ $SKIP_QA_HARNESS -eq 0 ]; then
+if [ $SKIP_QA_HARNESS -eq 1 ]; then
   echo 'Skip..'
   exit 0
 fi
