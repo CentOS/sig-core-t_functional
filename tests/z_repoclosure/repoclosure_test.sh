@@ -3,7 +3,7 @@
 
 t_Log "Running $0 -  repoclosure test ."
 
-if [ $SKIP_QA_HARNESS ]; then
+if [ $SKIP_QA_HARNESS -eq 1 ]; then
     t_Log "Skip this test in non QA harness environment"
 else
 

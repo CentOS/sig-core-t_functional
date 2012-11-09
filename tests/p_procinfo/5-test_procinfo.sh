@@ -10,7 +10,7 @@ then
    t_Log "It seems to be a CentOS 6.x system, this test will be disabled"
    exit 0
 else
-    if [ $SKIP_QA_HARNESS ]; then
+    if [ $SKIP_QA_HARNESS  -eq 1 ]; then
       t_Log "Skip, seems to fail on CI ..."
     else
 

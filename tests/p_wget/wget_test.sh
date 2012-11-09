@@ -6,7 +6,7 @@ t_Log "Running $0 - wget can access http-host and download index.html."
 FILE=/var/tmp/index.html
 
 
-if [ $SKIP_QA_HARNESS ]; then
+if [ $SKIP_QA_HARNESS -eq 1 ]; then
   CHECK_FOR="CentOS"
   URL="http://wiki.centos.org/"
 else

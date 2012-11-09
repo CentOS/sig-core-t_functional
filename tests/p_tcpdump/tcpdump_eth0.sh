@@ -22,7 +22,7 @@ if [[ $IP =~ $regex ]]
   sleep 1
   # reading from file, for each ping we should see two pakets
   WORKING=$( tcpdump -r $FILE | grep -ci icmp )
-  if [ $SKIP_QA_HARNESS ]
+  if [ $SKIP_QA_HARNESS -eq 1 ]
     then
     # treat qa-harness and non qa-harness differently,
     # the script will always succeed outside qa, but will log results

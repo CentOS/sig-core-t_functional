@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - check that lynx can dump remote page."
 
-if [ $SKIP_QA_HARNESS ]; then
+if [ $SKIP_QA_HARNESS -eq 1 ]; then
   HOST=wiki.centos.org
   CHECK_FOR="Page templates"
 else

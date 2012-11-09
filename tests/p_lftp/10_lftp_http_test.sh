@@ -6,7 +6,7 @@
 # 	  Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - lftp: HTTP test"
-if [ $SKIP_QA_HARNESS ]; then
+if [ $SKIP_QA_HARNESS -eq 1 ]; then
   CHECK_FOR="UTC"
   URL="http://mirror.centos.org/"
   FILE="timestamp.txt"

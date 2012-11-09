@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - check iptables default rules"
 
-if [ $SKIP_QA_HARNESS ]; then
+if [ $SKIP_QA_HARNESS -eq 1 ]; then
   echo "Skip, No standard firewall config ..."
 else
 

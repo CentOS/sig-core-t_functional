@@ -5,6 +5,9 @@
 
 echo -e "\n[+] `date` -> CentOS QA $0 starting."
 
+host repo.centos.org > /dev/null
+SKIP_QA_HARNESS=$?
+
 LIB_FUNCTIONS='./tests/0_lib/functions.sh'
 
 [ -f $LIB_FUNCTIONS ] && source $LIB_FUNCTIONS || { echo -e "\n[+] `date` -> Unable to source functions library. Cannot continue\n"; exit $FAIL; }
