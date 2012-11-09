@@ -21,6 +21,7 @@ then
   if [ $? = 0 ]
   then
     t_Log "$HOST is reachable - continuing"
+    tracepath -n ${HOST}
     COUNT=$( tracepath -n ${HOST} | grep -c ${BASH_REMATCH[1]} )
     if [ $COUNT = 1 ]
     then
