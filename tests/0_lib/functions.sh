@@ -4,6 +4,9 @@
 export readonly PASS=0
 export readonly FAIL=1
 
+# set debug level of yum install in t_InstallPackage
+YUMDEBUG=0
+
 # Description: call this function whenever you need to log output (preferred to calling echo)
 # Arguments: log string to display
 function t_Log
@@ -26,7 +29,7 @@ function t_CheckExitStatus
 function t_InstallPackage
 {
 	t_Log "Attempting yum install: $*"
-	/usr/bin/yum -y -d0 install "$@"
+	/usr/bin/yum -y -d${YUMDEBUG} install "$@"
   # TODO: add a hook here, to make sure all binary files have ldd run
   # against them, and that there are no missing linker targets
 	t_CheckExitStatus $?
