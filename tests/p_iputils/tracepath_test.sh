@@ -34,4 +34,5 @@ then
   fi
 fi
 
+/bin/rm ${FILE}
 t_CheckExitStatus $ret_val
