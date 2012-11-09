@@ -23,8 +23,8 @@ def application(environ, start_response):
     return [output]
 EOF
 
-t_ServiceControl httpd stop
 while [ `ps fax | grep 'sbin/httpd' | grep -v grep  | wc -l` -gt 0 ]; do
+  t_ServiceControl httpd stop
   sleep 1
 done
 t_ServiceControl httpd start
