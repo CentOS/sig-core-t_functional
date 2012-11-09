@@ -126,6 +126,11 @@ function t_Assert
  t_CheckExitStatus $?
 }
 
+function t_Assert_Equals
+{
+ [ $1 -eq $2 ] 
+ t_CheckExitStatus $?
+}
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
@@ -138,4 +143,5 @@ export -f t_DistCheck
 export -f t_GetPkgVer
 export -f t_GetArch
 export -f t_Assert
+export -f t_Assert_Equals
 export centos_ver
