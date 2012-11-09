@@ -4,7 +4,7 @@ t_Log "Running $0 - amanda server runs a simple task (backing up /etc)"
 
 if (t_GetPkgRel basesystem | grep -q el5)
 then
-  t_Log "This appears to be a C5 system. This test does not yet work on C5. Skipping."
+  t_Log "This is a C5 system. Skipping."
   t_CheckExitStatus 0
   exit $PASS
 fi
