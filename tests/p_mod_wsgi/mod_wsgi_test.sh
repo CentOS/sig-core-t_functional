@@ -1,12 +1,13 @@
 #!/bin/sh
-# Author: Athmane Madjoudj <athmanem@gmail.com>
 
 t_Log "Running $0 - Apache httpd mod_wsgi is functional"
-if (t_GetPkgRel basesystem | grep -q el6)
-then
+if (t_GetPkgRel basesystem | grep -q el6); then
+	while [ `ps fax | grep 'sbin/httpd' | grep -v grep  | wc -l` -gt 0 ]; do
+	  t_ServiceControl httpd stop
+	  sleep 1
+	done
 
-
-cat > /etc/httpd/conf.d/tf_app.conf <<EOF
+	cat > /etc/httpd/conf.d/tf_app.conf <<EOF
 WSGIScriptAlias /tfapp /var/www/html/tf_app.wsgi
 EOF
 
@@ -23,15 +24,10 @@ def application(environ, start_response):
     return [output]
 EOF
 
-while [ `ps fax | grep 'sbin/httpd' | grep -v grep  | wc -l` -gt 0 ]; do
-  t_ServiceControl httpd stop
-  sleep 1
-done
-t_ServiceControl httpd start
-
-curl -s http://localhost/tfapp | grep -q 't_functional_mod_wsgi_test'
-
-t_CheckExitStatus $?
+	t_ServiceControl httpd start
+	curl -s http://localhost/tfapp | grep -q 't_functional_mod_wsgi_test'
+	t_CheckExitStatus $?
+	t_ServiceControl  httpd stop
 
 else 
     echo "Skipped on CentOS 5"
