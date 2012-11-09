@@ -12,7 +12,7 @@ t_CheckExitStatus $ret_val
 
 t_Log "Running $0 - mysqld listening test."
 grep 'skip-networking' /etc/my.cnf > /dev/null
-if [ ?$ -eq 1 ]; then
+if [ $? -eq 1 ]; then
 	# FIXME: Test is very basic
 	nc -d -w 1 localhost 3306 >/dev/null 2>&1
 	t_CheckExitStatus $?
