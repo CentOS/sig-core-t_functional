@@ -2,38 +2,33 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 TEST=mtr
-t_Log "Running $0 - running ${TEST} to webhost"
 
 # Testing availability of network
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
-  HOST="www.centos.org"
+  HOST="wiki.centos.org"
 else
   HOST="repo.centos.qa"
 fi
 
-IP=$(ping -qn -c 1 ${HOST} | grep -i 'ping '${HOST})
+t_Log "Running $0 - running ${TEST} to ${HOST}"
+ret_val=1
 
-regex='PING\ '${HOST}'\ \(([0-9.]*)\).*'
+IP=$(host ${HOST})
+
+regex='.*address\ ([0-9.]*)'
 if [[ $IP =~ $regex ]]
 then
-  t_Log "resolved ${HOST} successfully - continuing"
-  ping -q -c 2 -i 0.25 ${HOST}
-  if [ $? = 0 ]
+  mtr -nr -c1 ${HOST}
+  COUNT=$( mtr -nr -c1 ${HOST} | grep -c ${BASH_REMATCH[1]} )
+  if [ $COUNT = 1 ]
   then
-    t_Log "$HOST is reachable - continuing"
-    COUNT=$( mtr -nr -c1 ${HOST} | grep -c ${BASH_REMATCH[1]} )
-    if [ $COUNT = 1 ]
-    then
-      t_Log "${TEST} reached ${HOST}"
-      ret_val=0
-    else
-      t_Log "${TEST} didn't reach ${HOST}"
-      ret_val=1
-    fi
+    t_Log "${TEST} reached ${HOST}"
+    ret_val=0
+  else
+    t_Log "${TEST} didn't reach ${HOST}"
+    ret_val=1
   fi
-else
-  t_Log "$HOST seems to be unavailable - skipping"
-  ret_val=0
 fi
 
-t_CheckExitStatus $ret_val
+echo $ret_val
+#t_CheckExitStatus $ret_val
