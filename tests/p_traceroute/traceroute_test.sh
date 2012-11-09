@@ -1,26 +1,39 @@
 #!/bin/sh
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - running traceroute to default gateway"
+t_Log "Running $0 - running traceroute to webhost"
 
-# Grabing default gateway of eth0
-IP=$(ip route list default | grep 'default via ')
-regex='.*via\ (.*)\ dev.*'
+# Testing availability of network
+if [ $SKIP_QA_HARNESS -eq 1 ]; then
+  HOST="www.centos.org"
+else
+  HOST="repo.centos.qa"
+fi
+
+IP=$(ping -qn -c 1 ${HOST} | grep -i 'ping '${HOST})
+
+regex='PING\ '${HOST}'\ \(([0-9.]*)\).*'
 if [[ $IP =~ $regex ]]
+then
+  t_Log "resolved ${HOST} successfully - continuing"
+  ping -q -c 2 -i 0.25 ${HOST}
+  if [ $? = 0 ]
   then
-  t_Log "Found default gw (${BASH_REMATCH[1]}) - starting traceroute test"
-  COUNT=$( traceroute -n ${BASH_REMATCH[1]} | grep -c ${BASH_REMATCH[1]} )
-  if [ $COUNT = 2 ]
-  then
-    t_Log "traceroute reached default gw"
-    ret_val=0
-  else
-    t_Log "traceroute didn't reach default gw ${BASH_REMATCH[1]}"
-    ret_val=1
+    t_Log "$HOST is reachable - continuing"
+    COUNT=$( traceroute -n ${HOST} | grep -c ${BASH_REMATCH[1]} )
+    if [ $COUNT = 2 ]
+    then
+      t_Log "traceroute reached ${HOST} and nslookup seems to work, too"
+      ret_val=0
+    else
+      t_Log "traceroute didn't reach ${HOST}"
+      ret_val=1
+    fi
   fi
 else
-  t_Log "no default gateway found - skipping"
+  t_Log "$HOST seems to be unavailable - skipping"
   ret_val=0
 fi
 
-t_CheckExitStatus $ret_val
+echo $ret_val
+#t_CheckExitStatus $ret_val
