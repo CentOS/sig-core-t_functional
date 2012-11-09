@@ -24,5 +24,6 @@ ret_val=$?
 # Clean up
 umount /mnt/nfs
 /bin/rm -fr /mnt/nfs
+mv /etc/exports.orig /etc/exports
 
 t_CheckExitStatus $ret_val
