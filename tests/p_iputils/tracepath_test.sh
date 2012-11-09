@@ -34,5 +34,4 @@ then
   fi
 fi
 
-echo $ret_val
-#t_CheckExitStatus $ret_val
+t_CheckExitStatus $ret_val
