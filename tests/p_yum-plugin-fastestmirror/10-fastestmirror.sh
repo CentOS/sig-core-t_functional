@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Ensure plugin is enabled :
-
+set +x
 t_Log "Running $0 - is y-p-fastestmirror enabled."
 grep 'enabled=1' /etc/yum/pluginconf.d/fastestmirror.conf > /dev/null
 t_CheckExitStatus $?
@@ -20,7 +20,8 @@ t_CheckExitStatus $?
 t_Log "Running $0 - is y-p-fastestmirror can get hosts"
 find $BaseDir -type f -name timedhosts.txt -exec rm -f {} \;
 yum -d0 list kernel > /dev/null
-hostsfound=$( wc -l ${BaseDir}/timedhosts.txt ) > /dev/null
+
+hostsfound=`wc -l $BaseDir/timedhosts.txt` > /dev/null
 
 # we need to make sure the file was recreated
 if [ ! -f ${BaseDir}/timedhosts.txt ]; then 
