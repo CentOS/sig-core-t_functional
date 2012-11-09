@@ -24,9 +24,9 @@ def application(environ, start_response):
 EOF
 
 t_ServiceControl httpd stop
-sleep 2
-killall httpd
-sleep 1
+while [ `ps fax | grep 'sbin/httpd' | grep -v grep  | wc -l` -gt 0 ]; do
+  sleep 1
+done
 t_ServiceControl httpd start
 
 curl -s http://localhost/tfapp | grep -q 't_functional_mod_wsgi_test'
