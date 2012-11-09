@@ -5,6 +5,8 @@
 
 echo -e "\n[+] `date` -> CentOS QA $0 starting."
 
+yum -d0 install bind-utils 
+
 host repo.centos.qa > /dev/null
 export SKIP_QA_HARNESS=$?
 
