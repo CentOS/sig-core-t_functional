@@ -1,6 +1,7 @@
 #!/bin/sh
 # Author: Vivek Dubey <dvivek@thoughtworks.com>
 # Akshay Karle <akshayka@thoughtworks.com>
+# Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - testing lzo compression and decompression"
 
