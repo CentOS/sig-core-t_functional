@@ -10,14 +10,13 @@ FILE2=/tmp/testfile.lzo
 echo 'CentOS' > ${FILE1}
 
 # running compression
-lzop -9v ${FILE1} -o ${FILE2}
+lzop -9 ${FILE1} -o ${FILE2}
 /bin/rm ${FILE1}
 
 lzop -d ${FILE2} -o ${FILE1}
 /bin/rm ${FILE2}
 
 #checking file content
-grep 'CentOS' ${FILE1}
+grep -q 'CentOS' ${FILE1}
 
-echo $?
-#t_CheckExitStatus $?
+t_CheckExitStatus $?
