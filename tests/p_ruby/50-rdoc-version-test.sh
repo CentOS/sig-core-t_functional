@@ -8,7 +8,7 @@
 t_Log "Running $0 - Check version of rdoc."
 
 #allready prepared just in case versions should change between C5 and C6
-if (t_GetPkgRel basesystem | grep -q el5)
+if [ $centos_ver = 5 ]
   then
   rdoc -v | grep -q '1.0.1'
   ret_val=$?

@@ -6,13 +6,12 @@
 #	  Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - Check version of ruby."
-v=$( ruby -v )
-if (t_GetPkgRel basesystem | grep -q el5)
+if [ $centos_ver = 6 ]
   then
-  ruby -v | grep -q '1.8.5'
+  ruby -v | grep -q '1.8.7'
   ret_val=$?
 else
-  ruby -v | grep -q '1.8.7'
+  ruby -v | grep -q '1.8.5'
   ret_val=$?
 fi
 
