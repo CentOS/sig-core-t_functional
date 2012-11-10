@@ -11,22 +11,30 @@ else
 fi
 
 t_Log "Running $0 - running ${TEST} to ${HOST}"
-ret_val=1
 
 IP=$(host ${HOST})
+FILE=/var/tmp/traceroute_result
+ret_val=1
 
 regex='.*address\ ([0-9.]*)'
 if [[ $IP =~ $regex ]]
 then
-  COUNT=$( traceroute -n ${HOST} | grep -c ${BASH_REMATCH[1]} )
+  traceroute -n ${HOST} > ${FILE}
+  COUNT=$(grep -c ${BASH_REMATCH[1]} ${FILE})
+  TTL=$(egrep -c '30  \* \* \*' ${FILE})
   if [ $COUNT = 2 ]
   then
     t_Log "${TEST} reached ${HOST}"
     ret_val=0
+  elif ([ $COUNT != 2 ] && [ $TTL = 1 ])
+    then
+    t_Log "${TEST} didn't reach ${HOST} because of too many hops/blocked traceroute by ISP. This is treated as SUCCESS."
+    ret_val=0
   else
-    t_Log "${TEST} didn't reach ${HOST}"
-    ret_val=1
+    t_Log "${TEST} didn't return anything we expect - FAILING"
+   ret_val=1
   fi
 fi
 
+/bin/rm ${FILE}
 t_CheckExitStatus $ret_val
