@@ -3,8 +3,6 @@
 t_Log "Running $0 - mysqld client can talk to mysql server."
 HostName=$(hostname --fqdn)
 MySqlHostName=$(mysql -N -B -u root -e "show variables like 'hostname'" | cut -f 2)
-echo $HostName
-echo ${MySqlHostName}
 if [ $HostName = ${MySqlHostName} ]; then
 	ret_val=0
 else
