@@ -12,6 +12,9 @@ export SKIP_QA_HARNESS=$?
 
 LIB_FUNCTIONS='./tests/0_lib/functions.sh'
 
+# Just in case $LIB_FUNCTIONS doesn't exist
+export FAIL=1
+
 [ -f $LIB_FUNCTIONS ] && source $LIB_FUNCTIONS || { echo -e "\n[+] `date` -> Unable to source functions library. Cannot continue\n"; exit $FAIL; }
 
 # case insensitive filename matching
