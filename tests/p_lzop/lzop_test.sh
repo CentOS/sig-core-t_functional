@@ -9,7 +9,7 @@ if [ $centos_ver = 5 ]
   then
   t_Log "This is a C5 system. Skipping."
   ret_val=0
-elif [ $(t_GetArch) = i386 ]
+elif [ $(t_GetArch) = i686 ]
   then
   t_Log "Package not available in i386 architecture. Skipping"
   ret_val=0
