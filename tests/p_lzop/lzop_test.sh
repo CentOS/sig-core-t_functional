@@ -3,11 +3,15 @@
 # Akshay Karle <akshayka@thoughtworks.com>
 # Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - testing lzo compression and decompression"
+t_Log "Running $0 - testing lzop compression and decompression"
 
 if [ $centos_ver = 5 ]
   then
   t_Log "This is a C5 system. Skipping."
+  ret_val=0
+elif [ $(t_GetArch) = i386 ]
+  then
+  t_Log "Package not available in i386 architecture. Skipping"
   ret_val=0
 else
   FILE1=/tmp/testfile.txt
