@@ -8,7 +8,7 @@ t_Log "Running $0 - installing lzop"
 if [ $centos_ver = 5 ]
   then
   t_Log "This is a C5 system. Skipping."
-elif [ $(t_GetArch) = i386 ]
+elif [ $(t_GetArch) = i686 ]
   then
   t_Log "Package not available in i386 architecture. Skipping"
 else
