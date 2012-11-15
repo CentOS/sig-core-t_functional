@@ -53,7 +53,7 @@ function t_Process
 	while read -u 7 f
 	do
 		# skip files named readme or those that start with an _
-		[[ "${f}" =~ readme|^_ ]] &&  continue;
+		[[ "$(basename ${f})" =~ readme|^_ ]] &&  continue;
 		
 		# handy tip: chmod -x to disable individual test scripts.
 		[ -x ${f} ] && ${f}
