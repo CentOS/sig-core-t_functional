@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Human friendly symbols
-export readonly PASS=0
-export readonly FAIL=1
-
-# set debug level of yum install in t_InstallPackage
-export YUMDEBUG=0
 
 # Description: call this function whenever you need to log output (preferred to calling echo)
 # Arguments: log string to display
