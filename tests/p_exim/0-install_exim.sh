@@ -2,6 +2,8 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 #	  Christoph Galuschka <christoph.galuschka@chello.at>
 
+t_Log "Running $0 - remove unused MTAs and install exim"
+
 if (t_GetPkgRel basesystem | grep -q el5)
 then
   t_InstallPackage exim
