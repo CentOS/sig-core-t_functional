@@ -5,5 +5,5 @@
 
 t_Log "Running $0 - checking grep functionality"
 
-echo "wow grep is working" | grep "wow"
+echo "wow grep is working" | grep -q "wow"
 t_CheckExitStatus $?
