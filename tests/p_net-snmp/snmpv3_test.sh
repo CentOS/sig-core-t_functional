@@ -4,8 +4,6 @@
 
 t_Log "Running $0 - snmpv3 test"
 
-t_InstallPackage net-snmp-utils 
-
 # Make Backup of snmpd.conf and add V3-settings
 /bin/cp /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.orig
 echo 'rouser centosro' >> /etc/snmp/snmpd.conf
