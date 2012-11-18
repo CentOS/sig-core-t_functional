@@ -10,7 +10,7 @@ cat /dev/null > $MAILSPOOL
 ret_val=1
 
 # send mail to localhost
-echo -e "helo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc localhost 25 | grep -q "250 2.0.0"
+echo -e "helo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep -q "250 2.0.0"
 if [ $? = 0 ]
   then
   t_Log 'Mail has been queued successfully'
