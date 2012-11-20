@@ -1,0 +1,82 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+#
+
+function ExitFail {
+    t_Log "FAIL"
+    exit $FAIL
+}
+
+t_Log "Runing $0 - normal user password tests"
+# Check that the passtest user cannot use the root only options 
+
+t_Log "Checking a normal user cannot use root options"
+
+su passtest -c "passwd -l passtest" &>/dev/null && ExitFail
+su passtest -c "passwd -u passtest" &>/dev/null && ExitFail
+su passtest -c "passwd -e passtest" &>/dev/null && ExitFail
+su passtest -c "passwd -n 10 passtest" &>/dev/null && ExitFail
+su passtest -d "passwd -d passtest" &>/dev/null && ExitFail
+su passtest -d "passwd -S passtest" &>/dev/null && ExitFail
+t_Log "Pass"
+
+# Check the user can change their own password. Reset it to passtest and
+# turn off min change days before trying. Password becomes ano24ther
+
+t_Log "Test user can change own password"
+
+echo "passtest" | passwd --stdin passtest &>/dev/null
+passwd -n 0 passtest &>/dev/null
+./tests/p_passwd/_user_password.expect &>/dev/null
+t_CheckExitStatus $?
+
+# Check that sending the wrong current password fails we send passtest
+
+t_Log "Check sending incorrect current password fails"
+./tests/p_passwd/_user_password.expect &>/dev/null
+
+if [ $? -eq "3" ]
+then
+    t_Log "PASS"
+else
+    ExitFail
+fi
+
+# Check that user cannot immediately change password if minimum password
+# lifeftime is enabled.
+
+t_Log "Testing Minimum password lifetine is enforced"
+echo "passtest" | passwd --stdin passtest &>/dev/null
+passwd -n 1 passtest &>/dev/null
+./tests/p_passwd/_user_password.expect  &>/dev/null
+
+if [ $? -eq "2" ]
+then
+    t_Log "PASS"
+else
+    ExitFail
+fi
+
+# Password complexity tests
+echo "passtest" | passwd --stdin passtest &>/dev/null
+passwd -n 0 passtest &>/dev/null
+
+# Check very short password is rejected (single letter)
+t_Log "Test very short password is rejected (1 character)"
+./tests/p_passwd/_password_complexity.expect a &>/dev/null
+t_CheckExitStatus $?
+
+# Check a short password is rejected (4 chars)
+t_Log "Test short password is rejected (4 charaters)"
+./tests/p_passwd/_password_complexity.expect athe &>/dev/null
+t_CheckExitStatus $?
+
+# Check password is rejected with insufficient complexity
+t_Log "Test insufficiently complex password is rejected"
+./tests/p_passwd/_password_complexity.expect betabeta &>/dev/null
+t_CheckExitStatus $?
+
+# Check palindromic password is rejected
+t_Log "Check palindromic password is rejected"
+./tests/p_passwd/_password_complexity.expect qwe123321ewq &>/dev/null
+t_CheckExitStatus $?

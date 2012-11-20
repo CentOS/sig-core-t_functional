@@ -1,0 +1,122 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+#
+
+function ExitFail
+{
+    t_Log "FAIL"
+    exit $FAIL
+}
+#
+# Test the command line options for passwd that are restricted to root.
+#
+
+t_Log "Running $0 - Check root only actions"
+t_Log "Create test user passtest"
+userdel -rf passtest; useradd passtest && echo passtest | passwd --stdin passtest &>/dev/null
+t_CheckExitStatus $?
+
+# Check that passwd -l locks the password - the field in /etc/shadow has 
+# a ! prepended
+t_Log "Check account can be locked"
+passwd -l passtest &>/dev/null
+
+if [ $? -eq "0" ]
+then
+    getent shadow passtest | cut -f2 -d: | grep '^!' &>/dev/null
+    t_CheckExitStatus $?
+else
+    ExitFail
+fi
+
+# Check that passwd -u will unlock the account - removes the ! from the 
+# start of the password field in /etc/shadow
+t_Log "Check account can be unlocked"
+passwd -u passtest &>/dev/null
+
+if [ $? -eq "0" ]
+then
+    getent shadow passtest | cut -f2 -d: | grep -v '^!' &>/dev/null
+    t_CheckExitStatus $?
+else
+    ExitFail
+fi
+
+# Check that passwd -e expires an account. Field 3 of /etc/shadow is set to 0
+t_Log "Check password can be expired"
+passwd -e passtest &>/dev/null
+
+if [ $? -eq "0" ]
+then
+    getent shadow passtest | cut -f3 -d: | grep '^0' &>/dev/null 
+    t_CheckExitStatus $?
+    echo passtest | passwd --stdin passtest &>/dev/null
+else
+    ExitFail
+fi
+
+# Check that passwd -n, -x, -w -i set the mindays, maxdays, warndays and
+# inactive fields (4-7) in /etc/shadow
+t_Log "Check password aging data can be set"
+passwd -n 11 -x 22 -w 33 -i 44 passtest &>/dev/null
+
+if [ $? -eq "0" ]
+then
+    getent shadow passtest | cut -f4-7 -d: | grep '^11:22:33:44' &>/dev/null
+    t_CheckExitStatus $?
+else
+    ExitFail
+fi
+
+# Check that passwd -d deletes the password - the field in /etc/shadow is
+# cleared
+t_Log "Check password can be deleted"
+passwd -d passtest &>/dev/null
+
+if [ $? -eq "0" ]
+then
+    password=$(getent shadow passtest | cut -f2 -d:)
+    if [ -z "${password}" ]
+    then
+        t_Log "PASS"
+    else
+        ExitFail
+    fi
+else
+    ExitFail
+fi
+
+# Passwd won't, without being forced, unlock an account with a blank password
+# so check this is the case.
+t_Log "Check blank password cannot be unlocked"
+passwd -l passtest &>/dev/null
+passwd -u passtest &>/dev/null 
+
+if [ $? -ne "0" ]
+then
+    t_Log PASS
+else
+    ExitFail
+fi
+
+# Force passwd to unlock an account with a blank password passwd -uf.
+t_Log "Check blank password can be force unlocked"
+passwd -uf passtest &>/dev/null
+t_CheckExitStatus $?
+
+# Check the output of passwd -S at this point it should be
+# passtest NP YYYY-MM-DD  11 22 33 44 (Empty password.)
+# It's possible that this will run on a different side of midnight to earlier 
+# commands so if checking the output for today fails check yesterday too
+t_Log "Check output of passwd -S"
+
+expected="passtest NP "$(date +'%F')" 11 22 33 44 (Empty password.)"
+passwd -S passtest | grep "$expected" &>/dev/null
+if [ $? -eq "0" ]
+then
+    t_Log "PASS"
+else
+    expected="passtest NP "$(date +'%F' -d yesterday)" 11 22 33 44 (Empty password.)"
+    passwd -S passtest | grep "$expected" &>/dev/null
+    t_CheckExitStatus $?
+fi 

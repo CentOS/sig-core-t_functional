@@ -1,0 +1,8 @@
+#!/bin/bash
+#Author: Iain Douglas <centos@1n6.org.uk>
+#
+t_Log "Running $0 - Basic passwd functionality checks"
+
+userdel -rf passtest; useradd passtest  &>/dev/null
+echo passtest | passwd --stdin passtest &>/dev/null
+t_CheckExitStatus $?
