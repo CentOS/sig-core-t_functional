@@ -1,0 +1,16 @@
+#!/bin/bash
+# Author: Iian Douglas <centos@1n6.org.uk>
+
+# Test znew - converts .Z files to .gz
+# Create a test file
+
+t_Log "Running $0 -  Testing znew"
+
+TESTFILE=/var/tmp/znew.txt
+rm $TESTFILE* &>/dev/null
+
+ls /usr/bin >$TESTFILE
+compress $TESTFILE 
+
+znew $TESTFILE.Z
+t_CheckExitStatus $?

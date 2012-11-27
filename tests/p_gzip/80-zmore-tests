@@ -1,0 +1,30 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "Running $0 Testing zmore"
+
+# The zmore utility is just a wrapper round more which should be 
+# tested as part of p_util-linux-ng. It does however deal with 
+# multiple files for more so test that.
+
+TESTFILE="./tests/p_gzip/gzip-test.txt.gz"
+t_Log "Check single file invocation"
+zmore $TESTFILE | grep -q -- '------> ./tests/p_gzip/gzip-test.txt.gz <-----'-
+t_CheckExitStatus $?
+
+# Check multifile invocation 
+
+t_Log "Check multifile invocation"
+
+expect << EOF &>/dev/null
+spawn zmore $TESTFILE $TESTFILE
+set timeout 2 
+set match_max 1000
+expect -- "--More--(Next file: ./tests/p_gzip/gzip-test.txt.gz)" {send n} timeout {exit 1 }
+expect -- "gzip-test of single file" {exit 0} 
+exit 1
+EOF
+
+t_CheckExitStatus $?
+
+

@@ -1,0 +1,35 @@
+#!/bin/bash
+# Author: Iain Douglas <centos:1n6.org.uk>
+#
+
+# Test zforce - force a .gz extension on all suitable files.
+# Currently doesen't work see
+# http://bugs.centos.org/view.php?id=6096
+#
+
+function ExitFail {
+    t_Log "FAIL"
+    exit $FAIL
+}
+
+t_Log "Running $0 Testing zforce "
+t_Log "Skipped see http://bugs.centos.org/view.php?id=6096"
+exit 0
+
+BASEFILE=/var/tmp/12345678901234
+rm $BASEFILE* &>/dev/null
+
+# Create files to work with
+cat <<EOF >$BASEFILE
+Some data to be testing with
+EOF
+
+gzip $BASEFILE
+mv $BASEFILE.gz $BASEFILE
+
+zforce $BASEFILE || ExitFail
+
+[ -e /var/tmp/12345678901234.gz ]
+t_CheckExitStatus $?
+
+rm /var/tmp/12345678901234.gz

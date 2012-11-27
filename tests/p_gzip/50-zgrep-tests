@@ -1,0 +1,21 @@
+#!/bin/bash
+# Author: Iain Douglas <centos:1n6.org.uk>
+#
+
+# Only check zgrep as zegrep is zgrep -E and zfgrep is zgrep -F
+# also not testing grep - that should be done in p_grep
+
+t_Log "running $0 Testing zgrep"
+BASEFILE=/var/tmp/gzip-test
+rm $BASEFILE* &>/dev/null
+
+# Create files to work with
+cat <<EOF >$BASEFILE.1
+Some data to be testing with
+EOF
+gzip $BASEFILE.1
+
+zgrep -q 'Some data to be testing with' $BASEFILE.1
+t_CheckExitStatus $?
+
+rm $BASEFILE*

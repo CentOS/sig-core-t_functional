@@ -1,0 +1,176 @@
+#!/bin/bash
+# Author: Athmane Madjoudj <athmanem@gmail.com>
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+function ExitFail {
+    t_Log "FAIL"
+    exit $FAIL
+}
+
+function cleanup {
+rm $FILE* &>/dev/null
+rm /var/tmp/gziptest/* &>/dev/null
+rmdir /var/tmp/gziptest &>/dev/null
+}
+
+t_Log "Running $0 - run a file through gzip,zcat and gunzip test."
+
+# create file
+FILE=/var/tmp/gzip-test.txt
+
+# Just in case earlier runs failed
+cleanup
+# Use the provided file as it has known contents and known name/timestamp
+# information.
+
+cp ./tests/p_gzip/gzip-test.txt.gz  /var/tmp
+
+#run file through gunzip
+t_Log "Test basic gunzip"
+gunzip $FILE.gz
+#checking file contents
+grep -q 'gzip-test of single file' $FILE || ExitFail
+
+# run file through gzip
+t_Log "Test basic gzip"
+gzip $FILE || ExitFail
+
+#just to make sure
+/bin/rm -rf $FILE
+
+#run file through zcat
+t_Log "Test basic zcat"
+zcat $FILE.gz | grep -q 'gzip-test of single file' || ExitFail
+
+# Basic tests complete - go a little deeper.
+
+# Check that we cannot overwrite an existing file
+t_Log "Check files will not be overwritten"
+touch $FILE
+echo | gunzip $FILE  &>/dev/null
+[ $? -ne 2 ]  && ExitFail
+
+echo | gzip $FILE  &>/dev/null
+[ $? -ne 2 ]  && ExitFail
+
+# Check that we can force files to be overwritten
+t_Log "Check force overwrite"
+gunzip -f $FILE.gz  || ExitFail
+touch $FILE.gz
+gzip -f $FILE || ExitFail
+
+# Check that -a is ignored 
+t_Log "Check -a is ignored as we're on CentOS"
+gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gzip: option --ascii ignored on this system' || ExitFail
+
+# Check -c writes to stdout
+t_Log "check -c writes to stdout"
+
+gzip -c $FILE | gunzip | grep -q 'gzip-test of single file' || ExitFail
+
+# Check the correct info is listed for -l the output is
+#         compressed        uncompressed  ratio uncompressed_name
+#                 59                  25  24.0% /var/tmp/gzip-test.txt
+#
+# The md5sum is 4cbaba004a815915904bd524ede5edec
+t_Log "Check the output of -l"
+gzip $FILE
+mdhash=$(gzip -l $FILE.gz | md5sum | cut -f1 -d' ')
+[ "$mdhash" == "4cbaba004a815915904bd524ede5edec" ] || ExitFail
+
+# Check that -q works which removes the header information from -l
+t_Log "Check -q reduced the output verbosity"
+gzip -ql $FILE | grep -qv "ratio" || ExitFail
+
+# Check -v gives us more information - we shouls see the files
+# CRC which is d14bbb86
+t_Log "Check -v increases verbosity"
+gzip -lv $FILE | grep -q "d14bbb86" || ExitFail
+
+# Check -n and -N work correctly. The original datestamp on the
+# test file is '2010-11-22 13:11' gzip-test.txt
+# At this point we shouldn't see the original timestamp if the default 
+# -n to gunzip and -N to gzip are working.
+
+t_Log "check -n and -N work correctly"
+TZ_SAVE=$TZ
+TZ=UTC
+gunzip $FILE.gz
+ls -l --time-style=+"%F %R" $FILE | grep -q '2010-11-22 13:11' &&  ExitFail
+
+# Reset the test file with a different name
+# the file should gunzup as gzip-test.1
+cp ./tests/p_gzip/gzip-test.txt.gz /var/tmp/gzip-test.txt.1.gz
+gunzip $FILE.1.gz
+[ -e "$FILE.1" ] || ExitFail
+
+# Reset the test file with a different name
+cp ./tests/p_gzip/gzip-test.txt.gz /var/tmp/gzip-test.txt.1.gz
+
+# The file should gunzip with it's original name and timestamp.
+gunzip -f -N $FILE.1.gz
+ls -l $FILE --time-style=+"%F %R" | grep  -q '2010-11-22 13:11' || ExitFail
+TZ=$TZ_SAVE
+# Check that -t works and detects a damaged file
+t_Log "Check -t can detect a corrupt file"
+gzip $FILE
+echo -ne \\x34 | dd conv=notrunc bs=1 count=1 seek=27  of=$FILE.gz &>/dev/null
+gzip -t $FILE.gz 2>&1 | grep -qv "data--crc error" || ExitFail
+
+# Check we can use a custon suffix .iain will do ;)
+t_Log "Check that a custom suffix can be used -S"
+cp ./tests/p_gzip/gzip-test.txt.gz /var/tmp/gzip-test.txt.gz
+gunzip $FILE.gz
+gzip -S .iain $FILE
+[ -e $FILE.iain ] || ExitFail
+gunzip -S .iain $FILE || ExitFail
+
+# Check that -r works - create a directory, populate it then just pass
+# the dirname to gzip - it should zip all the files.
+
+t_Log "Check that -r works "
+mkdir /var/tmp/gziptest
+touch /var/tmp/gziptest/a
+touch /var/tmp/gziptest/b
+gzip -r /var/tmp/gziptest
+[ "$(ls /var/tmp/gziptest/*.gz | wc -l)" -eq "2" ] || ExitFail
+
+# Text the different compression levels
+t_Log "Check different compression levels"
+gzip -1 $FILE.1   # 61 bytes
+gzip -9 $FILE     # 59 bytes
+[ "$(stat -c %s $FILE.gz)" -ne "$(stat -c %s $FILE.1.gz)" ] || ExitFail
+
+# Multiple input files 
+t_Log "Multiple input files on the command line"
+# Multiple files on one command line
+gunzip $FILE.1.gz $FILE || ExitFail
+
+# Don't specify the .gz extension
+t_Log "No file extension supplied for gunzip"
+gzip $FILE $FILE.1  || ExitFail
+
+# Compress the file then get gunzip to uncompress it, the file needs
+# to be larger for compress to work
+t_Log "Check gunzip can handle .Z files"
+gunzip $FILE 
+ls -l /var/tmp >>$FILE
+compress $FILE || ExitFail
+gunzip $FILE.Z || ExitFail
+
+# Zip the file then get gunzip to uncompress it.
+t_Log "Check gunzip can handle .zip files"
+zip $FILE.zip $FILE  &>/dev/null || ExitFail
+gunzip -f  -S .zip $FILE.zip  || ExitFail
+
+# Handle .tgz correctly
+t_Log "Check gunzip creates a .tar file from .tgz"
+tar -czf $FILE.tgz $FILE &>/dev/null
+gunzip $FILE.tgz
+[ -e $FILE.tar ] 
+t_CheckExitStatus $?
+
+#tar the file rename it to .tgz 
+#reversing changes
+cleanup
