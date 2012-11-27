@@ -15,7 +15,10 @@ t_Log "Basic Check"
 cmp -v &>/dev/null || ExitFail
 
 FILE=/var/tmp/diffutils
+# Cleanup just in case we exited without doing so earlier.
+rm ${FILE}a ${FILE}b &>/dev/null
 
+# Create some files to work with
 cat << EOF >${FILE}a
 This is some text to play with
 EOF
@@ -54,3 +57,4 @@ cmp -s ${FILE}a ${FILE}b | wc -m | grep -q "^0" || ExitFail
 cmp -i 16 -s ${FILE}a ${FILE}b 
 t_CheckExitStatus $?
 
+rm ${FILE}a ${FILE}b &>/dev/null
