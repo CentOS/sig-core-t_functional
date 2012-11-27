@@ -1,0 +1,6 @@
+#!/bin/bash
+# Author: Iain Doglas <centos@1n6.org.uk>
+#Ensure the packeages we require are available
+
+t_Log "Running $0 installing required packages"
+t_InstallPackage  diffutils
