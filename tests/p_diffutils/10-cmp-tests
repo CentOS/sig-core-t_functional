@@ -37,7 +37,7 @@ cmp -b -i 16 ${FILE}a ${FILE}b || ExitFail
 
 t_Log "check -i skip1:skip2"
  
-# Expect this to fail but the putput is different to earlier
+# Expect this to have a different output to earlier 
 cmp -i 15:16 ${FILE}a ${FILE}b | grep -q "byte 1, line 1"|| ExitFail
 
 # Chek that -n works 
