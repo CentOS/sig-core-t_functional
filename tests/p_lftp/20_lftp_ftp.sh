@@ -36,6 +36,5 @@ fi
 rm -f $TESTFILE
 rm -f $SOURCE$FILE
 t_ServiceControl vsftpd stop
-t_RemovePackage vsftpd
 
 t_CheckExitStatus $ret_val

@@ -4,8 +4,6 @@
 
 t_Log "Running $0 - snmpv2c test"
 
-t_InstallPackage net-snmp-utils 
-
 snmpwalk -v 2c -c public 127.0.0.1 > /dev/null 2>&1
 
 t_CheckExitStatus $?

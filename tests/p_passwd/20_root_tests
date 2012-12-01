@@ -44,15 +44,19 @@ fi
 
 # Check that passwd -e expires an account. Field 3 of /etc/shadow is set to 0
 t_Log "Check password can be expired"
-passwd -e passtest &>/dev/null
-
-if [ $? -eq "0" ]
-then
+if [ $centos_ver == '5' ]
+  then
+  t_Log 'This is a C5 system - option -e does not exist - skipping'
+else
+  passwd -e passtest &>/dev/null
+  if [ $? -eq "0" ]
+  then
     getent shadow passtest | cut -f3 -d: | grep '^0' &>/dev/null 
     t_CheckExitStatus $?
     echo passtest | passwd --stdin passtest &>/dev/null
-else
+  else
     ExitFail
+  fi
 fi
 
 # Check that passwd -n, -x, -w -i set the mindays, maxdays, warndays and

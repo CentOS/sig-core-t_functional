@@ -14,7 +14,7 @@ mkdir /mnt/attr_test
 mount -t ext3 -o loop,user_xattr /tmp/attrtest.img /mnt/attr_test
 touch /mnt/attr_test/testfile
 setfattr -n user.test /mnt/attr_test/testfile
-getfattr /mnt/attr_test/testfile | grep -o "user.test"
+getfattr /mnt/attr_test/testfile | grep -oq "user.test"
 
 t_CheckExitStatus $?
 
