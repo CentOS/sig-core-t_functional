@@ -1,0 +1,36 @@
+#!/bin/bash
+#Author: Iain Douglas <centos@1n6.org.uk>
+
+function ExitFail {
+    t_Log "FAIL"
+    exit $FAIL
+}
+
+t_Log Running $0 Check gzexe
+
+# Create a file to work with
+
+t_Log "Create file to work with"
+
+FILE=/var/tmp/gzexe-test-script
+rm $FILE* $OUTPUT &>/dev/null
+
+cat <<EOF >$FILE
+#!/bin/bash
+echo "Hello World"
+EOF
+
+chmod +x $FILE
+$FILE | grep -q "Hello World" || ExitFail
+
+t_Log "Run file through gzexe"
+
+gzexe $FILE &>/dev/null || ExitFail
+
+t_Log "Check resultant file runs"
+$FILE | grep -q "Hello World"
+t_CheckExitStatus $?
+
+#Cleanup
+rm $FILE* 2>/dev/null
+

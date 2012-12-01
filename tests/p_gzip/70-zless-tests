@@ -1,0 +1,15 @@
+#!/bin/bash
+# Author: Iain Douglas <centos:1n6.org.uk>
+#
+
+# The zless utility is a wrapper round less so just check that 
+# it works as less should be tested as part of p_less
+#
+
+t_Log "Running $0 Testing zless "
+
+# -F makes less quit if the output all fits on one screen.
+
+zless -F ./tests/p_gzip/gzip-test.txt.gz | grep -q 'gzip-test of single file'
+t_CheckExitStatus  $?
+

@@ -1,0 +1,21 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+#
+# Check the binaries from the package exist and run ok
+
+function ExitFail {
+    t_Log "Fail"
+    exit $FAIL
+}
+t_Log "Checking binaries are present and run"
+
+[ "$(readlink -e /usr/bin/gunzip)" == "/bin/gunzip" ] || ExitFail
+[ "$(readlink -e /usr/bin/gzip)" == "/bin/gzip" ] || ExitFail
+
+for binary in gunzip gzip zcat gzexe zcmp zdiff zegrep zfgrep zforce zgrep zless zmore znew
+do
+    echo -n "$binary "
+    $binary --version &>/dev/null || ExitFail
+done
+echo ""
+t_Log "PASS"

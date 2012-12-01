@@ -1,0 +1,34 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+function ExitFail {
+    t_Log "FAIL"
+    exit $FAIL
+} 
+
+t_Log "Running $0 Check zcmp and zdiff"
+
+# We don't check that cmp and diff work - that should be done as
+# part of p_diffutils.
+
+BASEFILE=/var/tmp/gzip-test
+rm $BASEFILE* &>/dev/null
+
+# Create files to work with
+cat <<EOF >$BASEFILE.1
+Some data to be testing with
+EOF
+
+
+gzip $BASEFILE.1 || exit FAIL
+cp $BASEFILE.1.gz $BASEFILE.2.gz
+
+t_Log "Check zcmp"
+zcmp $BASEFILE.1.gz $BASEFILE.2.gz || ExitFail 
+
+t_Log "Check zdiff"
+zdiff $BASEFILE.1.gz $BASEFILE.2.gz 
+t_CheckExitStatus $?
+
+rm $BASEFILE*
+
