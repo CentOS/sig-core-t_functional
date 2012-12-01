@@ -1,0 +1,12 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+# Tests for diff
+
+# Basic Tests
+
+t_Log "Running $0 - diff tests"
+
+diff -v &>/dev/null 
+
+t_CheckExitStatus $?

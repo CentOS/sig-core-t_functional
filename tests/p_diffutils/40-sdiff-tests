@@ -1,0 +1,12 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+# Tests for sdiff
+
+# Basic Tests
+
+t_Log "Running $0 - sdiff tests"
+
+sdiff -v &>/dev/null 
+
+t_CheckExitStatus $?
