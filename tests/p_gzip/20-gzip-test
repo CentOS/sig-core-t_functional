@@ -62,7 +62,13 @@ gzip -f $FILE || ExitFail
 
 # Check that -a is ignored 
 t_Log "Check -a is ignored as we're on CentOS"
-gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gzip: option --ascii ignored on this system' || ExitFail
+if [ $centos_ver == '5' ]
+  then
+  gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gunzip: option --ascii ignored on this system' || ExitFail
+elif [ $centos_ver == '6' ]
+  then
+  gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gzip: option --ascii ignored on this system' || ExitFail
+fi
 
 # Check -c writes to stdout
 t_Log "check -c writes to stdout"
@@ -110,7 +116,7 @@ cp ./tests/p_gzip/gzip-test.txt.gz /var/tmp/gzip-test.txt.1.gz
 
 # The file should gunzip with it's original name and timestamp.
 gunzip -f -N $FILE.1.gz
-ls -l $FILE --time-style=+"%F %R" | grep  -q '2010-11-22 13:11' || ExitFail
+ls -l $FILE --time-style=+"%F %R" | grep  -q '2010-11-22 13:11' && ExitFail
 TZ=$TZ_SAVE
 # Check that -t works and detects a damaged file
 t_Log "Check -t can detect a corrupt file"
