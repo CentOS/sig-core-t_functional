@@ -1,0 +1,3 @@
+# I don't understand what -k is supposed to do.
+# Without changing the date and time I can't think of a way to test
+# that -x -w and -i are working
