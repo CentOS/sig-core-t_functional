@@ -1,0 +1,60 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+# Tests for cmp
+
+function ExitFail {
+    t_Log "FAIL"
+    exit $FAIL
+}
+# Basic Tests
+
+t_Log "Running $0 - cmp tests"
+
+t_Log "Basic Check"
+cmp -v &>/dev/null || ExitFail
+
+FILE=/var/tmp/diffutils
+# Cleanup just in case we exited without doing so earlier.
+rm ${FILE}a ${FILE}b &>/dev/null
+
+# Create some files to work with
+cat << EOF >${FILE}a
+This is some text to play with
+EOF
+
+cat << EOF >${FILE}b
+This is some test to play with
+EOF
+
+# Basic check of 2 files
+t_Log "Compare 2 files"
+cmp ${FILE}a ${FILE}b | grep -q "byte 16, line 1" || ExitFail
+
+t_Log "Compare 2 files -b"
+cmp -b ${FILE}a ${FILE}b | grep -q " line 1 is 170 x 163 s" || ExitFail
+t_Log "Check -i - skip bytes "
+
+# Expect this to pass as the difference is at byte 16 
+cmp -b -i 16 ${FILE}a ${FILE}b || ExitFail
+
+t_Log "check -i skip1:skip2"
+ 
+# Expect this to have a different output to earlier 
+cmp -i 15:16 ${FILE}a ${FILE}b | grep -q "byte 1, line 1"|| ExitFail
+
+# Chek that -n works 
+t_Log "Check -n limit bytes"
+cmp -n 15 ${FILE}a ${FILE}b || ExitFail
+
+# Verbose output
+t_Log "Check -l - verbose output"
+cmp -l ${FILE}a ${FILE}b | grep -q "16 170 163" || ExitFail
+
+# Silent - exit status only, first scheck that there is no output
+t_Log "Check -s - silent mode"
+cmp -s ${FILE}a ${FILE}b | wc -m | grep -q "^0" || ExitFail
+cmp -i 16 -s ${FILE}a ${FILE}b 
+t_CheckExitStatus $?
+
+rm ${FILE}a ${FILE}b &>/dev/null
