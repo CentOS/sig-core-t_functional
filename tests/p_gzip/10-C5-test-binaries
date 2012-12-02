@@ -1,0 +1,41 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+#
+# Check the binaries from the CentOS 5 package exist and run ok
+
+function ExitFail {
+    t_Log "Fail"
+    exit $FAIL
+}
+
+[ $centos_ver != '5'  ] && exit
+
+# Some ov the binaries respond to a --version and some don't. Of those that 
+# don't, some exit with a status of 1 and others exit with a status of 2 
+# nice and consistent NOT!
+
+t_Log "Checking binaries are present and run"
+[ "$(readlink -e /usr/bin/gunzip)" == "/bin/gunzip" ] || ExitFail
+[ "$(readlink -e /usr/bin/gzip)" == "/bin/gzip" ] || ExitFail
+
+for binary in gunzip gzip zcat gzexe zless
+do
+    echo -n "$binary "
+    $binary --version &>/dev/null || ExitFail
+done
+
+for binary in znew zmore zforce
+do
+    echo -n "$binary "
+    $binary &>/dev/null
+    [ $? != '1' ] && ExitFail
+done
+
+for binary in zgrep zfgrep zegrep zdiff zcmp
+do
+    echo -n "$binary "
+    $binary &>/dev/null
+    [ $? != '2' ] && ExitFail
+done
+echo ""
+t_Log "PASS"
