@@ -14,7 +14,7 @@ function ExitFail {
 # don't, some exit with a status of 1 and others exit with a status of 2 
 # nice and consistent NOT!
 
-t_Log "Checking binaries are present and run"
+t_Log "Checking binaries are present and run on C5"
 [ "$(readlink -e /usr/bin/gunzip)" == "/bin/gunzip" ] || ExitFail
 [ "$(readlink -e /usr/bin/gzip)" == "/bin/gzip" ] || ExitFail
 
