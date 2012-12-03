@@ -101,7 +101,7 @@ gzip -lv $FILE | grep -q "d14bbb86" || ExitFail
 
 t_Log "check -n and -N work correctly"
 TZ_SAVE=$TZ
-TZ=UTC
+export TZ=UTC
 gunzip $FILE.gz
 ls -l --time-style=+"%F %R" $FILE | grep -q '2010-11-22 13:11' &&  ExitFail
 
@@ -117,7 +117,7 @@ cp ./tests/p_gzip/gzip-test.txt.gz /var/tmp/gzip-test.txt.1.gz
 # The file should gunzip with it's original name and timestamp.
 gunzip -f -N $FILE.1.gz
 ls -l $FILE --time-style=+"%F %R" | grep  -q '2010-11-22 13:11' || ExitFail
-TZ=$TZ_SAVE
+export TZ=$TZ_SAVE
 # Check that -t works and detects a damaged file
 t_Log "Check -t can detect a corrupt file"
 gzip $FILE

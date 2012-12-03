@@ -7,6 +7,8 @@ function ExitFail {
     t_Log "Fail"
     exit $FAIL
 }
+
+[ $centos_ver != '6' ] && exit
 t_Log "Checking binaries are present and run"
 
 [ "$(readlink -e /usr/bin/gunzip)" == "/bin/gunzip" ] || ExitFail
