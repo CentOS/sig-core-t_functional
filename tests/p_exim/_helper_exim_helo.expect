@@ -3,7 +3,6 @@
 
 set timeout 1
 spawn telnet localhost 25
-#match_max 6000
 expect "220 *"
 send -- "helo localhost\n"
 expect -- "250*Hello\ localhost*"

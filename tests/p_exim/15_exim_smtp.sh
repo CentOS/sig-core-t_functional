@@ -9,7 +9,7 @@ then
   echo "helo test" | nc -i 1 -w 3 localhost 25 | grep -q '250'
   ret_val=$?
 else
-  t_Log "This seems to be A C6 system - skipping"
+  t_Log "This seems to be a C6 system - skipping"
   ret_val=0
 fi
 
