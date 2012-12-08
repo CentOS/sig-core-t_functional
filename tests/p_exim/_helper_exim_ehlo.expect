@@ -1,0 +1,13 @@
+#!/usr/bin/expect -f
+# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+
+set timeout 1
+spawn telnet localhost 25
+#match_max 6000
+expect "220 *"
+send -- "ehlo localhost\n"
+expect -- "250-PIPELINING"
+send -- "mail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\n"
+expect -- "250\ OK"
+send -- "quit\n"
+expect "221*closing\ connection"
