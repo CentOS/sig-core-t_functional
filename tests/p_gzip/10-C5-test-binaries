@@ -14,7 +14,7 @@ function ExitFail {
 # don't, some exit with a status of 1 and others exit with a status of 2 
 # nice and consistent NOT!
 
-t_Log "Checking binaries are present and run on C5"
+t_Log "Running $0 - Checking binaries are present and run on C5"
 [ "$(readlink -e /usr/bin/gunzip)" == "/bin/gunzip" ] || ExitFail
 [ "$(readlink -e /usr/bin/gzip)" == "/bin/gzip" ] || ExitFail
 
@@ -27,7 +27,8 @@ done
 for binary in znew zmore zforce
 do
     echo -n "$binary "
-    $binary &>/dev/null
+#    $binary &>/dev/null
+    $binary
     [ $? != '1' ] && ExitFail
 done
 
