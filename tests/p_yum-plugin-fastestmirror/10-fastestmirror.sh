@@ -10,7 +10,7 @@ t_CheckExitStatus $?
 if [ $centos_ver == 5 ]; then 
 	BaseDir=/var/cache/yum/
 else
-	BaseDir=/var/cache/yum/`uname -m`/$centos_ver
+	BaseDir=/var/cache/yum/`uname -i`/$centos_ver
 fi
 
 t_Log "Running $0 - Ensure we have mirrorlist enabled."
