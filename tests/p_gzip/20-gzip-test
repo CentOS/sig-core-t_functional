@@ -80,10 +80,18 @@ gzip -c $FILE | gunzip | grep -q 'gzip-test of single file' || ExitFail
 #                 59                  25  24.0% /var/tmp/gzip-test.txt
 #
 # The md5sum is 4cbaba004a815915904bd524ede5edec
+#
+# The 32-bit gzip behaves differently:
+# 
+#         compressed        uncompressed  ratio uncompressed_name
+#                 59                  25  -8.0% /var/tmp/gzip-test.txt
+#
+# The md5sum is caf6dee7a56022a840316520134967a4
+
 t_Log "Check the output of -l"
 gzip $FILE
 mdhash=$(gzip -l $FILE.gz | md5sum | cut -f1 -d' ')
-[ "$mdhash" == "4cbaba004a815915904bd524ede5edec" ] || ExitFail
+[ "$mdhash" == "4cbaba004a815915904bd524ede5edec" -o "$mdhash" == "caf6dee7a56022a840316520134967a4" ] || ExitFail
 
 # Check that -q works which removes the header information from -l
 t_Log "Check -q reduced the output verbosity"
