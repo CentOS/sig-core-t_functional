@@ -15,20 +15,26 @@ t_Log "Running $0 - running ${TEST} to ${HOST}"
 IP=$(host ${HOST})
 FILE=/var/tmp/tracepath_result
 ret_val=1
+# getting IP-address of default gateway as a fall back
+defgw=$(ip route list | grep default | cut -d' ' -f3)
 
-regex='.*address\ ([0-9.]*)'
-if [[ $IP =~ $regex ]]
+if [[ $IP =~ .*address\ ([0-9.]*) ]]
 then
   tracepath -n ${HOST} > ${FILE}
   COUNT=$(grep -c ${BASH_REMATCH[1]} ${FILE})
   TTL=$(grep -c 'Too many hops' ${FILE})
+  GW=$(grep -c ${defgw} ${FILE})
   if ([ $COUNT = 1 ] || [ $COUNT = 2 ])
-  then
+    then
     t_Log "${TEST} reached ${HOST}"
     ret_val=0
   elif ([ $COUNT = 0 ] && [ $TTL = 1 ])
-  then
+    then
     t_Log "${TEST} didn't reach ${HOST} because of too many hops. This is treated as SUCCESS."
+    ret_val=0
+  elif ([ $COUNT = 0 ] && [ $GW -gt 0 ])
+    then
+    t_Log "${TEST} didn't reach ${HOST} (maybe because of ACLs on the network), but at least the Default Gateway ${defgw} was reached. Treating as SUCCESS."
     ret_val=0
   else
     t_Log "${TEST} didn't return anything we expect - FAILING"
