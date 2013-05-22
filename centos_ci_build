@@ -1,0 +1,5 @@
+#!/bin/sh
+# Build steps used in CentOS CI
+
+yum -y update
+SKIP_QA_HARNESS=1 ./runtests.sh
