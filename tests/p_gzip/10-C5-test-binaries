@@ -20,13 +20,13 @@ t_Log "Running $0 - Checking binaries are present and run on C5"
 
 for binary in gunzip gzip zcat gzexe zless
 do
-#    echo -n "$binary "
+    echo -n "$binary "
     $binary --version &>/dev/null || ExitFail
 done
 
 for binary in znew zmore zforce
 do
-#    echo -n "$binary "
+    echo -n "$binary "
     $binary &>/dev/null
 #    $binary
     [ $? != '1' ] && ExitFail
