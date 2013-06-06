@@ -27,9 +27,10 @@ done
 for binary in znew zmore zforce
 do
     echo -n "$binary "
-    $binary &>/dev/null
-#    $binary
-    [ $? != '1' ] && ExitFail
+#    $binary &>/dev/null
+    $binary
+echo $?
+    [ $? != '0' ] && ExitFail
 done
 
 for binary in zgrep zfgrep zegrep zdiff zcmp

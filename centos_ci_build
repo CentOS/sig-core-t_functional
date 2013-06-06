@@ -2,4 +2,4 @@
 # Build steps used in CentOS CI
 
 yum -y update
-SKIP_QA_HARNESS=1 ./runtests.sh
+SKIP_QA_HARNESS=1 ./runtests.sh p_gzip
