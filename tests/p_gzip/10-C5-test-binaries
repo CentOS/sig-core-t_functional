@@ -18,7 +18,7 @@ t_Log "Running $0 - Checking binaries are present and run on C5"
 [ "$(readlink -e /usr/bin/gunzip)" == "/bin/gunzip" ] || ExitFail
 [ "$(readlink -e /usr/bin/gzip)" == "/bin/gzip" ] || ExitFail
 
-for binary in gunzip gzip zcat gzexe zless
+for binary in gunzip gzip zcat gzexe zless zmore
 do
     echo -n "$binary "
     $binary --version &>/dev/null || ExitFail
@@ -27,10 +27,10 @@ done
 for binary in znew zmore zforce
 do
     echo -n "$binary "
-#    $binary &>/dev/null
-    $binary
-echo $?
-    [ $? != '0' ] && ExitFail
+    $binary &>/dev/null
+#    $binary
+#echo $?
+    [ $? != '1' ] && ExitFail
 done
 
 for binary in zgrep zfgrep zegrep zdiff zcmp
