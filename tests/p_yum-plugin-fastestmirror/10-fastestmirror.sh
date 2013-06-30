@@ -17,7 +17,7 @@ t_Log "Running $0 - Ensure we have mirrorlist enabled."
 egrep '^mirrorlist' /etc/yum.repos.d/*.repo > /dev/null
 t_CheckExitStatus $?
 
-t_Log "Running $0 - is y-p-fastestmirror can get hosts"
+t_Log "Running $0 - y-p-fastestmirror can get hosts from mirrorlist"
 find $BaseDir -type f -name timedhosts.txt -exec rm -f {} \;
 yum -d0 list kernel > /dev/null
 
@@ -35,7 +35,4 @@ else
 fi
 t_CheckExitStatus $retval
 
-t_Log "Running $0 - is y-p-fastestmirror can get"
-
-hostsfound=$( wc -l ${BaseDir}/timedhosts.txt )
-
+t_Log "Running $0 - number of hosts y-p-fastestmirror can get: $( wc -l ${BaseDir}/timedhosts.txt )"
