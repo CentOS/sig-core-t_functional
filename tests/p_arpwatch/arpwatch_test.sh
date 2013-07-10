@@ -7,7 +7,12 @@ t_Log "Running $0 - arpwatch on eth0"
 killall arpwatch
 
 # getting IP-address of default gateway
-defgw=$(ip route list | grep default | cut -d' ' -f3)
+defgw=$(route -n | grep 'UG[ \t]' | awk '{print $2}')
+if [ -z $defgw ]
+  then
+  t_Log "No default gateway, can't test arpwatch"
+  exit
+fi
 
 # setting path to arp.dat
 if (t_GetPkgRel basesystem | grep -q el5)
