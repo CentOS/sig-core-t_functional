@@ -23,14 +23,10 @@ t_Log "PASS"
 
 # Check print0 works so we can use it for an xargs test
 echo "Test -print0"
-checksum=$( find "$TMPDIR" -print0 |  md5sum - | awk '{print $1}')
-#if (( $centos_ver == 6 ))
-#then
-#    [[ "$checksum" == "6105e5998b2d6feea56c80cf279bc24b" ]]
-#else
-    [[ "$checksum" == "789e232a7e4f19cee9be7d6e3ebbef3b" ]]
-    t_CheckExitStatus $?
-#fi 
+lines_count=$( find "$TMPDIR" -print0 | wc -l )
 
-
-
+if [ $lines_count -eq 0 ] ; then
+    t_CheckExitStatus 0
+else
+    t_CheckExitStatus 1
+fi
