@@ -1,0 +1,3 @@
+Common subdirectories: /var/tmp/difftest/a/1 and /var/tmp/difftest/b/1
+Files /var/tmp/difftest/a/lao and /var/tmp/difftest/b/lao are identical
+Only in /var/tmp/difftest/a: tzu

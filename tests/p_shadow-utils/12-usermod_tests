@@ -1,0 +1,11 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+echo "Running $0"
+echo "Modify user shadowuser"
+usermod -c "Comment plugh" shadowuser
+t_CheckExitStatus $?
+echo "Check /etc/passwd was modified" 
+grep "^shadowuser" /etc/passwd | grep -q "Comment plugh"
+t_CheckExitStatus $?
+

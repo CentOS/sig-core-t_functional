@@ -10,3 +10,14 @@ t_Log "Running $0 - sdiff tests"
 sdiff -v &>/dev/null 
 
 t_CheckExitStatus $?
+
+FILES=./tests/p_diffutils/files
+
+# sdiff will take it's commands from a <file 
+echo "Testing sdiff interactive command"
+sdiff -o /var/tmp/sdiff.out "$FILES"/lao "$FILES"/tzu <$FILES/sdiff_input >/dev/null && Exitfail
+diff "$FILES"/sdiff_output /var/tmp/sdiff.out
+t_CheckExitStatus $? 
+
+# Clean up
+rm -f /var/tmp/sdiff.out

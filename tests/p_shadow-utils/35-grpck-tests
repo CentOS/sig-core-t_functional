@@ -1,0 +1,23 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+echo "Running $0"
+
+# If we're on C5 delete the group 990991 which was added by newusers
+if (( $centos_ver == 5 ))
+then
+    sed -i /990991/d /etc/group
+fi
+echo "Testing valid files"
+[[ -e /etc/group ]] || { t_Log { "FAIL: /etc/group doesn't exist"; exit $FAIL; }
+#Check system files
+echo "Checking /etc files are correect"
+grpck 
+t_CheckExitStatus $? 
+echo "Checking malformed files are detected"
+
+echo "test:x::" >/var/tmp/gshadow
+echo ":test:x:0::" >/var/tmp/group
+grpck -r /var/tmp/group /var/tmp/gshadow && { t_Log "FAIL: Malformed files not detected"; exit $FAIL; }
+t_Log "PASS"
+rm /var/tmp/group /var/tmp/gshadow

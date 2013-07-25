@@ -8,5 +8,95 @@
 t_Log "Running $0 - diff3 tests"
 
 diff3 -v &>/dev/null 
-
 t_CheckExitStatus $?
+
+DIR=./tests/p_diffutils
+FILES=$DIR/files
+
+# Test the diff3 normal output. As we've already tested diff
+# we can now use it to test our output.
+echo "Check diff3 normal output"
+diff3 $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_normal -
+t_CheckExitStatus $?
+
+# Check the -e output --ed
+echo "Check the diff3 -e output"
+diff3 -e $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_ed_script -
+t_CheckExitStatus $?
+
+echo "Check the diff3 --ed output"
+diff3 --ed $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_ed_script -
+t_CheckExitStatus $?
+
+# Check the -3 --easy-only output
+echo "Check the diff3 -3 output"
+diff3 -3 $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_easy_only -
+t_CheckExitStatus $?
+
+echo "Check the diff3 --easy-only output"
+diff3 --easy-only $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_easy_only -
+t_CheckExitStatus $?
+
+# Check the -x --overlap-only output
+echo "Check the diff3 -x output"
+diff3 -x $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_overlap_only -
+t_CheckExitStatus $?
+
+echo "Check the diff3 --overlap-only output"
+diff3 --overlap-only $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_overlap_only -
+t_CheckExitStatus $?
+
+# Check the -A --show-all option
+echo "Check the diff3 -A output"
+diff3 -A $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_show_all -
+t_CheckExitStatus $?
+
+echo "Check the diff3 --show-all output"
+diff3 --show-all $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_show_all -
+t_CheckExitStatus $?
+
+# Check the -E --show-overlap option
+echo "Check the diff3 -E output"
+diff3 -E $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_show_overlap -
+t_CheckExitStatus $?
+
+echo "Check the diff3 --show-overlap output"
+diff3 --show-overlap $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_show_overlap -
+t_CheckExitStatus $?
+
+# Check the -m --merge option
+echo "Check the diff3 -m output"
+diff3 -m $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_merge -
+t_CheckExitStatus $?
+
+echo "Check the diff3 --merge output"
+diff3 --merge $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_merge -
+t_CheckExitStatus $?
+
+# Check the -i option to write the changes
+echo "Check the diff3 -i output"
+diff3 -i -3 $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_i -
+t_CheckExitStatus $?
+
+# Check the -L --label output
+echo "Check the diff3 -L output"
+diff3 -m -L LAO -L TZU -L TAO $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_label -
+t_CheckExitStatus $?
+
+echo "Check the diff3 --label= output"
+diff3 -m --label=LAO --label=TZU --label=TAO $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_label -
+t_CheckExitStatus $?
+
+# Check the --diff-program. Copy /usr/bin/diff to /var/tmp/newdiff then
+# use --diff-program=/var/tmp/newdiff to force diff3 to use it.
+#
+
+echo "Check --diff-program"
+
+[[ -e /var/tmp/newdiff ]] && rm  /var/tmp/newdiff
+cp /usr/bin/diff  /var/tmp/newdiff
+
+diff3 --diff-program=/var/tmp/newdiff $FILES/lao $FILES/tzu $FILES/tao | diff $FILES/diff3_normal -
+t_CheckExitStatus $?
+
+rm /var/tmp/newdiff

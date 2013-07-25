@@ -1,0 +1,22 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+# Even on a completely new clean system pwck fails because some accounts
+# (e.g. adm) aren't created correctly so all we can really test is dummy 
+# files. 
+
+echo "Running $0"
+
+echo "Check pwck passes correctly formed files"
+echo "test:x:500:500::/tmp:/bin/bash" >/var/tmp/passwd
+echo "test:$6$.vxxSAQB$4hvumoZoQ/83Z9PGKFYnFyEzFztcYky6zLUBKf/40MUTJzfzjWCHd/0bVdYXWc8OgyA31.:15656:0:99999:7:::" >/var/tmp/shadow
+pwck -rq /var/tmp/passwd /var/tmp/shadow
+t_CheckExitStatus "$?"
+
+# Check for malformed files
+echo "Checking pwck detects malformed files"
+echo ":test:x:500:500::/tmp:/bin/bash" >/var/tmp/passwd
+echo "test:$6$.vxxSAQB$4hvumoZoQ/83Z9PGKFYnFyEzFztcYky6zLUBKf/40MUTJzfzjWCHd/0bVdYXWc8OgyA31.:15656:0:99999:7:::" >/var/tmp/shadow
+pwck -rq /var/tmp/passwd /var/tmp/shadow && { t_Log "FAIL: Malformed files not detected"; exit $FAIL; }
+t_Log "PASS"
+rm /var/tmp/passwd /var/tmp/shadow

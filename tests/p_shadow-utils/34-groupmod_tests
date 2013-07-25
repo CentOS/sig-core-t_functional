@@ -1,0 +1,11 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+echo "Running $0"
+
+# Check that the testgroup exists with GID 1010
+grep -q "testgroup:x:1010:testshadow" /etc/group || { t_Log "FAIL Test group doesn't exist"; exit $FAIL; }
+
+echo "Changing GID for group testgroup to 1011"
+groupmod -g 1011 testgroup
+t_CheckExitStatus $?

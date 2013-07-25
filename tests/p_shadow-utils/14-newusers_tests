@@ -1,0 +1,13 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+echo "Running $0"
+echo "Testing newusers"
+grep -q "^xyssy" /etc/passwd && { t_Log "FAIL: user xyssy alredy exists"; exit $FAIL; }
+newusers <<EOF
+xyssy:plughcycle:990991:990991:xyssy comment:/home/xyssy:/bin/bash
+EOF
+t_CheckExitStatus $?
+echo "Check password file updated"
+grep -q "^xyssy" /etc/passwd 
+t_CheckExitStatus $?

@@ -1,0 +1,11 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+# Have a go at cleaning up the temporary files and accounts etc
+userdel -r xyssy &>/dev/null
+userdel -r testshadow &>/dev/null
+rm -r /var/tmp/pwconv
+rm -r /var/tmp/grpconv
+rm -r /var/tmp/pwunconv
+
+

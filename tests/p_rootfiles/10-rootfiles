@@ -1,0 +1,15 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "Running $0 test rootfiles exist"
+
+#
+# Simply test that the files in the package exist in /root
+#
+
+for file in .bash_logout .bash_profile .bashrc .cshrc .tcshrc
+do
+    echo "Checking $file"
+    [ -e /root/$file ] || { t_Log "FAIL: $file is missing"; exit $FAIL; }
+    t_Log "PASS"
+done

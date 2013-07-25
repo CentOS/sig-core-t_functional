@@ -1,0 +1,27 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+# Test grpconv
+cleanup() {
+echo "Reverting files to original state"
+[[ -e /var/tmp/grpconv/gshadow ]] &&  cp /var/tmp/grpconv/* /etc && rm -r /var/tmp/grpconv
+}
+
+# Check we have a group file to work with and exit if not
+[[ -e /etc/group ]] || { t_Log "Fail: /etc/group does not exist"; exit $FAIL; }
+
+mkdir -p /var/tmp/grpconv &>/dev/null
+
+# If it exists, save the /etc/gshadow file then delete it
+[[ -e /etc/gshadow ]] && cp /etc/gshadow /var/tmp/gconv || { t_Log "FAIL: unable to make a safe copy of /etc/gshadow"; exit $FAIL; }
+
+[[ -e /etc/gshadow ]] && rm /etc/gshadow || { t_Log "FAIL: unable to remove /etc/gshadow"; exit $FAIL;}
+
+trap cleanup EXIT
+echo "Test grpconv creates a new /etc/gshadow" 
+grpconv 
+t_CheckExitStatus $?
+echo "Check format is correct with grpck"
+grpck 
+t_CheckExitStatus $?
+

@@ -1,0 +1,16 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+# Check that the user can change their primary group. This relies on the 
+# observation that the current primary group is printed first
+#
+echo "Basic newgrp test"
+groups testshadow | grep -q "testshadow testgroup" || { t_Log "FAIL: Default testshadow user group information incorrect"; exit $FAIL; }
+echo OK
+echo $( su - testshadow <<EOF
+newgrp testgroup
+groups
+exit
+EOF
+) | grep -q "testgroup testshadow"
+t_CheckExitStatus $?

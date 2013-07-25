@@ -1,0 +1,11 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+echo "Running $0 group add tests"
+
+# Delete any info from previous runs, use sed because we haven't yet tested
+# groupdel
+sed -i /testgroup/d /etc/group
+
+echo "Create a new group"
+groupadd -g 1010 testgroup
+t_CheckExitStatus $?

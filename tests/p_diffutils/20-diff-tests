@@ -5,8 +5,352 @@
 
 # Basic Tests
 
+ExitFail() {
+    t_Log "FAIL"
+    exit $FAIL
+}
+
 t_Log "Running $0 - diff tests"
 
 diff -v &>/dev/null 
 
 t_CheckExitStatus $?
+F1=/var/tmp/testf1.txt
+F2=/var/tmp/testf2.txt
+
+
+# Most of the following tests are taken from the examples in the info 
+# documentation for diffutils.
+# 
+# Create a couple of files to work with. We'll use sed to make changes as we
+# go.
+
+TEXT="Here lyeth  muche rychnesse  in lytell space.   -- John Heywood" 
+echo $TEXT >$F1
+cp $F1 $F2
+
+# Start by checking the options that determine how whitespace and case are
+# handled -E -b -w -B -i -I -q and their long form variants
+
+# Baseline check to ensure diff sees the files are the same.
+echo "Check files are the same"
+diff $F1 $F2
+t_CheckExitStatus $?
+
+# Convert a <space> to <space><tab> in F2 then check that diff sees the change
+# as it should.
+
+sed -i 's/ / \t/' $F2
+echo "Check different files"
+diff $F1 $F2  &>/dev/null && ExitFail
+t_Log "PASS"
+
+# Convert the first space in $F1 to 4 spaces and check that -E and  
+# --ignore-tab-expansion works and sees no difference between the 
+# two files.
+
+echo "Check diff -E"
+sed -i 's/ /    /' $F1
+diff -E $F1 $F2
+t_CheckExitStatus $?
+echo "Check diff --ignore-tab-expansion"
+diff --ignore-tab-expansion $F1 $F2
+t_CheckExitStatus $?
+
+# reduce the 4 spaces to 3 and check diff -E sees a difference
+echo "Check diff -E sees a difference in whitespace"
+sed -i 's/    /   /' $F1
+diff -E $F1 $F2 &>/dev/null && ExitFail
+t_Log "PASS"
+
+# Check -b --ignore-space-change add some spaces to the end of the line
+# to make sure.
+sed -i 's/$/    /' $F1
+echo "Check diff -b"  
+diff -b $F1 $F2
+t_CheckExitStatus $?
+echo "Check diff --ignore-space-change"
+diff --ignore-space-change $F1 $F2
+t_CheckExitStatus $?
+
+# The -b option ignotes difference in whitespace where it already exists.
+# Check that whitespace added in $F1 where non exists in $F2 is caught by 
+# -b
+echo "Check diff -b sees whitespace where non exists"
+sed -i 's/ss/s s/' $F1
+diff -b $F1 $F2 &>/dev/null && ExitFail
+t_Log "PASS"
+
+# Check -w --ignore-all-space
+echo "Check diff -w"
+diff -w $F1 $F2
+t_CheckExitStatus $?
+echo "Check diff --ignore-all-space"
+diff --ignore-all-space $F1 $F2
+t_CheckExitStatus $?
+
+# Check -B --ignore blank lines, create some new files to work with first.
+
+echo $TEXT>$F1
+echo $TEXT>>$F1
+echo $TEXT>$F2
+echo "" >>$F2
+echo $TEXT>>$F2
+
+# Check that diff sees the new test files are different.
+echo "-B --ignore blank lines, pre check files are different"
+diff $F1 $F2 &>/dev/null && ExitFail
+t_Log "PASS"
+
+echo "Check diff -B"
+diff -B $F1 $F2
+t_CheckExitStatus $?
+echo "Check diff --ignore-blank-lines"
+diff --ignore-blank-lines $F1 $F2
+t_CheckExitStatus $? 
+
+# Check -i --ignore-case, first ensure that diff sees a difference in case,
+# as we're using the files from the earlier test we need to use the -B option
+# too.
+
+echo "Check test file is different"
+sed -i 's/l/L/g' $F1
+diff -B $F1 $F2 &>/dev/null && ExitFail
+t_Log "PASS"
+
+# Check that -i causes  diff to ignore the difference in case.
+echo "Check diff -i"
+diff -B -i $F1 $F2
+t_CheckExitStatus $?
+echo "Check diff --ignore-case"
+diff -B --ignore-case $F1 $F2
+t_CheckExitStatus $?
+
+# Check -I --ignore-matching-lines=regexp
+echo $TEXT >$F1
+echo "1"$TEXT"1" >>$F1
+echo "1"$TEXT >$F2
+echo $TEXT >>$F2
+echo "Check test files are different"
+diff $F1 $F2 &>/dev/null && ExitFail
+t_Log "PASS"
+echo "Check -I"
+diff -I '^[[:digit:]]'  $F1 $F2
+t_CheckExitStatus $?
+echo "Check --ignore-matching-lines=regexp"
+diff --ignore-matching-lines='^[[:digit:]]' $F1 $F2
+t_CheckExitStatus $?
+
+# Check -q --brief
+echo "Check diff -q"
+diff -q $F1 $F2 | grep -q "Files /var/tmp/testf1.txt and /var/tmp/testf2.txt differ" 
+t_CheckExitStatus $?
+echo "diff --brief"
+diff --brief $F1 $F2 | grep -q "Files /var/tmp/testf1.txt and /var/tmp/testf2.txt differ"
+t_CheckExitStatus $?
+
+# Check output formats are correct, again the examples from the info docs are
+# used in the tests as are the lao and tzu texts. As we've previously testes 
+# cmp it should be safe to use to compare the generated output against known 
+# correct output.
+#
+# start with normal format
+echo "Check diff output formats"
+ 
+DIR=./tests/p_diffutils
+FILES="$DIR"/files
+
+echo "Check normal output format"
+diff "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/normal_format -
+t_CheckExitStatus $?
+
+# Check contxt format - note that this outputs time information that we will
+# ignore by skipping the first 3 lines
+
+echo Check default context format -c
+
+diff -c "$FILES"/lao "$FILES"/tzu | tail -n +3 | cmp "$FILES"/context_format -
+t_CheckExitStatus $? 
+
+# Check contect format with only 1 line 
+echo "Check context format with Less Context -C 1"
+diff  -C 1 "$FILES"/lao "$FILES"/tzu | tail -n +3 | cmp "$FILES"/context_format-1 -
+t_CheckExitStatus $?
+
+# Check unified format again there are timestams which we will ignore
+echo "Check unified format "
+diff  -u "$FILES"/lao "$FILES"/tzu | tail -n +3 | cmp "$FILES"/unified_format -
+t_CheckExitStatus $?
+
+# Check unified shortend format -U lines and the long form option 
+# --unified=lines, in both cases we'll use 1 for lines.
+echo "Check unified output with less context -U 1"
+diff  -U 1 "$FILES"/lao "$FILES"/tzu | tail -n +3 | cmp "$FILES"/unified_format-1 -
+t_CheckExitStatus $?
+
+echo "Check unified output with less context --unified=1"
+diff  --unified=1 "$FILES"/lao "$FILES"/tzu | tail -n +3 | cmp "$FILES"/unified_format-1 -
+t_CheckExitStatus $?
+
+# Check we can change the labels
+echo "Check the --label option"
+diff -C 2 --label=original --label=modified "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/label-change
+t_CheckExitStatus $?
+
+# Check side-by-side output width = 72
+echo "Check side-by-side" output -y -W 72
+diff -t -y -W 72 "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/side-by-side-W72 -
+t_CheckExitStatus $?
+
+# Check side-by-side with left column suppression
+echo "Check left column suppression in side-by-side output"
+diff --width=72 -y --left-column "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/left_column -t_CheckExitStatus $?
+
+# Check side-by-side with common line  suppression
+echo "Check left column suppression in side-by-side output"
+diff --width=72 -y --suppress-common-lines "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/supress_common_lines -
+t_CheckExitStatus $?
+
+# Check an ed script is correctly generated
+echo "Check an ed script is correctly generated diff -e"
+diff -e "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/ed_script -
+t_CheckExitStatus $?
+
+# Check diff -f --forward-ed works
+echo "Check that a forward ed script is generated -f "
+diff -f "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/ed_script-f -
+t_CheckExitStatus $?
+echo "Check that a forward ed script is generated --forward-ed "
+diff --forward-ed "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/ed_script-f -
+t_CheckExitStatus $?
+
+# Check RCS script generation -n --rcs
+echo "Check RCS scripts are generated -n"
+diff -n "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/rcs_script -
+t_CheckExitStatus $?
+echo "Check RCS scripts are generated --rcs"
+diff --rcs "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/rcs_script -
+t_CheckExitStatus $?
+
+# Check if-then-else output diff -D --ifdef
+echo "Check -D output"
+diff -DTWO "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/if_then_else -
+t_CheckExitStatus $? 
+
+echo "Check --ifdef output"
+diff --ifdef=TWO "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/if_then_else -
+t_CheckExitStatus $?
+
+# Check Incomplete last line (no \n)
+echo "Checking incomplete last line - normal"
+diff "$FILES"/F "$FILES"/G | cmp "$FILES"/F-G -
+t_CheckExitStatus $?
+
+echo "Checking incomplete last line -n"
+diff -n "$FILES"/F "$FILES"/G | cmp "$FILES"/n_F-G -
+t_CheckExitStatus $?
+
+echo "Checking incomplete last line -e"
+diff -e "$FILES"/F "$FILES"/G 2>&1  | cmp "$FILES"/e_F-G
+t_CheckExitStatus $?
+
+# Check diff output to -l --paginate, the header is variable so skip over it
+echo "Check diff output to pager -l"
+diff -l "$FILES"/lao "$FILES"/tzu |tail -n +4 | cmp "$FILES"/paginate -
+t_CheckExitStatus $?
+
+echo "Check diff output to pager -l"
+diff -l "$FILES"/lao "$FILES"/tzu | tail -n +4 | cmp "$FILES"/paginate -
+t_CheckExitStatus $?
+
+
+# Directories tested from here down
+# Setup a directory structure and populate it with files to work with
+#
+DIRTEST=/var/tmp/difftest
+
+[[ -d "$DIRTEST" ]] && rm -r "$DIRTEST"
+mkdir "$DIRTEST"
+mkdir -p "$DIRTEST"/a/1
+mkdir -p "$DIRTEST"/b/1
+cp "$FILES"/lao "$DIRTEST"/a 
+cp "$FILES"/lao "$DIRTEST"/b
+cp "$FILES"/tzu "$DIRTEST"/a
+cp "$FILES"/tao "$DIRTEST"/a/1
+
+# Check plain diff of 2 directories
+echo "Check basic directory comparison"
+diff "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir -
+t_CheckExitStatus $?
+
+# Check -s --report-identical-files
+echo "Check identical files reported -s"
+diff -s "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_s -
+t_CheckExitStatus $?
+
+echo "Check identical files reported --report-identical-files"
+diff --report-identical-files "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_s -
+t_CheckExitStatus $?
+
+# Check recursive directory diff
+echo "Check recursive directory diff -r"
+diff -sr "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_r -
+t_CheckExitStatus $?
+
+echo "Check recursive directory diff --recursive"
+diff -s --recursive "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_r -
+t_CheckExitStatus $?
+
+# Check -N --new-file output
+echo "Check directory diff -N"
+diff -Nsr "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_N -
+t_CheckExitStatus $?
+
+echo "Check directory diff --new-file"
+diff --new-file -sr "$DIRTEST"/a "$DIRTEST"/b | cmp  "$FILES"/dir_new_file -
+t_CheckExitStatus $? 
+
+# Check diff --unidirectional-new-file. Swap the command line arguments
+# around to make this work 
+
+echo "Check directory diff --unidirectional-new-file"
+diff --unidirectional-new-file "$DIRTEST"/b "$DIRTEST"/a | cmp  "$FILES"/dir_unidirectional -
+t_CheckExitStatus $?
+
+# Check we can ignore patterns with diff in directory mode -x 
+echo "Check diff -x excludes file patterns"
+diff -x tz* "$DIRTEST"/a "$DIRTEST"/b | cmp  "$FILES"/dir_x -
+t_CheckExitStatus $?
+
+# Check we can ignore patterns read from a file with diff in directory mode 
+# -X --exclude-from=
+echo "Check diff -X excludes file patterns"
+diff -X "$FILES"/exclude "$DIRTEST"/a "$DIRTEST"/b | cmp  "$FILES"/dir_x -
+t_CheckExitStatus $?
+
+echo "Check diff --exclude-from excludes file patterns"
+diff --exclude-from="$FILES"/exclude "$DIRTEST"/a "$DIRTEST"/b | cmp  "$FILES"/dir_x -
+t_CheckExitStatus $?
+
+# Check we can exclude differences based on file name case
+# https://bugzilla.redhat.com/show_bug.cgi?id=719001
+# 
+mv "$DIRTEST"/a/lao "$DIRTEST"/a/LAO
+echo "Checking --ignore-file-name-case"
+echo "see https://bugzilla.redhat.com/show_bug.cgi?id=719001"
+echo "If this fails then the bug has been fixed"
+diff --ignore-file-name-case "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_case
+t_CheckExitStatus $?
+
+# Check the --to-file option
+echo "Checking the --to-file option against a file"
+diff --to-file $FILES/lao $DIRTEST/a/LAO
+t_CheckExitStatus $?
+
+echo "Checking the --to-file option against a directory"
+diff --to-file $FILES/lao $DIRTEST/b
+t_CheckExitStatus $?
+
+rm -f "$F1"
+rm -f "$F2"
+rm -r "$DIRTEST"

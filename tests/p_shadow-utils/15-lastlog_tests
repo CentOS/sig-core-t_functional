@@ -1,0 +1,7 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+echo "Running $0"
+echo "Checking lastlog"
+lastlog -u shadowuser | grep -q '**Never logged in**'
+t_CheckExitStatus $?

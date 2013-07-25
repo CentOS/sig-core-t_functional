@@ -1,0 +1,12 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+echo "Running $0"
+
+# Basic useradd tests
+echo "Add user shadowuser"
+useradd shadowuser
+t_CheckExitStatus $?
+echo "Check user was created"
+grep -q "^shadowuser" /etc/passwd
+t_CheckExitStatus $?

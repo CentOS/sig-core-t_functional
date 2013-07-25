@@ -1,0 +1,24 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+echo "Running $0"
+cleanup() {
+echo "Reverting files to original state"
+[[ -d /var/tmp/grpunconv ]] &&  cp /var/tmp/grpunconv/* /etc && rm -r /var/tmp/grpunconv
+}
+
+# Test grpunconv 
+# Check we have both /etc/group and /etc/gshadow  then save them
+[[ -e /etc/group && -e /etc/gshadow ]] || { t_Log "FAIL: missing source file"; exit $FAIL; }
+
+mkdir -p /var/tmp/grpunconv || { t_Log "FAIL: Unable to create directory to save source files in "; exit $FAIL; }
+cp /etc/group /etc/gshadow /var/tmp/grpunconv || { t_Log "FAIL: Unable to save source files"; exit $FAIL; }
+
+#Check the source files are sane
+echo "Checking source files are sane"
+grpck
+t_CheckExitStatus $?
+trap cleanup EXIT
+echo "Converting /etc/group and /etc/gshadow to merged /etc/group"
+grpunconv
+t_CheckExitStatus $?
