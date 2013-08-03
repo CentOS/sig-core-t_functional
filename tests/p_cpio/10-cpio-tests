@@ -25,14 +25,14 @@ echo "Basic copy out test"
 ls | cpio -o > "$OUTDIR"/cpio.out 
 t_CheckExitStatus $?
 
-# Basic copy incheck"
+# Basic copy incheck
 echo "Basic copy in test"
 pushd "$INDIR"
 cpio -i <"$OUTDIR"/cpio.out
 t_CheckExitStatus $?
 popd
-# Basic pass through mode"
-echo "Basis pass through test"
+# Basic pass through mode
+echo "Basic pass through test"
 
 pushd $INDIR
 find . | cpio -pd "$PASSDIR"

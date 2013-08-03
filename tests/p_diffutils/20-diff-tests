@@ -204,7 +204,8 @@ t_CheckExitStatus $?
 
 # Check side-by-side with left column suppression
 echo "Check left column suppression in side-by-side output"
-diff --width=72 -y --left-column "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/left_column -t_CheckExitStatus $?
+diff --width=72 -y --left-column "$FILES"/lao "$FILES"/tzu | cmp "$FILES"/left_column 
+t_CheckExitStatus $?
 
 # Check side-by-side with common line  suppression
 echo "Check left column suppression in side-by-side output"
