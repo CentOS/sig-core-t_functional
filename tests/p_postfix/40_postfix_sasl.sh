@@ -32,12 +32,33 @@ EOF
 #adding parameters to dovecot
 if [ $centos_ver = 5 ]
   then
-  cat >> /etc/dovecot.conf <<EOF
-client {
-       path = /var/spool/postfix/private/auth
-       mode = 0660
-       user = postfix
-       group = postfix
+  cat > /etc/dovecot.conf <<EOF
+protocol imap {
+}
+protocol pop3 {
+}
+protocol lda {
+  postmaster_address = postmaster@example.com
+}
+auth default {
+  mechanisms = plain
+  passdb pam {
+  }
+  userdb passwd {
+  }
+  user = root
+  socket listen {
+    client {
+      path = /var/spool/postfix/private/auth
+      mode = 0660
+      user = postfix
+      group = postfix
+    }
+  }
+}
+dict {
+}
+plugin {
 }
 EOF
 else
@@ -59,10 +80,7 @@ t_ServiceControl dovecot restart
   #Running test
 echo "ehlo test" | nc -w 3 localhost 25 | grep -q 'AUTH PLAIN'
 ret_val=$?
-#else
-#  t_Log 'C5 System, test not yet working, skipping'
-#  ret_val=0
-#fi
+
 # restoring changed files
 mv -f /etc/postfix/main.cf_testing /etc/postfix/main.cf
 if [ $centos_ver = 5 ]
