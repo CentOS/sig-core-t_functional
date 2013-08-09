@@ -77,7 +77,8 @@ fi
 t_ServiceControl postfix restart
 t_ServiceControl dovecot restart
 
-  #Running test
+#Running test
+t_Log "Testing if postfix accepts connections and offers AUTH PLAIN"
 echo "ehlo test" | nc -w 3 localhost 25 | grep -q 'AUTH PLAIN'
 ret_val=$?
 
