@@ -4,7 +4,7 @@
 t_Log "Running $0 - Postfix plain SASL test."
 t_Log "Installing prerequisits"
 
-t_InstallPackage dovecot nc
+t_InstallPackage dovecot
 
 #creating backups of changed files
 cp -a /etc/postfix/main.cf /etc/postfix/main.cf_testing
