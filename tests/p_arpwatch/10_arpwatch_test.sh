@@ -4,7 +4,7 @@
 t_Log "Running $0 - arpwatch on eth0"
 
 # Kill arpwatch instance from previous test
-killall arpwatch
+# killall arpwatch
 
 # getting IP-address of default gateway
 defgw=$(route -n | grep 'UG[ \t]' | awk '{print $2}')
@@ -26,10 +26,11 @@ fi
 arpwatch
 sleep 4
 arp -d $defgw
-sleep 2
-ping -q -i 0.5 -c 5 $defgw
+sleep 4
+ping -q -i 1 -c 5 $defgw
 killall arpwatch
 sleep 2
+more $arpdat
 grep -q $defgw $arpdat
 
 t_CheckExitStatus $?
