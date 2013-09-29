@@ -1,7 +1,7 @@
 #!/bin/sh
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 
-t_Log 'Running $0 - autofs can mount nfs share test.'
+t_Log "Running $0 - autofs can mount nfs share test."
 
 t_Log 'Preparing autofs configuration'
 cp -a /etc/auto.master /etc/auto.master_orig
@@ -22,4 +22,3 @@ cat /dev/null > /etc/exports
 t_ServiceControl autofs stop
 t_ServiceControl nfs stop
 t_ServiceControl rpcbind stop
-
