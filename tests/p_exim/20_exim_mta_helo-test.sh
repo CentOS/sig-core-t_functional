@@ -1,5 +1,5 @@
 #!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 
 t_Log "Running $0 - exim can accept and deliver local email."
 
@@ -19,7 +19,7 @@ if [ $centos_ver == '5' ]
     MTA_ACCEPT=0
   fi
 
-  sleep 1
+  sleep 5
   grep -q 't_functional test' $MAILSPOOL*
   if [ $? = 0 ]
     then
