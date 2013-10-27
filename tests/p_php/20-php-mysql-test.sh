@@ -1,6 +1,6 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 # reusing the script from LAMP-Tests
 
 t_Log "Running $0 - php-cli basic interaction with mysql test."
@@ -9,8 +9,15 @@ t_Log "Running $0 - php-cli basic interaction with mysql test."
 t_InstallPackage php-mysql
 
 # we need a working and running mysql server
-t_InstallPackage mysql-server
-t_ServiceControl mysqld start >/dev/null 2>&1
+#starting with 5.10 we need to reflect mysql55
+if [ $centos_ver = 5 ]
+then
+  t_InstallPackage mysql55-mysql-server nc
+  t_ServiceControl mysql55-mysqld start >/dev/null 2>&1
+else
+  t_InstallPackage mysql-server nc
+  t_ServiceControl mysqld start >/dev/null 2>&1
+fi
 
 #create a little DB to use
 CREATE='/var/tmp/mysql-php-QA.sql'
