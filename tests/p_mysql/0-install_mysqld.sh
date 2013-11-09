@@ -5,12 +5,11 @@
 t_Log "Running $0 - installing and starting mysql server."
 
 # MySQL
-# starting with 5.10, we have to differ between mysql55 and mysql
+# starting with 5.10, we have to add mysql55
 if [ $centos_ver = 5 ]
 then
-  t_InstallPackage mysql55-mysql-server nc
-  t_ServiceControl mysql55-mysqld start >/dev/null 2>&1
+  t_InstallPackage mysql55-mysql-server mysql-server nc
 else
   t_InstallPackage mysql-server nc
-  t_ServiceControl mysqld start >/dev/null 2>&1
 fi
+t_ServiceControl mysqld start
