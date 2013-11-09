@@ -15,6 +15,7 @@ then
 else
   readonly DAEMONS=( httpd mysqld )
 fi
+readonly DAEMONS_PID=( httpd mysqld )
 
 readonly SERVICE=/sbin/service
 readonly PHP_BIN=/usr/bin/php
@@ -25,22 +26,15 @@ trap "/bin/rm -f $PHP_CHECK" EXIT
 
 t_Log "Running $0 - starting LAMP daemon startup test"
 
-# Iterate through our daemons, start each and check for the presence of each process
+# Iterate through our daemons, start each
 for D in "${DAEMONS[@]}"
 do
-	t_Log "Attempting startup of '$D'"
-	
-	$SERVICE $D start &>/dev/null
-	
-	RETVAL=$?
-	
-	if [ $RETVAL -ne 0 ]; then
-	
-		t_Log "FAIL: service startup for '$D' failed ($RETVAL)"
-		exit $FAIL
-		
-	fi
-	
+	t_ServiceControl $D start
+done
+
+# Iterate through our daemons, start each and check for the presence of each process
+for D in "${DAEMONS_PID[@]}"
+do	
 	# See if our process exists
 	PIDS=$(pidof $D)
 	
