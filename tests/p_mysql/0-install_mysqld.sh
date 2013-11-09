@@ -12,4 +12,4 @@ then
 else
   t_InstallPackage mysql-server nc
 fi
-t_ServiceControl mysqld start
+t_ServiceControl mysqld start >/dev/null 2>&1
