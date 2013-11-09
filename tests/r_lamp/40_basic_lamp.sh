@@ -2,8 +2,16 @@
 
 t_Log "Running $0 - install a minimal lamp stack, and test it"
 
-t_InstallPackage httpd mysql mysql-server php php-mysql wget
-t_ServiceControl mysqld restart
+# MySQL
+# starting with 5.10, we have to differ between mysql55 and mysql
+if [ $centos_ver = 5 ]
+then
+  t_InstallPackage mysql55-mysql-server httpd mysql55-mysql php php-mysql wget
+  t_ServiceControl mysql55-mysqld restart
+else
+  t_InstallPackage httpd mysql mysql-server php php-mysql wget
+  t_ServiceControl mysqld restart
+fi
 t_ServiceControl httpd restart
 
 # Initializing a small MySQL db
