@@ -2,17 +2,15 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-t_Log "Running $0 - python can retrieve mysql-server version information."
+t_Log "Running $0 - python can retrieve mysql55-mysql-server version information."
 
 # we need a working and running mysql server
 # starting with 5.10, we have to differ between mysql55 and mysql
 if [ $centos_ver = 5 ]
 then
-  t_InstallPackage mysql55-mysql-server mysql-server
-else
-  t_InstallPackage mysql-server
+  t_ServiceControl mysqld stop
+  t_ServiceControl mysql55-mysqld start
 fi
-t_ServiceControl mysqld start >/dev/null 2>&1
 
 # Installing additional python/mysql module
 t_InstallPackage MySQL-python
