@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
 
-echo "Running $0"
+t_Log "Running $0"
 cleanup() {
 echo "Reverting files to original state"
 [[ -d /var/tmp/grpunconv ]] &&  cp /var/tmp/grpunconv/* /etc && rm -r /var/tmp/grpunconv

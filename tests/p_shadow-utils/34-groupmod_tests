@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
 
-echo "Running $0"
+t_Log "Running $0"
 
 # Check that the testgroup exists with GID 1010
 grep -q "testgroup:x:1010:testshadow" /etc/group || { t_Log "FAIL Test group doesn't exist"; exit $FAIL; }

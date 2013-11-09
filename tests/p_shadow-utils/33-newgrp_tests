@@ -4,7 +4,7 @@
 # Check that the user can change their primary group. This relies on the 
 # observation that the current primary group is printed first
 #
-echo "Basic newgrp test"
+t_Log "Running $0 - Basic newgrp test"
 groups testshadow | grep -q "testshadow testgroup" || { t_Log "FAIL: Default testshadow user group information incorrect"; exit $FAIL; }
 echo OK
 echo $( su - testshadow <<EOF

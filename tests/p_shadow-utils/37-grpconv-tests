@@ -1,6 +1,7 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
 
+t_Log "Running $0"
 # Test grpconv
 cleanup() {
 echo "Reverting files to original state"

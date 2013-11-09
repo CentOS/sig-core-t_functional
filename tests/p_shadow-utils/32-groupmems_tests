@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
 [ $centos_ver == '5'  ] && exit
-echo "Running $0 group add tests"
+t_Log "Running $0 - group add tests"
 
 echo "Simple groupmems test"
 groupmems -g testgroup -l | grep -q "testshadow"

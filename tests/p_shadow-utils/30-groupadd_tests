@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
-echo "Running $0 group add tests"
+t_Log "Running $0 group add tests"
 
 # Delete any info from previous runs, use sed because we haven't yet tested
 # groupdel

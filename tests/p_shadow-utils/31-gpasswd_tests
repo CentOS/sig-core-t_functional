@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
-echo "Running $0 gpasswd tests"
+t_Log "Running $0 - gpasswd tests"
 
 echo "Add a user to testgroup and create /etc/gshadow"
 gpasswd -a testshadow testgroup

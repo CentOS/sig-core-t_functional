@@ -1,7 +1,6 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
-echo "Running $0"
-echo "Testing sg"
+t_Log "Running $0 - Testing sg"
 sg testshadow "touch /var/tmp/sg"
 t_CheckExitStatus $?
 echo "Check sg worked"
