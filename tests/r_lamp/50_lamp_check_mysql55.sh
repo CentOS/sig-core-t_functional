@@ -7,7 +7,14 @@
 # Last Updated: Saturday, 09 November 2013 2:23
 # Description: A simple Bash script to start LAMP daemons (httpd, mysqld), and confirm PHP is working.
 
-readonly DAEMONS=( httpd mysqld )
+# starting with 5.10, we have to differ between mysql55 and mysql
+if [ $centos_ver = 5 ]
+then
+  readonly DAEMONS=( httpd mysql55-mysqld )
+else
+  readonly DAEMONS=( httpd mysqld )
+fi
+readonly DAEMONSPID=( httpd mysqld )
 
 readonly SERVICE=/sbin/service
 readonly PHP_BIN=/usr/bin/php
@@ -33,6 +40,9 @@ do
                 exit $FAIL
 
         fi
+done
+for D in "${DAEMONSPID[@]}"
+do
 
         # See if our process exists
         PIDS=$(pidof $D)
@@ -45,6 +55,7 @@ do
 
         echo "OK"
 done
+
 
 # Finally, a basic check to see if PHP is working correctly.
 

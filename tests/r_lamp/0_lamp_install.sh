@@ -8,7 +8,7 @@ t_Log "Running $0 - attempting to install LAMP stack."
 # starting with 5.10, we have to differ between mysql55 and mysql
 if [ $centos_ver = 5 ]
 then
-  t_InstallPackage mysql55-mysql-server httpd php
+  t_InstallPackage mysql-server mysql55-mysql-server httpd php
 else
   t_InstallPackage mysql-server httpd php
 fi
