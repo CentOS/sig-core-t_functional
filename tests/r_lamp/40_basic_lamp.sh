@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Author: Karanbir Singh <kbsingh@karan.org>
+#	  Athmane Madjoudj <athmanem@gmail.com>
+#	  Christoph Galuschka <tigalch@tigalch.org>
+
 t_Log "Running $0 - install a minimal lamp stack, and test it"
 
 # MySQL
