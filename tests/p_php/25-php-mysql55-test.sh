@@ -1,4 +1,4 @@
-y#!/bin/sh
+#!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 # reusing the script from LAMP-Tests
