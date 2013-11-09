@@ -13,6 +13,7 @@ t_InstallPackage php-mysql
 if [ $centos_ver = 5 ]
 then
   t_InstallPackage mysql-server mysql55-mysql-server nc
+  t_ServiceControl mysql55-mysqld stop
 else
   t_InstallPackage mysql-server nc
 fi
