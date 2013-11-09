@@ -1,12 +1,20 @@
 #!/bin/bash
 
 # Author: Steve Barnes (steve@echo.id.au)
+# Christoph Galuschka <tigalch@tigalch.org>
 # Filename: 1_lamp_check.sh
-# Version: 0.1
-# Last Updated: Saturday, 30 April 2011 2:23 PM AEST
+# Version: 0.2
+# Last Updated: Saturday, 09 November 2013
 # Description: A simple Bash script to start LAMP daemons (httpd, mysqld), and confirm PHP is working.
 
-readonly DAEMONS=( httpd mysqld )
+# starting with 5.10, we have to differ between mysql55 and mysql
+
+if [ $centos_ver = 5 ]
+then
+  readonly DAEMONS=( httpd mysql55-mysqld )
+else
+  readonly DAEMONS=( httpd mysqld )
+fi
 
 readonly SERVICE=/sbin/service
 readonly PHP_BIN=/usr/bin/php
