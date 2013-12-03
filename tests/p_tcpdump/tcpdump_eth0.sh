@@ -35,9 +35,9 @@ if [[ $IP =~ $regex ]]
     fi
   else
     # in qa-harness, which is a controlled environment, the script will fail at odd results
-    if [ $WORKING == $[COUNT*2] ]
+    if [ $WORKING == $[COUNT*2] ] || [ $WORKING -gt $[COUNT*2] ]
       then
-      t_Log "QA-harness: ping to Default-Gateway looks OK. "$WORKING" of "$[COUNT*2]" pakets were dumped to file"
+      t_Log "QA-harness: ping to Default-Gateway looks OK. At least "$[COUNT*2]" pakets ("$WORKING") were dumped to file"
       ret_val=0
     else
       t_Log "QA-harness: ping to Default-Gateway droped pakets!! Only "$WORKING" of "$[COUNT*2]" entries were found!!"
