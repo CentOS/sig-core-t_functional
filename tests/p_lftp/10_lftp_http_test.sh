@@ -6,7 +6,6 @@
 # 	  Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - lftp: HTTP test"
-ARCH=$(t_GetArch)
 
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
   CHECK_FOR="UTC"
@@ -14,6 +13,7 @@ if [ $SKIP_QA_HARNESS -eq 1 ]; then
   FILE="timestamp.txt"
 else
   CHECK_FOR="CentOS"
+  ARCH=$(t_GetArch)
   if [ $ARCH == "i686" ]; then
     URL="http://repo.centos.qa/srv/CentOS/6/os/i386/"
   else
