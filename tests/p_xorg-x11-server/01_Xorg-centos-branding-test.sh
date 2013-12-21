@@ -6,7 +6,7 @@ t_Log "Running $0 - Testing that Xorg has been patched to use CentOS bugtracker 
 
 if [ $centos_ver = 6 ]
 then
-    X --wrong-arg   2>&1 | grep -q 'bugs.centos.org'
+    X --wrong-arg   2>&1 | grep -q 'wiki.centos.org'
 else
     t_Log "CentOS 5 Xorg does not need checking"
 fi
