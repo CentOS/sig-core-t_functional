@@ -4,13 +4,6 @@
 
 t_Log "Running $0 - freeradius-access test"
 
-if (t_GetPkgRel basesystem | grep -q el6)
-  then
-  t_InstallPackage freeradius-utils
-else 
-  t_InstallPackage freeradius2-utils
-fi
-
 # Make Backup of /etc/raddb/users and add testuser steve
 /bin/cp /etc/raddb/users /etc/raddb/users.orig
 echo 'steve  Cleartext-Password := "centos"' >> /etc/raddb/users
