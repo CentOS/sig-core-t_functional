@@ -5,7 +5,7 @@
 t_Log "Running $0 - create VLAN IF, assign IP on VLAN IF and tear down VLAN IF test"
 ret_val=0
 
-if [ $centos_ver = 5 ] || [ $centos_ver = 6 ]
+if ([ $centos_ver = 5 ] || [ $centos_ver = 6 ])
 then
   # create VLAN-IF 10 on eth0
   vconfig add eth0 10
