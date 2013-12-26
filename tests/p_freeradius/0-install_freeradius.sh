@@ -10,10 +10,10 @@ t_Log "Running $0 - installation and startup of freeradius."
 if (t_GetPkgRel basesystem | grep -q el6)
 then
   #Install Freeradius (V2)
-  t_InstallPackage freeradius
+  t_InstallPackage freeradius freeradius-utils
 else
   #Install Freeradius2
-  t_InstallPackage freeradius2
+  t_InstallPackage freeradius2 freeradius2-utils
 fi
 
 # start daemon with default settings
@@ -48,4 +48,3 @@ authenticate {
 EOF
 fi
 
-#  t_ServiceControl radiusd start

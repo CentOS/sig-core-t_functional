@@ -1,6 +1,6 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
-#         Christoph Galuschka <christoph.galuschka@chello.at>
+#         Christoph Galuschka <tigalch@tigalch.org>
 
 t_Log "Running $0 - adding imaptest local user account + attempting IMAP login"
 
@@ -19,6 +19,10 @@ t_Log "Dovecot IMAP login test"
 echo -e "01 LOGIN imaptest imaptest\n" | nc -w 5 localhost 143 | grep -q "Logged in."
 
 # and we need some time between login attempts
+sleep 3
+
+echo -e "01 LOGIN imaptest imaptest\n" | nc -w 5 localhost 143 | grep -q "Logged in."
+# let's see if a third iteration reduces flakyness of the test
 sleep 3
 
 echo -e "01 LOGIN imaptest imaptest\n" | nc -w 5 localhost 143 | grep -q "Logged in."
