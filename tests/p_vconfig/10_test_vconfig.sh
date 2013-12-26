@@ -5,7 +5,7 @@
 t_Log "Running $0 - create VLAN IF, assign IP on VLAN IF and tear down VLAN IF test"
 ret_val=0
 
-if ([ $centos_ver = 5 ] || [ $centos_ver = 6 ])
+if [ $centos_ver -lt 7 ]
 then
   # create VLAN-IF 10 on eth0
   vconfig add eth0 10
@@ -50,7 +50,7 @@ then
     t_Log "Removing of VLAN IF worked"
   fi
 else
-  t_Log 'This is only supported on C5 and C6, skipping'
+  t_Log 'vconfig is only supported on C5 and C6, skipping'
 fi
 
 t_CheckExitStatus $ret_val
