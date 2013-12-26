@@ -3,4 +3,4 @@
 
 yum -y update
 uname -a
-SKIP_QA_HARNESS=1 ./runtests.sh
+SKIP_QA_HARNESS=1 ./runtests.sh p_vconfig
