@@ -1,6 +1,14 @@
 #!/bin/sh
 
 t_Log "Running $0 - mysqld client can talk to mysql server."
+
+if [ $centos_ver -gt 6 ]
+then
+  t_Log 'mysql is only supported on C5 and C6, skipping'
+  t_CheckExitStatus 0       
+  exit 0
+fi
+
 HostName=$(hostname -s)
 MySqlHostName=$(mysql -N -B -u root -e "show variables like 'hostname'" | cut -f 2 | cut -d . -f 1)
 # printing both variables for debugging purposes
