@@ -1,5 +1,6 @@
 #!/bin/bash
 # Author: Iain Douglas <centos@1n6.org.uk>
+# Author: Rene Diepstraten <rene@renediepstraten.nl>
 #
 # Check the binaries from the package exist and run ok
 
@@ -8,11 +9,11 @@ function ExitFail {
     exit $FAIL
 }
 
-[ $centos_ver != '6' ] && exit
-t_Log "Checking binaries are present and run on C6"
+[[ $centos_ver =~ ^6|7$ ]] || exit
+t_Log "Checking binaries are present and run on C7"
 
-[ "$(readlink -e /usr/bin/gunzip)" == "/bin/gunzip" ] || ExitFail
-[ "$(readlink -e /usr/bin/gzip)" == "/bin/gzip" ] || ExitFail
+[ "$(readlink -e /usr/bin/gunzip)" == "/usr/bin/gunzip" ] || ExitFail
+[ "$(readlink -e /usr/bin/gzip)" == "/usr/bin/gzip" ] || ExitFail
 
 for binary in gunzip gzip zcat gzexe zcmp zdiff zegrep zfgrep zforce zgrep zless zmore znew
 do
