@@ -1,5 +1,5 @@
 #!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 #         Athmane Madjoudj <athmanem@gmail.com>
 
 t_Log "Running $0 - TCPdump test to Default-GW with IPv4"
@@ -13,7 +13,7 @@ if [[ $IP =~ $regex ]]
   #Dumping 4 pings via eth0 to file
   FILE='/var/tmp/eth0_test.pcap'
   COUNT='4'
-  tcpdump -q -n -p -i eth0 -w $FILE &
+  tcpdump -q -n -p -w $FILE &
   # If we don't wait a short time, the first paket will be missed by tcpdump
   sleep 1
   ping -q -c $COUNT -i 0.25 ${BASH_REMATCH[1]} > /dev/null 2>&1
