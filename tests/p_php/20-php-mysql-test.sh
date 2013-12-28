@@ -14,13 +14,15 @@ if [ $centos_ver = 5 ]
 then
   t_InstallPackage mysql-server mysql55-mysql-server nc
   t_ServiceControl mysql55-mysqld stop
+  t_ServiceControl mysqld start >/dev/null 2>&1
 elif [ $centos_ver = 6 ]
 then
   t_InstallPackage mysql-server nc
+  t_ServiceControl mysqld start >/dev/null 2>&1
 else
   t_InstallPackage mariadb-server nc
+  t_ServiceControl mariadb start >/dev/null 2>&1
 fi
-t_ServiceControl mariadb start >/dev/null 2>&1
 
 #create a little DB to use
 CREATE='/var/tmp/mysql-php-QA.sql'
