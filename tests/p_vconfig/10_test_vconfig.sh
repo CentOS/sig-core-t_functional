@@ -31,7 +31,7 @@ if [ $? == 1 ]
   t_Log "IP address assignment on eth0.10 failed"
   ret_val=1
 else
-  t_Log "IP address successfully assigned on eth1.10"
+  t_Log "IP address successfully assigned on eth0.10"
 fi
 
 #testing address with ping
