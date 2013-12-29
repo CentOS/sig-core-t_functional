@@ -2,7 +2,7 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 #	  Christoph Galuschka <tigalch@tigalch.org>
 
-t_Log "Running $0 - MySQL GRANT privileges test"
+t_Log "Running $0 - MySQL55 GRANT privileges test"
 
 if [ $centos_ver -gt 5 ]
 then
