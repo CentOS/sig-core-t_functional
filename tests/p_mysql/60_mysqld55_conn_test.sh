@@ -1,19 +1,16 @@
 #!/bin/sh
 
-t_Log "Running $0 - mysqld client can talk to mysql server."
+t_Log "Running $0 - mysqld client can talk to mysql55 server."
 
-if [ $centos_ver -gt 6 ]
+if [ $centos_ver -gt 5 ]
 then
-  t_Log 'mysql is only supported on C5 and C6, skipping'
+  t_Log 'mysql55 is only avialable on C5, skipping'
   t_CheckExitStatus 0       
   exit 0
 fi
 
 HostName=$(hostname -s)
 MySqlHostName=$(mysql -N -B -u root -e "show variables like 'hostname'" | cut -f 2 | cut -d . -f 1)
-# printing both variables for debugging purposes
-echo $HostName
-echo ${MySqlHostName}
 if [ $HostName = ${MySqlHostName} ]; then
 	ret_val=0
 else
