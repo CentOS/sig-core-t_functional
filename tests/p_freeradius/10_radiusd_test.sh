@@ -21,6 +21,6 @@ ret_val=$?
 # Restore settings
 /bin/cp /etc/raddb/users.orig /etc/raddb/users
 rm -rf /etc/raddb/users.orig
-service radiusd restart
+service radiusd stop
 
 t_CheckExitStatus $ret_val
