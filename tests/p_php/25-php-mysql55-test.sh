@@ -3,18 +3,20 @@
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 # reusing the script from LAMP-Tests
 
-t_Log "Running $0 - php-cli basic interaction with mysql test."
+t_Log "Running $0 - php-cli basic interaction with mysql55 test."
+if [ $centos_ver != 5 ]
+then
+  t_Log "This is not a C5-system - skipping"
+  exit 0
+fi
 
 # Install php-mysql-module
 t_InstallPackage php-mysql
 
 # we need a working and running mysql server
 #starting with 5.10 we need to reflect mysql55
-if [ $centos_ver = 5 ]
-then
-  t_ServiceControl mysqld stop
-  t_ServiceControl mysql55-mysqld start >/dev/null 2>&1
-fi
+t_ServiceControl mysqld stop
+t_ServiceControl mysql55-mysqld start >/dev/null 2>&1
 
 #create a little DB to use
 CREATE='/var/tmp/mysql-php-QA.sql'
