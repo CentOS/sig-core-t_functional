@@ -28,6 +28,11 @@ sleep 3
 echo -e "01 LOGIN imaptest imaptest\n" | nc -w 5 localhost 143 | grep -q "Logged in."
 ret_val=$?
 
+if [ $ret_val != 0 ]
+then
+  tail /var/log/secure
+  tail /var/log/maillog
+fi
 t_CheckExitStatus $ret_val
 
 userdel -rf imaptest
