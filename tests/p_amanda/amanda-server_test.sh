@@ -49,7 +49,6 @@ else
 fi
 
 cat >> /etc/amanda/MyConfig/amanda.conf <<EOF
-label_new_tapes "MyData%%"
 tapecycle 2
 dumpcycle 3 days
 amrecover_changer "changer"
