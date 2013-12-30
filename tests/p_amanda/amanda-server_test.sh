@@ -1,5 +1,5 @@
 #!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 t_Log "Running $0 - amanda server runs a simple task (backing up /etc)"
 
 if (t_GetPkgRel basesystem | grep -q el5)
@@ -29,7 +29,7 @@ logdir "/amanda/state/log"
 indexdir "/amanda/state/index"
 EOF
 
-if (t_GetPkgRel basesystem | grep -q el5)
+if [ $centos_ver == 5 ]
 then
   echo 'dumpuser "amanda"' >> /etc/amanda/MyConfig/amanda.conf
 else
@@ -39,6 +39,16 @@ fi
 cat >> /etc/amanda/MyConfig/amanda.conf <<EOF
 tpchanger "chg-disk:/amanda/vtapes"
 labelstr "MyData[0-9][0-9]"
+EOF
+
+if [ $centos_ver -gt 6 ]
+then
+  echo 'autolabel "MyData%%"' >> /etc/amanda/MyConfig/amanda.conf
+else
+  echo 'label_new_tapes "MyData%%"' >> /etc/amanda/MyConfig/amanda.conf   
+fi
+
+cat >> /etc/amanda/MyConfig/amanda.conf <<EOF
 label_new_tapes "MyData%%"
 tapecycle 2
 dumpcycle 3 days
