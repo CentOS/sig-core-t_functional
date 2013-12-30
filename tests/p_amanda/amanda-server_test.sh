@@ -105,7 +105,7 @@ else
 fi
 
 ## checking data in backup
-grep -q "${STRING}" /amanda/vtapes/current/00001.localhost._etc.0
+grep -q "${STRING}" $(find /amanda/vtapes/ -name 00001.localhost._etc.0)
 if [ $? -ne 0 ]
 then
   t_Log "Something is wrong with the backup - can't find content of /etc/amandabackup-test file."
