@@ -1,6 +1,6 @@
 #!/bin/bash
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 
-# Install arpwatch
-t_InstallPackage arpwatch
+# Install requirements
+t_InstallPackage arpwatch psmisc
 
