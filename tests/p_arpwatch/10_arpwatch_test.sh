@@ -1,5 +1,5 @@
 #!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 #         Rene Diepstraten <rene@renediepstraten.nl>
 
 t_Log "Running $0 - arpwatch on interface with default gateway"
