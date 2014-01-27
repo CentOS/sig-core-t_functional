@@ -1,0 +1,23 @@
+11a
+||||||| ./tests/p_diffutils/files/tzu
+They both may be called deep and profound.
+Deeper and more profound,
+The door of all subtleties!
+=======
+
+  -- The Way of Lao-Tzu, tr. Wing-tsit Chan
+>>>>>>> ./tests/p_diffutils/files/tao
+.
+11a
+<<<<<<< ./tests/p_diffutils/files/lao
+.
+8c
+  so we may see their result.
+.
+2a
+>>>>>>> ./tests/p_diffutils/files/tao
+.
+0a
+<<<<<<< ./tests/p_diffutils/files/tzu
+=======
+.

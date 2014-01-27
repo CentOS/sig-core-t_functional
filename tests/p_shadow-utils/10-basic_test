@@ -1,0 +1,13 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+#
+# Basic tests for the shadow utils package. Check that the /etc/default
+# directory and /etc/default/useradd files exist.
+
+t_Log "Running $0 Basic tests"
+
+echo "Check packace files exist"
+[[ -d /etc/default ]] || { t_Log "FAIL: /etc/default missing"; exit $FAIL; }
+[[ -e /etc/default/useradd ]] || { t_Log "FAIL: /etc/default/useradd missing"; exit $FAIL; }
+[[ -e /etc/login.defs ]] || { t_Log "FAIL: /etc/login.defs missing"; exit $FAIL; }
+t_Log "PASS"

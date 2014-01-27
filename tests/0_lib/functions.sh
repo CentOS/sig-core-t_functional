@@ -97,7 +97,7 @@ function t_GetPkgRel
 # Description: return the distro release (returns 5 or 6 now)
 function t_DistCheck
 {
-	rpm -q --queryformat '%{version}\n' centos-release
+	rpm -q $(rpm -qf /etc/redhat-release) --queryformat '%{version}\n'|cut -f 1 -d '.'
 }
 # Additionally set distro release to $centos_ver
 centos_ver=$(t_DistCheck)

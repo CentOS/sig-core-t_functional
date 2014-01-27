@@ -5,6 +5,8 @@ t_Log "Running $0 - exim can accept and deliver local email using ESMTP/PIPELINI
 
 if [ $centos_ver == '5' ]
   then
+  SPOOLFILE=1
+  MTA_ACCEPT=1
   MAILSPOOL=/var/spool/exim/input/
 
   # make shure spool dir is empty
@@ -19,7 +21,7 @@ if [ $centos_ver == '5' ]
     MTA_ACCEPT=0
   fi
 
-  sleep 1
+  sleep 5
   grep -q 't_functional test' $MAILSPOOL*
   if [ $? = 0 ]
     then

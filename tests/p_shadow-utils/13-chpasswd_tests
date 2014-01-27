@@ -1,0 +1,12 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "Running $0 - Checking chpasswd"
+
+chpasswd -e <<EOF
+shadowuser:maryhadalittlelamb
+EOF
+t_CheckExitStatus $?
+echo "Check /etc/shadow updated"
+grep -q "maryhadalittlelamb" /etc/shadow
+t_CheckExitStatus $?

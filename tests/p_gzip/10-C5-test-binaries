@@ -24,11 +24,12 @@ do
     $binary --version &>/dev/null || ExitFail
 done
 
-for binary in zmore
-do
-    echo -n "$binary "
-    $binary &>/dev/null || ExitFail
-done
+#disabled, needs to be looked into
+#for binary in zmore
+#do
+#    echo -n "$binary "
+#    $binary &>/dev/null || ExitFail
+#done
 
 for binary in znew zforce
 do

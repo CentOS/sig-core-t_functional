@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Author: Steve Barnes (steve@echo.id.au)
+#	  Christoph Galuschka <tigalch@tigalch.org>
 # Filename: 1_lamp_check.sh
-# Version: 0.1
-# Last Updated: Saturday, 30 April 2011 2:23 PM AEST
+# Version: 0.2
+# Last Updated: Saturday, 09 November 2013 2:23
 # Description: A simple Bash script to start LAMP daemons (httpd, mysqld), and confirm PHP is working.
 
 readonly DAEMONS=( httpd mysqld )
@@ -20,30 +21,29 @@ t_Log "Running $0 - starting LAMP daemon startup test"
 # Iterate through our daemons, start each and check for the presence of each process
 for D in "${DAEMONS[@]}"
 do
-	t_Log "Attempting startup of '$D'"
-	
-	$SERVICE $D start &>/dev/null
-	
-	RETVAL=$?
-	
-	if [ $RETVAL -ne 0 ]; then
-	
-		t_Log "FAIL: service startup for '$D' failed ($RETVAL)"
-		exit $FAIL
-		
-	fi
-	
-	# See if our process exists
-	PIDS=$(pidof $D)
-	
-	if [ -z "$PIDS" ]; then
-	
-		t_Log "FAIL: couldn't find '$D' in the process list."
-		exit $FAIL
-	fi
-	
-	echo "OK"
+        t_Log "Attempting startup of '$D'"
 
+        $SERVICE $D start &>/dev/null
+
+        RETVAL=$?
+
+        if [ $RETVAL -ne 0 ]; then
+
+                t_Log "FAIL: service startup for '$D' failed ($RETVAL)"
+                exit $FAIL
+
+        fi
+
+        # See if our process exists
+        PIDS=$(pidof $D)
+
+        if [ -z "$PIDS" ]; then
+
+                t_Log "FAIL: couldn't find '$D' in the process list."
+                exit $FAIL
+        fi
+
+        echo "OK"
 done
 
 # Finally, a basic check to see if PHP is working correctly.
@@ -60,7 +60,7 @@ RETVAL=$PHP_BIN $PHP_CHECK &>/dev/null
 
 if [ $RETVAL -ne 0 ]; then
 
-	t_Log "FAIL: php_info() check failed ($RETVAL)"
+        t_Log "FAIL: php_info() check failed ($RETVAL)"
 
 fi
 

@@ -1,8 +1,20 @@
 #!/bin/bash
 
+# Author: Karanbir Singh <kbsingh@karan.org>
+#	  Athmane Madjoudj <athmanem@gmail.com>
+#	  Christoph Galuschka <tigalch@tigalch.org>
+
 t_Log "Running $0 - install a minimal lamp stack, and test it"
 
-t_InstallPackage httpd mysql mysql-server php php-mysql wget
+# MySQL
+# starting with 5.10, we have to differ between mysql55 and mysql
+if [ $centos_ver = 5 ]
+then
+  t_InstallPackage mysql55-mysql-server httpd mysql55-mysql php php-mysql wget
+  t_ServiceControl mysql55-mysqld stop
+else
+  t_InstallPackage httpd mysql mysql-server php php-mysql wget
+fi
 t_ServiceControl mysqld restart
 t_ServiceControl httpd restart
 

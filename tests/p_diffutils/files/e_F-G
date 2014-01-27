@@ -1,0 +1,7 @@
+1c
+g
+.
+diff: ./tests/p_diffutils/files/F: No newline at end of file
+
+diff: ./tests/p_diffutils/files/G: No newline at end of file
+

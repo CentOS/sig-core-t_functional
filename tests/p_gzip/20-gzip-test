@@ -2,6 +2,7 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 # Author: Iain Douglas <centos@1n6.org.uk>
+# Author: Rene Diepstraten <rene@renediepstraten.nl>
 
 function ExitFail {
     t_Log "FAIL"
@@ -65,7 +66,7 @@ t_Log "Check -a is ignored as we're on CentOS"
 if [ $centos_ver == '5' ]
   then
   gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gunzip: option --ascii ignored on this system' || ExitFail
-elif [ $centos_ver == '6' ]
+elif [[ $centos_ver =~ ^(6|7)$ ]]
   then
   gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gzip: option --ascii ignored on this system' || ExitFail
 fi

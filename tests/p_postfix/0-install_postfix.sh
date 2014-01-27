@@ -10,5 +10,5 @@ sleep 3
 t_RemovePackage sendmail exim
 
 # Postfix
-t_InstallPackage postfix
+t_InstallPackage postfix nc
 t_ServiceControl postfix start

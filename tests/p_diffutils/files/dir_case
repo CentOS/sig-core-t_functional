@@ -1,0 +1,4 @@
+Common subdirectories: /var/tmp/difftest/a/1 and /var/tmp/difftest/b/1
+Only in /var/tmp/difftest/b: lao
+Only in /var/tmp/difftest/a: LAO
+Only in /var/tmp/difftest/a: tzu

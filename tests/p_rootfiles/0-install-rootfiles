@@ -1,0 +1,5 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "$0 - installing rootfiles"
+t_InstallPackage rootfiles

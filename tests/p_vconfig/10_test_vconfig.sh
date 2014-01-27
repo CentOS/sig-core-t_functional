@@ -1,9 +1,16 @@
 #!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 #         Athmane Madjoudj <athmanem@gmail.com>
 
 t_Log "Running $0 - create VLAN IF, assign IP on VLAN IF and tear down VLAN IF test"
 ret_val=0
+
+if [ $centos_ver -gt 6 ]
+then
+  t_Log 'vconfig is only supported on C5 and C6, skipping'
+  t_CheckExitStatus $ret_val
+  exit 0
+fi
 
 # create VLAN-IF 10 on eth0
 vconfig add eth0 10
@@ -24,7 +31,7 @@ if [ $? == 1 ]
   t_Log "IP address assignment on eth0.10 failed"
   ret_val=1
 else
-  t_Log "IP address successfully assigned on eth1.10"
+  t_Log "IP address successfully assigned on eth0.10"
 fi
 
 #testing address with ping

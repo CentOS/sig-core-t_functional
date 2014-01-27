@@ -1,5 +1,5 @@
 #!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 t_Log "Running $0 - amanda server runs a simple task (backing up /etc)"
 
 if (t_GetPkgRel basesystem | grep -q el5)
@@ -29,7 +29,7 @@ logdir "/amanda/state/log"
 indexdir "/amanda/state/index"
 EOF
 
-if (t_GetPkgRel basesystem | grep -q el5)
+if [ $centos_ver == 5 ]
 then
   echo 'dumpuser "amanda"' >> /etc/amanda/MyConfig/amanda.conf
 else
@@ -39,7 +39,16 @@ fi
 cat >> /etc/amanda/MyConfig/amanda.conf <<EOF
 tpchanger "chg-disk:/amanda/vtapes"
 labelstr "MyData[0-9][0-9]"
-label_new_tapes "MyData%%"
+EOF
+
+if [ $centos_ver -gt 6 ]
+then
+  echo 'autolabel "MyData%%"' >> /etc/amanda/MyConfig/amanda.conf
+else
+  echo 'label_new_tapes "MyData%%"' >> /etc/amanda/MyConfig/amanda.conf   
+fi
+
+cat >> /etc/amanda/MyConfig/amanda.conf <<EOF
 tapecycle 2
 dumpcycle 3 days
 amrecover_changer "changer"
@@ -105,7 +114,7 @@ else
 fi
 
 ## checking data in backup
-grep -q "${STRING}" /amanda/vtapes/current/00001.localhost._etc.0
+grep -q "${STRING}" $(find /amanda/vtapes/ -name 00001.localhost._etc.0)
 if [ $? -ne 0 ]
 then
   t_Log "Something is wrong with the backup - can't find content of /etc/amandabackup-test file."

@@ -1,0 +1,16 @@
+Common subdirectories: /var/tmp/difftest/b/1 and /var/tmp/difftest/a/1
+diff --unidirectional-new-file /var/tmp/difftest/b/tzu /var/tmp/difftest/a/tzu
+0a1,13
+> The Nameless is the origin of Heaven and Earth;
+> The named is the mother of all things.
+> 
+> Therefore let there always be non-being,
+>   so we may see their subtlety,
+> And let there always be being,
+>   so we may see their outcome.
+> The two are the same,
+> But after they are produced,
+>   they have different names.
+> They both may be called deep and profound.
+> Deeper and more profound,
+> The door of all subtleties!
