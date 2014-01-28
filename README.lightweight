@@ -1,0 +1,3 @@
+This is a LightWeight branch and does not include the entire test suite, unless you know what you are doing, you should be running the master branch that contains the entire test suite.
+
+We are creating this as a small baseline to use during live hack sessions so we can quickly establish some of the core functionalities.
