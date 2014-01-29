@@ -2,6 +2,9 @@
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
 
+if (t_GetPkgRel basesystem | grep -q el6)
+then
+
 # kinit cannot take password from stdin so use expect
 
 t_InstallPackage expect
@@ -33,5 +36,7 @@ klist | grep "admin@C6IPA.LOCAL" &> /dev/null
 
 t_CheckExitStatus $?
 
+else
+    echo "Skipped on CentOS 5"
+fi
 
-# MORE STUFF GOES HERE

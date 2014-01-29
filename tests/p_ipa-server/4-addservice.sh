@@ -2,6 +2,9 @@
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
 
+if (t_GetPkgRel basesystem | grep -q el6)
+then
+
 # Need admin credentials
 kdestroy &> /dev/null
 
@@ -72,5 +75,8 @@ t_Log "Running $0 - verifying certificate against CA"
 openssl verify -CAfile /etc/ipa/ca.crt /etc/pki/tls/certs/testservice.crt | grep "/etc/pki/tls/certs/testservice.crt: OK" &> /dev/null
 t_CheckExitStatus $?
 
+else
+    echo "Skipped on CentOS 5"
+fi
 
 

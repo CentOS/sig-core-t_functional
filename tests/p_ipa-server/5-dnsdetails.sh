@@ -2,6 +2,9 @@
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
 
+if (t_GetPkgRel basesystem | grep -q el6)
+then
+
 # Need admin credentials
 kdestroy &> /dev/null
 
@@ -68,4 +71,8 @@ sleep 1
 done
 
 t_CheckExitStatus $?
+
+else
+    echo "Skipped on CentOS 5"
+fi
 
