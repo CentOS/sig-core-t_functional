@@ -1,0 +1,15 @@
+The following haven't been tested mostly because I can't figure out how to do so.
+diff --minimal
+diff --horizon-lines
+diff --speed-large-files
+diff --show-c-function
+diff --show-function-line
+diff --starting-file
+
+diff -x | -X in combination with --ignore-file-name-case as the latter doesn't work due to a bug.
+
+diff3 -a 
+diff3 -T
+
+
+

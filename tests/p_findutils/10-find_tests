@@ -1,0 +1,32 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+#
+
+echo "Running $0"
+TMPDIR=/var/tmp/find 
+
+[[ -e  "$TMPDIR" ]] && rm -rf "$TMPDIR"
+
+mkdir -p "$TMPDIR" || { t_Log "FAIL: Can't create working area $TMPDIR" ; exit $FAIL; }
+touch "$TMPDIR"/file1
+touch "$TMPDIR"/"file space"
+# Basic find tests
+echo "Basic find tests"
+
+find "$TMPDIR" &>/dev/null
+t_CheckExitStatus $?
+
+# Check find fails for non existent directory
+echo "Check find fails for non existent directory"
+find "$TMPDIR"/1 &>/dev/null && { t_Log "FAIL: find incorrectly exited with 0 status"; exit $FAIL ; }
+t_Log "PASS"
+
+# Check print0 works so we can use it for an xargs test
+echo "Test -print0"
+lines_count=$( find "$TMPDIR" -print0 | wc -l )
+
+if [ $lines_count -eq 0 ] ; then
+    t_CheckExitStatus 0
+else
+    t_CheckExitStatus 1
+fi

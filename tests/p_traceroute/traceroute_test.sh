@@ -5,7 +5,7 @@ TEST=traceroute
 
 # Testing availability of network
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
-  HOST="wiki.centos.org"
+  HOST="ci.dev.centos.org"
 else
   HOST="repo.centos.qa"
 fi

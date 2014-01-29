@@ -1,6 +1,10 @@
 #!/bin/bash
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 
-# Install vconfig
-t_InstallPackage vconfig
-
+if [ $centos_ver -lt 7 ]
+then
+  # Install vconfig
+  t_InstallPackage vconfig
+else
+  t_Log 'vconfig is only supported on C5 and C6, skipping'
+fi

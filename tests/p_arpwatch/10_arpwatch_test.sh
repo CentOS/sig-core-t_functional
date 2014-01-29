@@ -1,13 +1,21 @@
 #!/bin/sh
-#         Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
+#         Rene Diepstraten <rene@renediepstraten.nl>
 
-t_Log "Running $0 - arpwatch on eth0"
+t_Log "Running $0 - arpwatch on interface with default gateway"
+
+# arpwatch is broken in el7
+# See https://bugzilla.redhat.com/show_bug.cgi?id=1044062
+[[ $centos_ver -eq 7 ]] && { 
+  t_Log "arpwatch is broken on el7. Skipping test." 
+  exit
+}
 
 # Kill arpwatch instance from previous test
-killall arpwatch
+# killall arpwatch
 
 # getting IP-address of default gateway
-defgw=$(route -n | grep 'UG[ \t]' | awk '{print $2}')
+defgw=$(ip route | awk '/^default via/ {print $3}')
 if [ -z $defgw ]
   then
   t_Log "No default gateway, can't test arpwatch"
@@ -26,8 +34,8 @@ fi
 arpwatch
 sleep 4
 arp -d $defgw
-sleep 2
-ping -q -i 0.5 -c 5 $defgw
+sleep 4
+ping -q -i 1 -c 5 $defgw
 killall arpwatch
 sleep 2
 grep -q $defgw $arpdat

@@ -1,0 +1,34 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "Running $0"
+
+# Check that we can delete the testgroup
+echo "Check we can delete the group 'testgroup'"
+
+grep -q testgroup /etc/group || { t_Log "FAIL: testgroup doesn't exist"; exit $FAIL; }
+groupdel testgroup
+t_CheckExitStatus $?
+
+# Try and remove the same group shoudl fail
+echo "Additional tests - non existent group"
+groupdel testgroup
+if (( $? == 6 )) 
+then 
+    t_Log "PASS"
+else
+    t_Log "Fail"
+    exit $FAIL
+fi
+
+# Try and remove a user's primary group - should fail 
+echo "Additional tests - users primary group"
+groupdel testshadow
+if (( $? == 8 ))
+then
+    t_Log "PASS"
+else
+    t_Log "Fail"
+    exit $FAIL
+fi
+

@@ -1,0 +1,25 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "Running $0"
+echo "*****************************************************************"
+echo "Note: The original /etc/passwd and /etc/shadow files are saved to"
+echo "directory /var/tmp/pwconv".
+echo "*****************************************************************"
+
+cleanup(){
+echo "Reverting files to original state"
+[[ -d /var/tmp/pwconv ]] && cp /var/tmp/pwconv/* /etc 
+t_CheckExitStatus $?
+}
+
+# check that /etc/passwd and /etc/shadow exist before continuing.
+[[ -e /etc/passwd && -e /etc/shadow ]] || { t_Log "FAIL: missing source file"; exit $FAIL; }
+
+mkdir -p /var/tmp/pwconv || { t_Log "FAIL: Unable to create directory to save  source files in "; exit $FAIL; }
+cp /etc/passwd /etc/shadow /var/tmp/pwconv || { t_Log "FAIL: Unable to save source files"; exit $FAIL; }
+trap cleanup EXIT
+echo "Running pwconv"
+pwconv
+t_CheckExitStatus $?
+

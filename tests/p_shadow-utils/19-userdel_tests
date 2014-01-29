@@ -1,0 +1,9 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "Running $0 - Delete user shadowuser"
+userdel -r shadowuser
+t_CheckExitStatus $?
+echo "Check user was deleted"
+grep -q "^shadowuser" /etc/passwd && { t_Log "FAIL: shadowuser not deletd"; exit $FAIL;}
+t_Log "PASS"

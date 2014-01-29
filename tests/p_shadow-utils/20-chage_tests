@@ -1,0 +1,15 @@
+#!/bin/bash
+# Author: Iain Douglas <centos@1n6.org.uk>
+
+t_Log "Running $0"
+
+userdel -rf testshadow; useradd testshadow
+echo "testshadow" | passwd --stdin testshadow
+
+echo "Set last date passwd changed to 2013-01-01"
+chage -d 2013-01-01 testshadow
+t_CheckExitStatus $?
+
+echo "Check that last passwd change is reported correctly"
+chage -l testshadow | grep Last | grep -q "Jan 01, 2013"
+t_CheckExitStatus $?
