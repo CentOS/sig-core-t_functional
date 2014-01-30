@@ -28,14 +28,14 @@ t_CheckExitStatus $?
 
 #Add zone
 t_Log "Running $0 - Adding a subdomain 'testzone'"
-ipa dnszone-add --name-server=c6test.c6ipa.local. --admin-email=hostmaster.testzone.c6ipa.local. testzone.c6ipa.local
+ipa dnszone-add --name-server=c6test.c6ipa.local. --admin-email=hostmaster.testzone.c6ipa.local. testzone.c6ipa.local &> /dev/null
 t_CheckExitStatus $?
 
 #Can get SOA for new zone from DNS
 
 #Add record to standard zone
 t_Log "Running $0 - Adding a testrecord to main domain"
-ipa dnsrecord-add c6ipa.local testrecord --cname-hostname=c6test
+ipa dnsrecord-add c6ipa.local testrecord --cname-hostname=c6test &> /dev/null
 t_CheckExitStatus $?
 
 #Can get record from DNS
@@ -45,7 +45,7 @@ t_CheckExitStatus $?
 
 #Add record to new zone
 t_Log "Running $0 - Adding a testrecord to subdomain"
-ipa dnsrecord-add testzone.c6ipa.local testrecord --cname-hostname=c6test.c6ipa.local.
+ipa dnsrecord-add testzone.c6ipa.local testrecord --cname-hostname=c6test.c6ipa.local. &> /dev/null
 t_CheckExitStatus $?
 
 #Can get record from DNS for new zone
@@ -59,7 +59,7 @@ forwarder="$(sed -n '1,/forwarders/!{ /};/,/forwarders/!s/^//p;}' /etc/named.con
 sed -i '/forwarders/{N ; s/\n.*// }' /etc/named.conf
 service named restart
 t_CheckExitStatus $?
-ipa dnsconfig-mod --forwarder=${forwarder}
+ipa dnsconfig-mod --forwarder=${forwarder} &> /dev/null
 t_CheckExitStatus $?
 
 #Regression test of RHBA-2103-0739

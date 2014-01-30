@@ -6,7 +6,7 @@ if (t_GetPkgRel basesystem | grep -q el6)
 then
 
 t_Log "Running $0 - Stopping and removing httpd if present"
-if  /sbin/service httpd status | grep 'is running...' &> /dev/null
+if  /sbin/service httpd status 2>&1 | grep 'is running...' &> /dev/null
 then
 /sbin/service httpd stop &> /dev/null
 fi
@@ -17,7 +17,7 @@ rm -rf /etc/httpd
 fi
 
 t_Log "Running $0 - Stopping and removing bind if present"
-if  /sbin/service named status | grep 'is running...' &> /dev/null
+if  /sbin/service named status 2>&1 | grep 'is running...' &> /dev/null
 then
 /sbin/service named stop &> /dev/null
 fi

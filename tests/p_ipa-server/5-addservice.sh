@@ -28,16 +28,16 @@ t_CheckExitStatus $?
 
 
 t_Log "Running $0 - Adding test service"
-ipa service-add	testservice/c6test.c6ipa.local
+ipa service-add	testservice/c6test.c6ipa.local &> /dev/null
 
 t_CheckExitStatus $?
 
 t_Log "Running $0 - getting keytab for service"
-ipa-getkeytab -s c6test.c6ipa.local -p testservice/c6test.c6ipa.local -k /tmp/testservice.keytab
+ipa-getkeytab -s c6test.c6ipa.local -p testservice/c6test.c6ipa.local -k /tmp/testservice.keytab &> /dev/null
 t_CheckExitStatus $?
 
 t_Log "Running $0 - getting certificate for service"
-ipa-getcert request -K testservice/c6test.c6ipa.local -D c6test.c6ipa.local -f /etc/pki/tls/certs/testservice.crt -k /etc/pki/tls/private/testservice.key
+ipa-getcert request -K testservice/c6test.c6ipa.local -D c6test.c6ipa.local -f /etc/pki/tls/certs/testservice.crt -k /etc/pki/tls/private/testservice.key &> /dev/null
 t_CheckExitStatus $?
 
 while true
