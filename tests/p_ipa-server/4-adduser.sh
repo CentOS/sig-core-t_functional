@@ -77,6 +77,11 @@ t_CheckExitStatus $?
 
 kdestroy &> /dev/null
 
+
+t_Log "Running $0 - testing ipatestuser is in getent"
+getent passwd ipatestuser &> /dev/null
+t_CheckExitStatus $?
+
 else
     echo "Skipped on CentOS 5"
 fi
