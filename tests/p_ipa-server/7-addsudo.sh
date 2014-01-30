@@ -55,10 +55,16 @@ t_Log "Running $0 - test adding sudo configuration"
 echo "sudoers: files sss" >> /etc/nsswitch.conf
 sed -i 's/services = nss, pam, ssh/services = nss, pam, ssh, sudo/' /etc/sssd/sssd.conf
 sed -i 's/id_provider = ipa/id_provider = ipa\nsudo_provider = ldap\nldap_sudo_search_base = ou=sudoers,dc=c6ipa,dc=local\nldap_sasl_mech = GSSAPI/' /etc/sssd/sssd.conf
-/sbin/service sssd restart &> /dev/null
+
+t_Log "Running $0 - clearing the sssd cache"
+/sbin/service sssd stop &> /dev/null
+rm -rf /var/lib/sss/db/*
+/sbin/service sssd start &> /dev/null
 /sbin/service sssd status | grep 'is running' &> /dev/null
 t_CheckExitStatus $?
 
+## Leaving a little time to settle as there seems to be a slight race condition to go right away
+sleep 10
 
 t_Log "Running $0 - test sudo works"
 expect -f -  &> /tmp/sudotestoutput.ipa-test <<EOF

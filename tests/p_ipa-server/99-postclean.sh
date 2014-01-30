@@ -11,10 +11,10 @@ cp /tmp/resolv.conf.ipa-tests /etc/resolv.conf
 t_Log "Running $0 - Restoring nsswitch.conf"
 cp /tmp/nsswitch.conf.ipa-tests /etc/nsswitch.conf
 
-t_Log "Running $0 - Backing up hosts file"
+t_Log "Running $0 - Restoring  hosts file"
 cp /tmp/hosts.ipa-tests /etc/hosts
 
-t_Log "Running $0 - Backing up saving yum history id"
+t_Log "Running $0 - Rolling back to yum history id"
 /usr/bin/yum -y history rollback $(cat /tmp/yum-rollback-id.ipa-tests) &> /dev/null
 
 rm -f /tmp/*.ipa-test
