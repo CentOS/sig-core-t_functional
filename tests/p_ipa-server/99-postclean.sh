@@ -21,6 +21,8 @@ t_Log "Running $0 - Rolling back to yum history id"
 /usr/bin/yum -y history rollback $(cat /tmp/yum-rollback-id.ipa-tests) &> /dev/null
 
 rm -f /tmp/*.ipa-test /etc/httpd/conf.d/*
+sed -i "s/$(ip a s dev eth0 | awk '$0 ~ /scope global eth0/ {print $2}' | cut -d'/' -f 1) $(hostname)//" /etc/hosts
+hostname localhost.localdomain
 
 else
     echo "Skipped on CentOS 5"

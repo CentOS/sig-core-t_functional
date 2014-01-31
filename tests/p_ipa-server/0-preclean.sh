@@ -43,6 +43,10 @@ cp /etc/ntp.conf /tmp/ntp.conf.ipa-tests
 t_Log "Running $0 - Backing up saving yum history id"
 /usr/bin/yum history list | awk 'NR == 4 {print $1}' > /tmp/yum-rollback-id.ipa-tests
 
+t_Log "Running $0 - Cleaning up hosts file"
+sed -i "s/127.0.0.1 $(hostname)//" /etc/hosts
+
+
 else
     echo "Skipped on CentOS 5"
 fi
