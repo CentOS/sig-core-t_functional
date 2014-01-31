@@ -37,6 +37,9 @@ cp /etc/nsswitch.conf /tmp/nsswitch.conf.ipa-tests
 t_Log "Running $0 - Backing up hosts file"
 cp /etc/hosts /tmp/hosts.ipa-tests
 
+t_Log "Running $0 - Backing up ntp.conf file"
+cp /etc/ntp.conf /tmp/ntp.conf.ipa-tests
+
 t_Log "Running $0 - Backing up saving yum history id"
 /usr/bin/yum history list | awk 'NR == 4 {print $1}' > /tmp/yum-rollback-id.ipa-tests
 
