@@ -17,7 +17,7 @@ cp /tmp/hosts.ipa-tests /etc/hosts
 t_Log "Running $0 - Rolling back to yum history id"
 /usr/bin/yum -y history rollback $(cat /tmp/yum-rollback-id.ipa-tests) &> /dev/null
 
-rm -f /tmp/*.ipa-test
+rm -f /tmp/*.ipa-test /etc/httpd/conf.d/*
 
 else
     echo "Skipped on CentOS 5"
