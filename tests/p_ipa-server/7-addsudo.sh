@@ -2,7 +2,7 @@
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
 
-if (t_GetPkgRel basesystem | grep -q el6)
+if (t_GetPkgRel basesystem | grep -qE 'el(6|7)')
 then
 
 # Need admin credentials
@@ -60,7 +60,7 @@ t_Log "Running $0 - clearing the sssd cache"
 /sbin/service sssd stop &> /dev/null
 rm -rf /var/lib/sss/db/*
 /sbin/service sssd start &> /dev/null
-/sbin/service sssd status | grep 'is running' &> /dev/null
+/sbin/service sssd status | grep 'running' &> /dev/null
 t_CheckExitStatus $?
 
 ## Leaving a little time to settle as there seems to be a slight race condition to go right away
