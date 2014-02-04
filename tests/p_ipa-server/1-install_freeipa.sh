@@ -4,7 +4,7 @@
 
 if (t_GetPkgRel basesystem | grep -q el6)
 then
-t_Log "Running $0 - Installing packages"
+t_Log "Running $0 - Installing packages, this takes around 2-3 mins"
 t_InstallPackage ipa-server bind-dyndb-ldap libsss_sudo 
 else
     echo "Skipped on CentOS 5"

@@ -17,7 +17,7 @@ cp /tmp/hosts.ipa-tests /etc/hosts
 t_Log "Running $0 - Restoring  ntp.conf file"
 cp /tmp/ntp.conf.ipa-tests /etc/ntp.conf
 
-t_Log "Running $0 - Rolling back to yum history id"
+t_Log "Running $0 - Rolling back to yum history id - this will take some time"
 /usr/bin/yum -y history rollback $(cat /tmp/yum-rollback-id.ipa-tests) &> /dev/null
 
 rm -f /tmp/*.ipa-test /etc/httpd/conf.d/*
