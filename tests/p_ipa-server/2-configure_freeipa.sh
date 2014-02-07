@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
-if (t_GetPkgRel basesystem | grep -q el6)
+if (t_GetPkgRel basesystem | grep -qE 'el(6|7)')
 then
 
 t_Log "Running $0 - setting hostname of system"
