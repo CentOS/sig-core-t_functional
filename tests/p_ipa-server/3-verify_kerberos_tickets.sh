@@ -9,12 +9,12 @@ then
 
 t_InstallPackage expect
 
-t_Log "Running $0 - testing host kerberos principal
+t_Log "Running $0 - testing host kerberos principal"
 klist -k /etc/krb5.keytab | grep "host/c6test.c6ipa.local" &> /dev/null
 
 t_CheckExitStatus $?
 
-t_Log "Running $0 - testing admin user kerberos principal
+t_Log "Running $0 - testing admin user kerberos principal"
 
 kdestroy &> /dev/null
 
