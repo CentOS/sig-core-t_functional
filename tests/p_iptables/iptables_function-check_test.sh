@@ -4,6 +4,13 @@
 
 t_Log "Running $0 - iptables functional check - deny ping on loopback"
 
+if [ "$centos_ver" = "7" ];then
+ t_Log "CentOS $centos_ver uses firewalld and not iptables -> SKIP"
+ t_CheckExitStatus 0
+ exit 0
+fi
+
+
 ACL='INPUT -s 127.0.0.1/32 -d 127.0.0.1/32 -p icmp -m icmp -j REJECT'
 COUNT='4'
 DEADTIME='1'
