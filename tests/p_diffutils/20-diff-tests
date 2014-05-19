@@ -340,8 +340,12 @@ mv "$DIRTEST"/a/lao "$DIRTEST"/a/LAO
 echo "Checking --ignore-file-name-case"
 echo "see https://bugzilla.redhat.com/show_bug.cgi?id=719001"
 echo "If this fails then the bug has been fixed"
-diff --ignore-file-name-case "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_case
-t_CheckExitStatus $?
+if [ "$centos_ver" = "7" ];then
+  echo SKIP
+else
+ diff --ignore-file-name-case "$DIRTEST"/a "$DIRTEST"/b | cmp "$FILES"/dir_case
+ t_CheckExitStatus $?
+fi
 
 # Check the --to-file option
 echo "Checking the --to-file option against a file"
