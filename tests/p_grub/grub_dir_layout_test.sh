@@ -5,6 +5,13 @@
 
 t_Log "Running $0 -  check that grub file layout is the same with upstream."
 
+if [ "$centos_ver" = "7" ] ; then
+  t_Log "el7 comes with grub2, skipping grub test ..."
+  t_CheckExitStatus 0
+  exit 0
+fi
+
+
 ARCH=`uname -m | sed 's/i6/i3/'`
 
 [[ $( ls /usr/share/grub/ | wc -l ) -eq 1 ]] && \
