@@ -13,6 +13,7 @@ cat > $PATH2FILE/$FILE <<EOF
 Testing rsync
 EOF
 
+# Creating rsyncd config file
 cat > /etc/rsyncd.conf <<EOF
 gid = root
 uid = root
@@ -28,8 +29,11 @@ hosts allow = 127.0.0.1
  include = $FILE
 EOF
 
-t_ServiceControl xinetd restart
-
+if [ "$centos_ver" = "7" ] ; then
+ systemctl start rsyncd.service
+else
+ t_ServiceControl xinetd restart
+fi
 
 # Fix SELinux
 chcon -R -t public_content_t $PATH2FILE
@@ -39,9 +43,13 @@ rsync --recursive --verbose --include=$FILE --exclude=* rsync://127.0.0.1/centos
 
 t_CheckExitStatus $?
 
-#reversing changes
+#reverting changes
 /bin/rm $PATH2FILE/$FILE
-/bin/rm /etc/rsyncd.conf
 /bin/rm /var/log/$FILE
 
-t_ServiceControl xinetd restart
+if [ "$centos_ver" = "7" ] ; then
+ systemctl start rsyncd.service
+else
+ /bin/rm /etc/rsyncd.conf
+ t_ServiceControl xinetd restart
+fi
