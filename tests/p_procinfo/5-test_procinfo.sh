@@ -5,9 +5,8 @@
 
 t_Log "Running $0 - checking procinfo runs and returns non-zero exit status."
 
-if (t_GetPkgRel basesystem | grep -q el6)
-then
-   t_Log "It seems to be a CentOS 6.x system, this test will be disabled"
+if [ "$centos_ver" -gt "5" ] ; then
+   t_Log "It seems to be a CentOS $centos_ver system, this test will be disabled -> SKIP"
    exit 0
 else
     if [ $SKIP_QA_HARNESS  -eq 1 ]; then
