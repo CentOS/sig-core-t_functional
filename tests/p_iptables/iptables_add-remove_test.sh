@@ -2,6 +2,14 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - verify iptables can insert and delete rules"
+
+if [ "$centos_ver" = "7" ];then
+ t_Log "CentOS $centos_ver uses firewalld and not iptables -> SKIP"
+ t_CheckExitStatus 0
+ exit 0
+fi
+
+
 ACL='INPUT -s 1.2.3.4/32 -d 5.6.7.8/32 -p tcp -m tcp --dport 22 -j ACCEPT'
 FILE=/var/tmp/iptables_acl
 

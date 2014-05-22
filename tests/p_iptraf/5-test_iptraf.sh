@@ -11,12 +11,16 @@ trap "[ -e ${TMP} ] && { /bin/rm ${TMP}; }" EXIT
 # iptraf only be run by root
 [ ${EUID} -eq 0 ] || { t_Log "Not running as root, skipping this test. Non-fatal."; exit $PASS; }
 
-IPTRAF=`which iptraf`
+if [ "$centos_ver" = "7" ] ; then
+ IPTRAF=`which iptraf-ng`
+else
+ IPTRAF=`which iptraf`
+fi
 PING=`which ping`
 STAT=`which stat`
 KILL=`which kill`
 
-[ "$IPTRAF" ] || { t_log "Failed to find iptraf binary. That ain't good..."; exit $FAIL; }
+[ "$IPTRAF" ] || { t_Log "Failed to find iptraf binary. That ain't good..."; exit $FAIL; }
 [ "$PING" ] || { t_Log "Failed to find the ping binary. That ain't good..."; exit $FAIL; }
 [ "$STAT" ] || { t_Log "Failed to find the stat binary. That ain't good..."; exit $FAIL; }
 [ "$KILL" ] || { t_Log "Failed to find the kill binary. That ain't good..."; exit $FAIL; }
@@ -31,8 +35,13 @@ ${PING} -c 5 127.0.0.1 &>/dev/null
 LOGSIZE=`stat -c '%s' ${TMP}`
 
 # kill iptraf
-${KILL} -USR2 `pidof iptraf`
+${KILL} -USR2 `pidof $IPTRAF`
 
 # confirm our iptraf log file has something in it
-[ ${LOGSIZE} -gt 0 ] || { t_Log "iptraf failed to log any traffic?!. That ain't good..."; exit $FAIL; }
+if [ ${LOGSIZE} -gt 0 ] ; then
+  t_CheckExitStatus 0
+else
+  t_Log "iptraf failed to log any traffic?!. That ain't good..."
+  t_CheckExitStatus 1
+fi
 

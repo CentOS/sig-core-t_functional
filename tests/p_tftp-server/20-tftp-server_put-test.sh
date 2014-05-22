@@ -5,17 +5,13 @@
 
 t_Log "Running $0 - tftp-server put file test."
 
-dist=$(t_DistCheck)
-
-if [ "$dist" = "6" ]; then
-        setsebool tftp_anon_write 1
-        TFTP_DIR=/var/lib/tftpboot
-elif [ "$dist" = "5" ]; then
-        setsebool allow_tftp_anon_write 1
-        chcon -R -t tftpdir_rw_t /tftpboot/
-        TFTP_DIR=/tftpboot
+if [ "$centos_ver" -gt "5" ]; then
+  setsebool tftp_anon_write 1
+  TFTP_DIR=/var/lib/tftpboot
 else
-        TFTP_DIR=/tftpboot
+  setsebool allow_tftp_anon_write 1
+  chcon -R -t tftpdir_rw_t /tftpboot/
+  TFTP_DIR=/tftpboot
 fi
 
 

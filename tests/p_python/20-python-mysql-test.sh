@@ -6,13 +6,19 @@ t_Log "Running $0 - python can retrieve mysql-server version information."
 
 # we need a working and running mysql server
 # starting with 5.10, we have to differ between mysql55 and mysql
-if [ $centos_ver = 5 ]
-then
-  t_InstallPackage mysql55-mysql-server mysql-server
+
+if [ "$centos_ver" = "7" ] ; then
+  my_packages="mariadb mariadb-server nc"
+  mysql_service="mariadb"
+elif [ "$centos_ver" = "5" ] ;then
+  my_packages="mysql mysql-server nc mysql55-mysql-server"
+  mysql_service="mysqld"
 else
-  t_InstallPackage mysql-server
+  my_packages="mysql mysql-server nc"
+  mysql_service="mysqld"
 fi
-t_ServiceControl mysqld start >/dev/null 2>&1
+
+t_ServiceControl ${mysql_service} start >/dev/null 2>&1
 
 # Installing additional python/mysql module
 t_InstallPackage MySQL-python

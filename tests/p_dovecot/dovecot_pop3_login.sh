@@ -11,7 +11,16 @@ mkdir -m 700 -p /home/pop3test/mail/.imap/INBOX
 chown -R pop3test:pop3test /home/pop3test/mail/.imap/INBOX
 
 t_Log "Dovecot POP3 login test"
-echo -e "user pop3test\npass pop3test\n" | nc -w 5 localhost 110 | grep -q "+OK Logged in."
+# EL7 comes with nmap-nc , different from nc so different options to use
+
+if [ "$centos_ver" = "7" ];then
+ nc_options="-d 3 -w 5"
+else
+ nc_options="-i 3 -w 5"
+fi
+
+
+echo -e "user pop3test\npass pop3test\n" | nc ${nc_options} localhost 110 | grep -q "+OK Logged in."
 
 t_CheckExitStatus $?
 

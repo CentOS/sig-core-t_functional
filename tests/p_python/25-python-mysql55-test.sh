@@ -6,6 +6,7 @@ t_Log "Running $0 - python can retrieve mysql55-mysql-server version information
 
 # we need a working and running mysql server
 # starting with 5.10, we have to differ between mysql55 and mysql
+
 if [ $centos_ver = 5 ]
 then
   t_ServiceControl mysqld stop

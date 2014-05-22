@@ -3,8 +3,7 @@
 
 t_Log "Running $0 - tftp-server get file test."
 
-if (t_GetPkgRel basesystem | grep -q el6)
-then
+if [ "$centos_ver" -gt "5" ] ; then
   TFTP_DIR=/var/lib/tftpboot
 else
   TFTP_DIR=/tftpboot

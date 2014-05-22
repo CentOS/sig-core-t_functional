@@ -8,9 +8,8 @@
 t_Log "Running $0 - Check version of irb."
 
 #allready prepared just in case versions should change between C5 and C6
-if [ $centos_ver = 5 ]
-  then
-  irb -v | grep -q '0.9.5'
+if [ "$centos_ver" = "7" ] ; then
+  irb -v | grep -q '0.9.6'
   ret_val=$?
 else
   irb -v | grep -q '0.9.5'
