@@ -56,6 +56,9 @@ if (t_GetPkgRel basesystem | grep -qE 'el(6|7)')
   yum remove -d0 -y tomcat ipa-server >/dev/null 2>&1
   /bin/rm -Rf /var/lib/pki/pki-tomcat/ /etc/sysconfig/pki-tomcat /var/log/pki/pki-tomcat /etc/pki/pki-tomcat /etc/sysconfig/pki/tomcat/pki-tomcat
 
+  t_Log "Running $0 - Backing up ssh_config"
+  cp /etc/ssh/ssh_config /etc/ssh/ssh_config.ipa-tests
+
 else
     echo "Skipped on CentOS 5"
 fi
