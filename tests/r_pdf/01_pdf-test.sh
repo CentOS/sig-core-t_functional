@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - Create PDF from postscript from text, and convert PDF back to text and check contents"
 
-FILE=/etc/centos-release
+FILE=/etc/redhat-release
 FIND='CentOS'
 PS_FILE=/var/tmp/test.ps
 PDF_FILE=/var/tmp/test.pdf
