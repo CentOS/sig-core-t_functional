@@ -4,14 +4,14 @@
 
 t_Log "Running $0 - TCPdump test to Default-GW with IPv4"
 
-# Grabing Default-Router of eth0
+# Grabing Default-Router if NIC
 IP=$(ip route list default | grep 'default via ')
 regex='.*via\ (.*)\ dev.*'
 if [[ $IP =~ $regex ]]
   then
   t_Log "Found Default-GW - starting tcpdump test"
-  #Dumping 4 pings via eth0 to file
-  FILE='/var/tmp/eth0_test.pcap'
+  #Dumping 4 pings via NIC to file
+  FILE='/var/tmp/nic_test.pcap'
   COUNT='4'
   tcpdump -q -n -p -w $FILE &
   # If we don't wait a short time, the first paket will be missed by tcpdump
