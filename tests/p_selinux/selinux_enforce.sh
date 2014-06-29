@@ -3,9 +3,16 @@
 
 t_Log "Running $0 - check if SELinux is in enforcing mode"
 
-if [ $SKIP_QA_HARNESS -eq 1 ]; then
+if [ "$centos_ver" = "7" ] ; then
+  selinux_file=/sys/fs/selinux/enforce
+else
+  selinux_file=/selinux/enforce
+fi
+
+if [ "$SKIP_QA_HARNESS" = "1" ] ; then
     echo "Skipping this test ..."
 else
-    cat /selinux/enforce | grep 1  > /dev/null 2>&1
+    cat $selinux_file | grep 1  > /dev/null 2>&1
     t_CheckExitStatus $?
 fi
+
