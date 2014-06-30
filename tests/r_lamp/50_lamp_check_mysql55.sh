@@ -8,6 +8,13 @@
 # Description: A simple Bash script to start LAMP daemons (httpd, mysqld), and confirm PHP is working.
 
 # starting with 5.10, we have to differ between mysql55 and mysql
+
+if [ "$centos_ver" = "7" ] ; then
+  t_Log "no mysql55 on CentOS 5 ... SKIP"
+  exit 0
+fi
+
+
 if [ $centos_ver = 5 ]
 then
   readonly DAEMONS=( httpd mysql55-mysqld )

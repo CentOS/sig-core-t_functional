@@ -7,7 +7,11 @@
 # Last Updated: Saturday, 09 November 2013 2:23
 # Description: A simple Bash script to start LAMP daemons (httpd, mysqld), and confirm PHP is working.
 
-readonly DAEMONS=( httpd mysqld )
+if [ "$centos_ver" = "7" ] ; then
+  readonly DAEMONS=( httpd mariadb )
+else
+ readonly DAEMONS=( httpd mysqld )
+fi
 
 readonly SERVICE=/sbin/service
 readonly PHP_BIN=/usr/bin/php
@@ -21,29 +25,7 @@ t_Log "Running $0 - starting LAMP daemon startup test"
 # Iterate through our daemons, start each and check for the presence of each process
 for D in "${DAEMONS[@]}"
 do
-        t_Log "Attempting startup of '$D'"
-
-        $SERVICE $D start &>/dev/null
-
-        RETVAL=$?
-
-        if [ $RETVAL -ne 0 ]; then
-
-                t_Log "FAIL: service startup for '$D' failed ($RETVAL)"
-                exit $FAIL
-
-        fi
-
-        # See if our process exists
-        PIDS=$(pidof $D)
-
-        if [ -z "$PIDS" ]; then
-
-                t_Log "FAIL: couldn't find '$D' in the process list."
-                exit $FAIL
-        fi
-
-        echo "OK"
+  t_ServiceControl $D restart
 done
 
 # Finally, a basic check to see if PHP is working correctly.
@@ -56,9 +38,10 @@ return phpinfo();
 ?>
 EOL
 
-RETVAL=$PHP_BIN $PHP_CHECK &>/dev/null
+$PHP_BIN $PHP_CHECK &>/dev/null
+RETVAL="$?"
 
-if [ $RETVAL -ne 0 ]; then
+if [ "$RETVAL" -ne "0" ]; then
 
         t_Log "FAIL: php_info() check failed ($RETVAL)"
 
