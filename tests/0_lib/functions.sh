@@ -114,6 +114,20 @@ function t_GetArch
 	rpm -q --queryformat '%{arch}\n' centos-release
 }
 
+function t_CheckForPort
+{
+        while true
+        do
+        sleep 1
+          >/dev/null 2>&1 >/dev/tcp/localhost/$1
+        if [ "$?" = "0" ] ; then
+          t_Log "Waiting for tcp port $1 to be listening ..."
+          break
+        fi
+        done
+
+}
+
 function t_Assert
 {
  $@ >/dev/null 2>&1
@@ -136,6 +150,7 @@ export -f t_GetPkgRel
 export -f t_DistCheck
 export -f t_GetPkgVer
 export -f t_GetArch
+export -f t_CheckForPort
 export -f t_Assert
 export -f t_Assert_Equals
 export centos_ver
