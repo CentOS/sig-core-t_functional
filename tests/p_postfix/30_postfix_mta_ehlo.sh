@@ -3,14 +3,8 @@
 
 t_Log "Running $0 - postfix can accept and deliver local email using ESMTP."
 
-MAILSPOOL=/var/spool/mail/root
-
-# make shure spool file is empty
-cat /dev/null > $MAILSPOOL
-ret_val=1
-
 # send mail to localhost
-echo -e "ehlo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep -q "250 2.0.0"
+mail=$(echo -e "ehlo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep queued)
 if [ $? = 0 ]
   then
   t_Log 'Mail has been queued successfully'
@@ -18,17 +12,17 @@ if [ $? = 0 ]
 fi
 
 sleep 1
-grep -q 't_functional test' $MAILSPOOL
-if [ $? = 0 ]
+regex='250\ 2\.0\.0\ Ok\:\ queued\ as\ ([0-9A-Z]*).*'
+if [[ $mail =~ $regex ]]
   then
-  t_Log 'previously sent mail is in '$MAILSPOOL
-  SPOOLFILE=0
+  grep -q "${BASH_REMATCH[1]}: removed" /var/log/maillog
+  DELIVERED=$?
 fi
 
-if ([ $MTA_ACCEPT = 0  ] && [ $SPOOLFILE = 0 ])
+if ([ $MTA_ACCEPT = 0  ] && [ $DELIVERED = 0 ])
   then
   ret_val=0
+  t_Log 'Mail has been delivered and removed from queue.'
 fi
 
 t_CheckExitStatus $ret_val
-
