@@ -19,7 +19,7 @@ if [[ $mail =~ $regex ]]
   DELIVERED=$?
 fi
 
-if ([ $MTA_ACCEPT = 0  ] && [ $DELIVERED = 0 ])
+if ([ $MTA_ACCEPT == 0  ] && [ $DELIVERED == 0 ])
   then
   ret_val=0
   t_Log 'Mail has been delivered and removed from queue.'
