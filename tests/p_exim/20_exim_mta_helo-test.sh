@@ -7,8 +7,11 @@ if [ $centos_ver == '5' ]
   then
   ret_val=1
 
+  # create user for local delivery
+  useradd eximtest
+
   # send mail to localhost
-  mail=$(echo -e "helo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep "250 OK")
+  mail=$(./tests/p_exim/_helper_exim_helo.expect | grep "250 OK")
   MTA_ACCEPT=$?
   if [ $MTA_ACCEPT == 0 ]
     then
@@ -18,11 +21,11 @@ if [ $centos_ver == '5' ]
   regex='250\ OK\ id\=([0-9A-Za-z-]*)'
   if [[ $mail =~ $regex ]]
     then
-    grep -q "${BASH_REMATCH[1]}: removed" /var/log/exim/main.log
+    grep -q "${BASH_REMATCH[1]} Completed" /var/log/exim/main.log
     DELIVERED=$?
   fi
 
-  if ([ $MTA_ACCEPT == 0  ] && [ $SPOOLFILE == 0 ])
+  if ([ $MTA_ACCEPT == 0  ] && [ $DELIVERED == 0 ])
     then
     ret_val=0
   fi
