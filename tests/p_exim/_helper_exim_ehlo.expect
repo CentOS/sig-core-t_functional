@@ -8,6 +8,6 @@ send -- "ehlo localhost\n"
 expect -- "250-PIPELINING"
 sleep 1
 send -- "mail from: root@localhost\nrcpt to: eximtest@localhost\ndata\nt_functional test\n.\n"
-expect -- "250\ OK"
+expect -- "250\ OK*"
 send -- "quit\n"
 expect "221*closing\ connection"
