@@ -1,5 +1,5 @@
 #!/usr/bin/expect -f
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+# Author: Christoph Galuschka <tigalch@tigalch.org>
 
 set timeout 1
 spawn telnet localhost 25
