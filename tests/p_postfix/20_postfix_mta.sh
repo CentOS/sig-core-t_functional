@@ -5,10 +5,10 @@ t_Log "Running $0 - postfix can accept and deliver local email."
 
 # send mail to localhost
 mail=$(echo -e "helo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep queued)
-if [ $? = 0 ]
+MTA_ACCEPT=$?
+if [ $MTA_ACCEPT == 0 ]
   then
   t_Log 'Mail has been queued successfully'
-  MTA_ACCEPT=0
 fi
 
 sleep 1
