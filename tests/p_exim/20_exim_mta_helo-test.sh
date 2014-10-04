@@ -21,6 +21,7 @@ if [ $centos_ver == '5' ]
   regex='250\ OK\ id\=([0-9A-Za-z-]*)'
   if [[ $mail =~ $regex ]]
     then
+    sleep 1
     grep -q "${BASH_REMATCH[1]} Completed" /var/log/exim/main.log
     DELIVERED=$?
   fi
