@@ -4,30 +4,26 @@
 t_Log "Running $0 - exim can accept and deliver local email."
 
 if [ $centos_ver == '5' ]
-  then
-  MAILSPOOL=/var/spool/exim/input/
-
-  # make shure spool dir is empty
-  rm -rf $MAILSPOOL*
   ret_val=1
 
   # send mail to localhost
-  ./tests/p_exim/_helper_exim_helo.expect | grep -q "250 OK"
-  if [ $? = 0 ]
+  mail=$(echo -e "helo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep "250 OK")
+  MTA_ACCEPT=$?
+  if [ $MTA_ACCEPT == 0 ]
     then
     t_Log 'Mail has been queued successfully'
-    MTA_ACCEPT=0
   fi
 
-  sleep 5
-  grep -q 't_functional test' $MAILSPOOL*
-  if [ $? = 0 ]
+250 OK id=1XaR7Q-0005D8-Cm
+
+  regex='250\ OK\ id\=([0-9A-Za-z-]*)'
+  if [[ $mail =~ $regex ]]
     then
-    t_Log 'previously sent mail is in '$MAILSPOOL'*'
-    SPOOLFILE=0
+    grep -q "${BASH_REMATCH[1]}: removed" /var/log/exim/main.log
+    DELIVERED=$?
   fi
 
-  if ([ $MTA_ACCEPT = 0  ] && [ $SPOOLFILE = 0 ])
+  if ([ $MTA_ACCEPT == 0  ] && [ $SPOOLFILE == 0 ])
     then
     ret_val=0
   fi
