@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -x
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 
 t_Log "Running $0 - exim can accept and deliver local email."
