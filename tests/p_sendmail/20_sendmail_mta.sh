@@ -2,6 +2,7 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - sendmail can accept and deliver local email."
+ret_val=1
 
 # send mail to localhost
 mail=$(echo -e "helo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep accepted)
