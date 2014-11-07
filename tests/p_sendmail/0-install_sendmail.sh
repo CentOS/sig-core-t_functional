@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - remove unused MTAs and install sendmail"
 
-t_InstallPackage sendmail
+t_InstallPackage sendmail nc
 
 # Remove other MTAs
 t_ServiceControl postfix stop
