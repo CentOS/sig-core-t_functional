@@ -5,7 +5,7 @@ t_Log "Running $0 - postfix can accept and deliver local email using ESMTP."
 ret_val=1
 
 # send mail to localhost
-mail=$(echo -e "ehlo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 localhost 25 | grep queued)
+mail=$(echo -e "ehlo localhost\nmail from: root@localhost\nrcpt to: root@localhost\ndata\nt_functional test\n.\nquit\n" | nc -w 5 127.0.0.1 25 | grep queued)
 MTA_ACCEPT=$?
 if [ $MTA_ACCEPT == 0 ]
   then

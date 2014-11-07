@@ -156,7 +156,7 @@ t_ServiceControl dovecot restart
 
 #Running test
 t_Log "Testing if postfix accepts connections and offers STARTTLS"
-echo "ehlo test" | nc -w 3 localhost 25 | grep -q 'STARTTLS'
+echo "ehlo test" | nc -w 3 127.0.0.1 25 | grep -q 'STARTTLS'
 ret_val=$?
 
 # restoring changed files
