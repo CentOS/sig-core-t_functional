@@ -18,7 +18,7 @@ spawn kinit admin
 sleep 1
 expect "Password for admin@C6IPA.LOCAL:"
 send -h "p455w0rd\r"
-sleep 1
+sleep 5
 close
 EOF
 
@@ -67,7 +67,7 @@ send -h -- "newp455w0rd\r"
 sleep 1
 expect "Enter it again: "
 send -h -- "newp455w0rd\r"
-sleep 1
+sleep 5
 close
 EOF
 
