@@ -12,7 +12,7 @@ klist 2>&1  | grep "No credentials" &> /dev/null
 
 t_CheckExitStatus $?
 
-expect -f - &> /dev/null <<EOF
+expect -f - <<EOF
 set send_human {.1 .3 1 .05 2}
 spawn kinit admin
 sleep 1
@@ -55,7 +55,7 @@ t_CheckExitStatus $?
 t_Log "Running $0 - testing initial password change of user"
 kdestroy &> /dev/null
 
-expect -f - &> /dev/null  <<EOF
+expect -f -  <<EOF
 set send_human {.1 .3 1 .05 2}
 spawn kinit ipatestuser
 sleep 1
@@ -70,6 +70,19 @@ send -h -- "newp455w0rd\r"
 sleep 1
 close
 EOF
+
+# Change in behaviour appears from C6.5 to C6.6 and kinit with expiry no longer results in kerberos ticket right away
+
+expect -f - <<EOF
+set send_human {.1 .3 1 .05 2}
+spawn kinit ipatestuser
+sleep 1
+expect "Password for ipatestuser@C6IPA.LOCAL:"
+send -h "newp455w0rd\r"
+sleep 1
+close
+EOF
+
 
 klist | grep "ipatestuser@C6IPA.LOCAL" &> /dev/null
 

@@ -12,7 +12,7 @@ klist 2>&1  | grep "No credentials" &> /dev/null
 
 t_CheckExitStatus $?
 
-expect -f - &> /dev/null <<EOF
+expect -f - <<EOF
 set send_human {.1 .3 1 .05 2}
 spawn kinit admin
 sleep 1
@@ -50,11 +50,6 @@ echo "$sudodetails" | grep 'RunAs Group category: all' &> /dev/null
 t_CheckExitStatus $?
 echo "$sudodetails" | grep 'Users: ipatestuser' &> /dev/null
 t_CheckExitStatus $?
-
-t_Log "Running $0 - test adding sudo configuration"
-echo "sudoers: files sss" >> /etc/nsswitch.conf
-sed -i 's/services = nss, pam, ssh/services = nss, pam, ssh, sudo/' /etc/sssd/sssd.conf
-sed -i 's/id_provider = ipa/id_provider = ipa\nsudo_provider = ldap\nldap_sudo_search_base = ou=sudoers,dc=c6ipa,dc=local\nldap_sasl_mech = GSSAPI/' /etc/sssd/sssd.conf
 
 t_Log "Running $0 - clearing the sssd cache"
 /sbin/service sssd stop &> /dev/null
