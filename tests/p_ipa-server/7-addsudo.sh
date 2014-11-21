@@ -56,7 +56,7 @@ if t_GetPkgRel basesystem | grep -q el7
 then
 t_Log "Running $0 - test adding sudo configuration"
 echo "sudoers: files sss" >> /etc/nsswitch.conf
-sed -i 's/services = nss, pam, ssh/services = nss, pam, ssh, sudo/' /etc/sssd/s
+sed -i 's/services = nss, pam, ssh/services = nss, pam, ssh, sudo/' /etc/sssd/sssd.conf
 sed -i 's/id_provider = ipa/id_provider = ipa\nsudo_provider = ldap\nldap_sudo_search_base = ou=sudoers,dc=c6ipa,dc=local\nldap_sasl_mech = GSSAPI/' /etc/sssd/sssd.conf
 fi
 
