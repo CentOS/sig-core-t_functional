@@ -4,7 +4,7 @@ set dir [lindex $argv 0]
 
 spawn report-cli -e report_CentOSBugTracker $dir
 
-set timeout 10
+set timeout 100
 
 # timeout handler
 proc itstime {args} {

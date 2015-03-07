@@ -6,11 +6,12 @@ source $TEST_DIR/_lib.sh
 source $TEST_DIR/_CentOSBugTracker.conf
 
 # run only on centos 7 or greater
-[[ $centos_ver -lt 7 ]] && exit
+[[ $centos_ver -lt 7 ]] && exit 0
 
 t_Log "Running $0 - test reporting to CentOS Bug Tracker"
 
 conf_file="/etc/libreport/events/report_CentOSBugTracker.conf"
+abrt_action_conf_file="/etc/abrt/abrt-action-save-package-data.conf"
 
 cat > /etc/libreport/events.d/test_event.conf << _EOF_
 EVENT=notify
@@ -68,6 +69,7 @@ function generate_crash()
 function set_configuration()
 {
     conf_file_original=`cat $conf_file`
+    abrt_action_conf_file_original=`cat $abrt_action_conf_file`
 
     cat > $conf_file << EOF
 Mantisbt_MantisbtURL = $URL
@@ -75,11 +77,20 @@ Mantisbt_Login = $LOGIN
 Mantisbt_Password = $PASSWORD
 Mantisbt_SSLVerify = $SSLVERIFY
 EOF
+
+    cat > $abrt_action_conf_file << EOF
+penGPGCheck = no
+BlackList = nspluginwrapper, valgrind, strace, mono-core
+ProcessUnpackaged = no
+BlackListedPaths = /usr/share/doc/*, */example*, /usr/bin/nspluginviewer, /usr/lib/xulrunner-*/plugin-container
+Interpreters = python2, python2.7, python, python3, python3.3, perl, perl5.16.2
+EOF
 }
 
 function restore_configuration()
 {
     echo $conf_file_original > $conf_file
+    echo $abrt_action_conf_file_original > $abrt_action_conf_file
 }
 
 rlJournalStart
@@ -88,6 +99,9 @@ rlJournalStart
         export LANG
 
         check_prior_crashes
+
+        systemctl start abrtd
+        systemctl start abrt-ccpp
 
         orig_editor=`echo $EDITOR`
         export EDITOR=cat
@@ -146,14 +160,14 @@ rlJournalStart
 
         data="<?xml version=\"1.0\" encoding=\"UTF-8\"?><SOAP-ENV:Envelope xmlns:ns3=\"http://futureware.biz/mantisconnect\" xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:ns0=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:ns1=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ns2=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><SOAP-ENV:Header/><ns1:Body><ns3:mc_issue_get><username xsi:type=\"ns2:string\">$LOGIN</username><password xsi:type=\"ns2:string\">$PASSWORD</password><issue_id xsi:type=\"ns2:integer\">$issue_id</issue_id></ns3:mc_issue_get></ns1:Body></SOAP-ENV:Envelope>"
 
-        curl --data "$data" $URL"/api/soap/mantisconnect.php" > curl.log
+        curl --data "$data" -H "Content-Type:text/xml" $URL"/api/soap/mantisconnect.php" > curl.log
         rlAssertGrep "<summary xsi:type=\"xsd:string\">\[abrt\]" curl.log
         rlAssertGrep "I am comment. abrt-cli testing" curl.log
         rlAssertGrep "AttachmentData\[[0-9]*\]" curl.log -e
         rlAssertNotGrep "AttachmentData\[0\]" curl.log
         rlAssertGrep "CustomFieldValueForIssueData\[[0-9]*\]" curl.log -e
         rlAssertNotGrep "CustomFieldValueForIssueData\[0\]" curl.log
-        rlAssertGrep "<notes SOAP-ENC:arrayType=\"ns1:IssueNoteData\[1\]\"" curl.log
+        rlAssertGrep "IssueNoteData\[1\]\"" curl.log
 
     rlPhaseEnd
 
