@@ -24,10 +24,18 @@
 TEST_DIR="tests/p_abrt-cli"
 source $TEST_DIR/_lib.sh
 
+t_Log "Running $0 - reporter-mantisbt test suite"
+
+# testing if bugs-test.centos.org is reachable for that test ..
+curl --silent -I http://bugs-test.centos.org/my_view_page.php|grep -q "HTTP/1.1 200 OK"
+if [ "$?" -ne "0" ];then
+  t_Log "Mantis test instance doesn't seem reachable ... SKIP"
+  exit 0
+fi
+
 # run only on centos 7 or greater
 [[ $centos_ver -lt 7 ]] && exit
 
-t_Log "Running $0 - reporter-mantisbt test suite"
 
 rlJournalStart
     rlPhaseStartSetup
