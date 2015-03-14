@@ -4,12 +4,10 @@
 # NFS
 t_InstallPackage nfs-utils
 
-
-if (t_GetPkgRel basesystem | grep -q el6)
-then
-   t_ServiceControl rpcbind restart
+if [ "$centos_ver" = "5" ] ; then
+   t_serviceControl portmap restart
 else
-   t_ServiceControl portmap restart
+   t_ServiceControl rpcbind restart
 fi
 
 # Restart because usualy NFS is enabled by default on CentOS-5
