@@ -51,15 +51,6 @@ t_CheckExitStatus $?
 echo "$sudodetails" | grep 'Users: ipatestuser' &> /dev/null
 t_CheckExitStatus $?
 
-# EL6.6 auto configures sudo but 7 does not
-if t_GetPkgRel basesystem | grep -q el7 
-then
-t_Log "Running $0 - test adding sudo configuration"
-echo "sudoers: files sss" >> /etc/nsswitch.conf
-sed -i 's/services = nss, pam, ssh/services = nss, pam, ssh, sudo/' /etc/sssd/sssd.conf
-sed -i 's/id_provider = ipa/id_provider = ipa\nsudo_provider = ldap\nldap_sudo_search_base = ou=sudoers,dc=c6ipa,dc=local\nldap_sasl_mech = GSSAPI/' /etc/sssd/sssd.conf
-fi
-
 t_Log "Running $0 - clearing the sssd cache"
 /sbin/service sssd stop &> /dev/null
 rm -rf /var/lib/sss/db/*

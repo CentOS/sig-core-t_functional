@@ -8,7 +8,7 @@ then
 # Need admin credentials
 kdestroy &> /dev/null
 
-klist 2>&1  | grep "No credentials" &> /dev/null
+klist 2>&1  | grep -E "(No credentials|Credentials cache .* not found)" &> /dev/null
 
 t_CheckExitStatus $?
 

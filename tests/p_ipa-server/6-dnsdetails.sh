@@ -8,7 +8,7 @@ then
 # Need admin credentials
 kdestroy &> /dev/null
 
-klist 2>&1  | grep "No credentials" &> /dev/null
+klist 2>&1  | grep -E "(No credentials|Credentials cache .* not found)" &> /dev/null
 
 t_CheckExitStatus $?
 
@@ -66,7 +66,7 @@ t_Log "Running $0 - Regression test of RHBA-2103-0739"
 for i in {1..30}
 do
 service named reload &> /dev/null
-service named status &> /dev/null || t_CheckExitStatus $?
+service named status | grep running &> /dev/null || t_CheckExitStatus $?
 sleep 1
 done
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
 
@@ -18,7 +18,7 @@ t_Log "Running $0 - testing admin user kerberos principal"
 
 kdestroy &> /dev/null
 
-klist 2>&1  | grep "No credentials" &> /dev/null
+klist 2>&1  | grep -E "(No credentials|Credentials cache .* not found)" &> /dev/null
 
 t_CheckExitStatus $?
 
