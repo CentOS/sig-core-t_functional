@@ -8,7 +8,7 @@ then
 # Need admin credentials
 kdestroy &> /dev/null
 
-klist 2>&1  | grep "No credentials" &> /dev/null
+klist 2>&1  | grep -E "(No credentials|Credentials cache .* not found)" &> /dev/null
 
 t_CheckExitStatus $?
 
@@ -71,14 +71,16 @@ expect "root@c6test ~\]# "
 send -- "su - ipatestuser\r"
 expect "sh-4.1\$ "
 send -- "sudo -l\r"
+sleep 5
 expect "password for ipatestuser: "
 send -- "newp455w0rd\r"
-expect  "(ALL) ALL\r"
+sleep 2
+expect  "ALL) ALL\r"
 EOF
 
 grep 'testuser may run the following commands' /tmp/sudotestoutput.ipa-test &> /dev/null
 t_CheckExitStatus $?
-grep '(ALL) ALL' /tmp/sudotestoutput.ipa-test &> /dev/null
+grep 'ALL) ALL' /tmp/sudotestoutput.ipa-test &> /dev/null
 t_CheckExitStatus $?
 
 else

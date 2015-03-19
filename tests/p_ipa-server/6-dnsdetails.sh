@@ -26,17 +26,26 @@ klist | grep "admin@C6IPA.LOCAL" &> /dev/null
 
 t_CheckExitStatus $?
 
+#There's an element of asynchronous behaviour we've seen here
+#Sleeping after the IPA commands to give time for changes to 
+#happen and named to notice through the bind-dyndb-ldap backend
+
 #Add zone
 t_Log "Running $0 - Adding a subdomain 'testzone'"
 ipa dnszone-add --name-server=c6test.c6ipa.local. --admin-email=hostmaster.testzone.c6ipa.local. testzone.c6ipa.local &> /dev/null
 t_CheckExitStatus $?
+sleep 5
 
 #Can get SOA for new zone from DNS
+t_Log "Running $0 - Can retrieve SOA for 'testzone'"
+dig @localhost -t SOA testzone.c6ipa.local | grep "status: NOERROR" &> /dev/null
+t_CheckExitStatus $?
 
 #Add record to standard zone
 t_Log "Running $0 - Adding a testrecord to main domain"
 ipa dnsrecord-add c6ipa.local testrecord --cname-hostname=c6test &> /dev/null
 t_CheckExitStatus $?
+sleep 5
 
 #Can get record from DNS
 t_Log "Running $0 - Testing can retrieve record"
@@ -47,6 +56,7 @@ t_CheckExitStatus $?
 t_Log "Running $0 - Adding a testrecord to subdomain"
 ipa dnsrecord-add testzone.c6ipa.local testrecord --cname-hostname=c6test.c6ipa.local. &> /dev/null
 t_CheckExitStatus $?
+sleep 5
 
 #Can get record from DNS for new zone
 t_Log "Running $0 - Testing can retrieve record from subdomain"
@@ -69,8 +79,6 @@ service named reload &> /dev/null
 service named status | grep running &> /dev/null || t_CheckExitStatus $?
 sleep 1
 done
-
-t_CheckExitStatus $?
 
 else
     echo "Skipped on CentOS 5"

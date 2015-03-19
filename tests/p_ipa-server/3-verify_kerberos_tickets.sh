@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
 
