@@ -87,7 +87,7 @@ Mantisbt_SSLVerify = $SSLVERIFY
 EOF
 
     cat > $abrt_action_conf_file << EOF
-penGPGCheck = no
+OpenGPGCheck = no
 BlackList = nspluginwrapper, valgrind, strace, mono-core
 ProcessUnpackaged = no
 BlackListedPaths = /usr/share/doc/*, */example*, /usr/bin/nspluginviewer, /usr/lib/xulrunner-*/plugin-container
