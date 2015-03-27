@@ -3,4 +3,5 @@
 
 t_Log "Running $0 -  install package tcpdump"
 t_InstallPackage tcpdump
+t_InstallPackage psmisc
 
