@@ -6,7 +6,7 @@ t_Log "Running $0 - remove unused MTAs and install exim"
 
 if (t_GetPkgRel basesystem | grep -q el5)
 then
-  t_InstallPackage exim expect
+  t_InstallPackage exim expect telnet
   # Remove other MTAs
   t_ServiceControl postfix stop
   t_ServiceControl sendmail stop
