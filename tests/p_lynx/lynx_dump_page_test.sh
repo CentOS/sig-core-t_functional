@@ -4,8 +4,8 @@
 t_Log "Running $0 - check that lynx can dump remote page."
 
 if [ "$SKIP_QA_HARNESS" = "1" ] ; then
-  URL="http://ci.dev.centos.org/cstatic/"
-  CHECK_FOR="CentOS CI test page"
+  URL="http://www.centos.org/"
+  CHECK_FOR="The CentOS Project"
 else
   URL="http://repo.centos.qa/qa/"
   CHECK_FOR="ks_cfg"
