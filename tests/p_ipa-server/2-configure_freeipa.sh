@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: James Hogarth <james.hogarth@gmail.com>
 #
-if (t_GetPkgRel basesystem | grep -qE 'el(6|7)')
+if (t_GetPkgRel basesystem | grep -qE 'el(6|7)') && !(t_GetArch | grep -qE 'aarch64')
   then
 
   t_Log "Running $0 - setting hostname of system"
@@ -34,6 +34,6 @@ if (t_GetPkgRel basesystem | grep -qE 'el(6|7)')
   fi
 
 else
-  echo "Skipped on CentOS 5"
+  echo "Skipped on CentOS 5 and AArch64"
 fi
 
