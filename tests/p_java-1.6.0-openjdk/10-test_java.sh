@@ -1,6 +1,12 @@
 #!/bin/sh
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
+if (t_GetArch | grep -qE 'aarch64')
+  then
+  echo "Package not included with AArch64, skipping"
+  exit 0
+fi
+
 t_Log "Running $0 - javac can compile and java can print 'hello centos'"
 
 # creating source file
