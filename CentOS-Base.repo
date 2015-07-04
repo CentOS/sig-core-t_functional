@@ -48,6 +48,16 @@ repo_gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever
 
+#cr
+[cr]
+name=CentOS-$releasever - CR
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=cr
+baseurl=http://mirror.centos.org/centos/$releasever/cr/$basearch/
+gpgcheck=1
+repo_gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever
+
 #fasttrack
 [fasttrack]
 name=CentOS-$releasever - Fasttrack
