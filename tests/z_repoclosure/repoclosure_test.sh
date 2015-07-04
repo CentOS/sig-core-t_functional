@@ -3,9 +3,9 @@
 
 t_Log "Running $0 -  repoclosure test ."
 
-if [ $SKIP_QA_HARNESS -eq 1 ]; then
-    t_Log "Skip this test in non QA harness environment"
-else
+#if [ $SKIP_QA_HARNESS -eq 1 ]; then
+#    t_Log "Skip this test in non QA harness environment"
+#else
 
     t_InstallPackage yum-utils
 
@@ -23,4 +23,4 @@ else
     [ $ret_val -eq 1 ] && cat /tmp/repoclosure.log
 
     t_CheckExitStatus $ret_val
-fi
+#fi
