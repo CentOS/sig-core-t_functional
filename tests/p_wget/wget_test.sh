@@ -7,8 +7,8 @@ FILE=/var/tmp/index.html
 
 
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
-  CHECK_FOR="The CentOS Project"
-  URL="http://www.centos.org/"
+  CHECK_FOR="CentOS on the Web"
+  URL="http://mirror.centos.org/"
 else
   CHECK_FOR="CentOS"
   URL="http://repo.centos.qa/srv/CentOS/"
