@@ -14,6 +14,6 @@ else
 fi
 
 t_Log "Querying ${URL}"
-curl -s ${URL} | grep -q "${CHECK_FOR}"
+curl --location -s ${URL} | grep -q "${CHECK_FOR}"
 
 t_CheckExitStatus $?
