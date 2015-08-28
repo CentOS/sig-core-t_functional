@@ -13,9 +13,9 @@ else
 	BaseDir=/var/cache/yum/`uname -i`/$centos_ver
 fi
 
-#t_Log "Running $0 - Ensure we have mirrorlist enabled."
-#egrep '^mirrorlist' /etc/yum.repos.d/*.repo > /dev/null
-#t_CheckExitStatus $?
+t_Log "Running $0 - Ensure we have mirrorlist enabled."
+egrep '^mirrorlist' /etc/yum.repos.d/*.repo > /dev/null
+t_CheckExitStatus $?
 
 t_Log "Running $0 - y-p-fastestmirror can get hosts from mirrorlist"
 find $BaseDir -type f -name timedhosts.txt -exec rm -f {} \;
