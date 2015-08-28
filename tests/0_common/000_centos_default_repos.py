@@ -9,9 +9,20 @@
 import yum
 import sys 
 import datetime
+import os
 
 yb = yum.YumBase()
-centos_default_repos = ['base','extras','updates','cr','fasttrack']
+
+try:
+    fasttrack = int(os.environ['FASTTRACK'])
+except KeyError:
+    fasttrack = 0
+
+if fasttrack:
+    centos_default_repos = ['base','extras','updates','cr','fasttrack']
+else:
+    centos_default_repos = ['base','extras','updates','cr']
+
 now = lambda: datetime.datetime.today().strftime("%c")
 print "[+] %s -> Check if non default repo is enabled" % now() 
 for repo in yb.repos.listEnabled():
