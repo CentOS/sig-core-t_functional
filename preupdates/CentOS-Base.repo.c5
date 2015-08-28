@@ -60,6 +60,6 @@ name=CentOS-$releasever - Fasttrack
 #mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=fasttrack
 baseurl=http://mirror.centos.org/preupdates/centos/$releasever/fasttrack/$basearch/
 gpgcheck=1
-enabled=1
+enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever
 
