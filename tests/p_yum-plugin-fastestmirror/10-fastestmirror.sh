@@ -2,6 +2,11 @@
 
 # Ensure plugin is enabled :
 
+if [ "$PRE_UPDATES" == "1" ]; then
+  t_Log "skipping $0 for pre update testing"
+  exit 0
+fi
+
 t_Log "Running $0 - is y-p-fastestmirror enabled."
 grep 'enabled=1' /etc/yum/pluginconf.d/fastestmirror.conf > /dev/null
 t_CheckExitStatus $?
