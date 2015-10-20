@@ -8,7 +8,7 @@ if [ "$centos_ver" = "7" ] ; then
   lsmod | grep -q 'ixgbe'
   t_CheckExitStatus $?
 else
-  t_log "previous versions than CentOS 7 aren't using secureboot ... skipping"
+  t_log "previous versions than CentOS 7 aren't using kmod-ixgbe ... skipping"
   exit 0
 fi
 
