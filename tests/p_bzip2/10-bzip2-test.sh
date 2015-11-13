@@ -13,7 +13,7 @@ EOF
 
 # run file through bzip2
 bzip2 $FILE
-#just to make shure
+#just to make sure
 /bin/rm -rf $FILE
 
 #run file through bzcat
