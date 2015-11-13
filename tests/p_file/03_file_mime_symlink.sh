@@ -4,7 +4,7 @@
 
 t_Log "Running $0 - checking if file can recognize symlink mime file type "
 
-TEST_FILE_PATH="/tmp/p_file_link_test"
+TEST_FILE_PATH=/tmp/p_file_link_test
 
 ln -s /etc/hosts $TEST_FILE_PATH
 
