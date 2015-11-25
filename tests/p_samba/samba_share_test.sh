@@ -1,8 +1,12 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-t_Log "Running $0 - Samba share test."
+if [ "$PRE_UPDATES" == "1" ]; then
+  t_Log "skipping $0 for pre update testing"
+  exit 0
+fi
 
+t_Log "Running $0 - Samba share test."
 
 cp /etc/samba/smb.conf /etc/samba/smb.conf.orig
 cat > /etc/samba/smb.conf <<EOF
