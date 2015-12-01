@@ -13,7 +13,8 @@ cat > /etc/samba/smb.conf <<EOF
 [global] 
 workgroup = wrkgrp 
 netbios name = smbsrv 
-security = share  
+security = user
+map to guest = Bad User
 
 [testshare]
 comment = Test share
