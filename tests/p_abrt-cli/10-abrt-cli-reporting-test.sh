@@ -131,7 +131,7 @@ rlJournalStart
         rlAssertGrep "CentOS Bug Tracker User name:" abrt-cli.log
         rlAssertGrep "CentOS Bug Tracker Password:" abrt-cli.log
 
-        rm -f abrt-cli.log
+        mv -fv abrt-cli.log p_abrt-cli-testing_workflow.log
     rlPhaseEnd
 
     rlPhaseStartTest "create a new issue"
@@ -151,7 +151,7 @@ rlJournalStart
         issue_id=`grep "Status: new " abrt-cli.log | grep -e [0-9]* -o`
         echo "Created issue $issue_id"
 
-        rm -f abrt-cli.log
+        mv -fv abrt-cli.log p_abrt-cli-created_new_issue.log
     rlPhaseEnd
 
     rlPhaseStartTest "duplicate issue"
@@ -162,6 +162,7 @@ rlJournalStart
         rlAssertGrep "Bug is already reported:" abrt-cli.log
         rlAssertGrep "Adding new comment to issue" abrt-cli.log
 
+        mv -fv abrt-cli.log p_abrt-cli-duplicate_issue.log
     rlPhaseEnd
 
     rlPhaseStartTest "check created issue"
@@ -177,12 +178,15 @@ rlJournalStart
         rlAssertNotGrep "CustomFieldValueForIssueData\[0\]" curl.log
         rlAssertGrep "IssueNoteData\[1\]\"" curl.log
 
+        mv -fv curl.log p_abrt-cli-check_created_issue.log
     rlPhaseEnd
 
     rlPhaseStartCleanup
         restore_configuration
         rlRun "abrt-cli remove $crash_PATH" 0
         rlBundleLogs #create test statistic
+        # copy all log to /tmp/
+        cp -v p_abrt-cli*.log /tmp/
         popd # TmpDir
         rm -rf $TmpDir
         export EDITOR=$orig_editor
