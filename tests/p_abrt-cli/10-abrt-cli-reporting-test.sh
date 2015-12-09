@@ -146,10 +146,21 @@ rlJournalStart
         rlAssertGrep "Checking for duplicates" abrt-cli.log
         rlAssertGrep "Creating a new issue" abrt-cli.log
         rlAssertGrep "Adding External URL to issue" abrt-cli.log
+        rlAssertNotGrep "Failed to create a new issue" abrt-cli.log
+        rlAssertNotGrep "504 Gateway Time-out" abrt-cli.log
+
+        grep -q "504 Gateway Time-out" abrt-cli.log
+        if [ "$?" -eq "0" ];then
+            echo "!!! Server $URL respond with '504 Gateway Time-out' !!!"
+        fi
 
         #get issue id
         issue_id=`grep "Status: new " abrt-cli.log | grep -e [0-9]* -o`
-        echo "Created issue $issue_id"
+        if [ "_$issue_id" == "_" ];then
+            echo "No ID of created issue"
+        else
+            echo "Created issue $issue_id"
+        fi
 
         mv -fv abrt-cli.log p_abrt-cli-created_new_issue.log
     rlPhaseEnd
