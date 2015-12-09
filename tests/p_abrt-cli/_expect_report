@@ -5,6 +5,7 @@ set dir [lindex $argv 0]
 spawn report-cli -e report_CentOSBugTracker $dir
 
 set timeout 100
+set workflow_no 3
 
 # timeout handler
 proc itstime {args} {
@@ -18,6 +19,10 @@ while {1} {
         eof {break}
 
         timeout { itstime }
+
+        -regexp {[[:space:]]+([[:digit:]]+)[[:space:]]+Report to CentOS Bug Tracker} {
+            set workflow_no $expect_out(1,string)
+        }
 
         "Ok to upload core dump? (It may contain sensitive data)." {
             send "N\n"
@@ -35,7 +40,7 @@ while {1} {
             send "aaa\n"
         }
         "Select a workflow to run" {
-            send "3\n"
+            send "$workflow_no\n"
         }
     }
 }
