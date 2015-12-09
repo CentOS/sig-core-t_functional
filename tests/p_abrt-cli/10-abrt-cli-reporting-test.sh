@@ -131,7 +131,7 @@ rlJournalStart
         rlAssertGrep "CentOS Bug Tracker User name:" abrt-cli.log
         rlAssertGrep "CentOS Bug Tracker Password:" abrt-cli.log
 
-        rm -f abrt-cli.log
+        mv -fv abrt-cli.log p_abrt-cli-testing_workflow.log
     rlPhaseEnd
 
     rlPhaseStartTest "create a new issue"
@@ -146,12 +146,23 @@ rlJournalStart
         rlAssertGrep "Checking for duplicates" abrt-cli.log
         rlAssertGrep "Creating a new issue" abrt-cli.log
         rlAssertGrep "Adding External URL to issue" abrt-cli.log
+        rlAssertNotGrep "Failed to create a new issue" abrt-cli.log
+        rlAssertNotGrep "504 Gateway Time-out" abrt-cli.log
+
+        grep -q "504 Gateway Time-out" abrt-cli.log
+        if [ "$?" -eq "0" ];then
+            echo "!!! Server $URL respond with '504 Gateway Time-out' !!!"
+        fi
 
         #get issue id
         issue_id=`grep "Status: new " abrt-cli.log | grep -e [0-9]* -o`
-        echo "Created issue $issue_id"
+        if [ "_$issue_id" == "_" ];then
+            echo "No ID of created issue"
+        else
+            echo "Created issue $issue_id"
+        fi
 
-        rm -f abrt-cli.log
+        mv -fv abrt-cli.log p_abrt-cli-created_new_issue.log
     rlPhaseEnd
 
     rlPhaseStartTest "duplicate issue"
@@ -162,6 +173,7 @@ rlJournalStart
         rlAssertGrep "Bug is already reported:" abrt-cli.log
         rlAssertGrep "Adding new comment to issue" abrt-cli.log
 
+        mv -fv abrt-cli.log p_abrt-cli-duplicate_issue.log
     rlPhaseEnd
 
     rlPhaseStartTest "check created issue"
@@ -177,12 +189,15 @@ rlJournalStart
         rlAssertNotGrep "CustomFieldValueForIssueData\[0\]" curl.log
         rlAssertGrep "IssueNoteData\[1\]\"" curl.log
 
+        mv -fv curl.log p_abrt-cli-check_created_issue.log
     rlPhaseEnd
 
     rlPhaseStartCleanup
         restore_configuration
         rlRun "abrt-cli remove $crash_PATH" 0
         rlBundleLogs #create test statistic
+        # copy all log to /tmp/
+        cp -v p_abrt-cli*.log /tmp/
         popd # TmpDir
         rm -rf $TmpDir
         export EDITOR=$orig_editor
