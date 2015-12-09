@@ -11,9 +11,8 @@ else
   ANACONDA_FILE="rhel.py"
 fi
 
-(grep "id = \"centos\"" $ANACONDA_PATH/installclasses/$ANACONDA_FILE >/dev/null 2>&1) &&\
 
-(grep "name = N_(\"CentOS Linux\")" $ANACONDA_PATH/installclasses/$ANACONDA_FILE >/dev/null 2>&1) 
+grep "CentOS Linux" $ANACONDA_PATH/installclasses/$ANACONDA_FILE >/dev/null 2>&1 
 
 
 t_CheckExitStatus $?
