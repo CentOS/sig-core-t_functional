@@ -2,9 +2,9 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 # Install python
-if (t_GetArch | grep -qE 'aarch64')
+if (t_GetArch | grep -qE 'aarch64|armv7hl')
   then
-  echo "Package not included with AArch64, skipping"
+  echo "Package not included for current arch, skipping"
   exit 0
 fi
 
