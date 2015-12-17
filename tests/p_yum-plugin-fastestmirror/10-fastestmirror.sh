@@ -7,6 +7,14 @@ if [ "$PRE_UPDATES" == "1" ]; then
   exit 0
 fi
 
+isAltArch=$(uname -m|egrep -q 'armv7hl|ppc64le'|| echo 1 && echo 0)
+
+if [ "$isAltArch" = "0" ] ; then
+ t_Log "Skipping for altarch, using only mirror.centos.org"
+ t_Log "SKIP"
+ exit 0
+fi
+
 t_Log "Running $0 - is y-p-fastestmirror enabled."
 grep 'enabled=1' /etc/yum/pluginconf.d/fastestmirror.conf > /dev/null
 t_CheckExitStatus $?
