@@ -7,7 +7,7 @@ if [ "$PRE_UPDATES" == "1" ]; then
   exit 0
 fi
 
-isAltArch=$(uname -m|egrep -q 'armv7hl|ppc64le'|| echo 1 && echo 0)
+isAltArch=$(uname -m|egrep -q 'armv7hl|aarch64|ppc64|ppc64le'|| echo 1 && echo 0)
 
 if [ "$isAltArch" = "0" ] ; then
  t_Log "Skipping for altarch, using only mirror.centos.org"
