@@ -1,4 +1,4 @@
-#!/bin/nash
+#!/bin/bash
 # Author: Johnny Hughes <johnny@centos.org>
 # Note: This test is only for Pre Updates testing prior to releasing on CentOS
 
