@@ -10,7 +10,6 @@ chrony
 compat-glibc
 curl
 dhcp
-docker
 firefox
 glusterfs
 grub2
