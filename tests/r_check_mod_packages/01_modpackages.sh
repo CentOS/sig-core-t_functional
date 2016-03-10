@@ -8,7 +8,8 @@ if [ $SKIP_QA_HARNESS -eq 1 ] && [ "$PRE_UPDATES" != "1" ] ; then
 else
   ret_val=0
   if [ "$centos_ver" = "7" ] ; then
-   t_Log "Checking current repositories for .el7.centos on modified files"
+   
+   t_Log "Running $0 - Checking current repositories for .el7.centos on modified files"
    yum clean all
     for pkg in PackageKit abrt apache-commons-net anaconda basesystem centos-indexhtml centos-logos centos-release chrony compat-glibc curl dhcp firefox glusterfs grub2 httpd initial-setup ipa-client kabi-yum-plugins kde-settings libreport ntp oscap-anaconda-addon openssl098e plymouth redhat-rpm-config redhat-lsb scap-security-guide shim-unsigned sos subscription-manager system-config-date system-config-kdump thunderbird xulrunner yum 
       do 
