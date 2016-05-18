@@ -39,7 +39,14 @@ do
 
         $SERVICE $D start &>/dev/null
 
-        t_CheckExitStatus $? "FAIL: service startup for '$D' failed ($RETVAL)"
+        RETVAL=$?
+
+        if [ $RETVAL -ne 0 ]; then
+
+                t_Log "FAIL: service startup for '$D' failed ($RETVAL)"
+                exit $FAIL
+
+        fi
 done
 for D in "${DAEMONSPID[@]}"
 do

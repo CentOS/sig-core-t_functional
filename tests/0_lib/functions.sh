@@ -14,9 +14,7 @@ function t_CheckExitStatus
 {
 	[ $1 -eq 0 ] && { t_Log "PASS"; return $PASS; }
 
-  comment=''
-  [ "$2" ] && comment=": $2"
-	t_Log "FAIL" $comment
+	t_Log "FAIL"
 	exit $FAIL
 }
 
