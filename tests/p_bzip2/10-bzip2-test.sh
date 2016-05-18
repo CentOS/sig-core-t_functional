@@ -18,11 +18,7 @@ bzip2 $FILE
 
 #run file through bzcat
 bzcat $FILE.bz2 | grep -q 'bzip2-test of single file'
-if [ $? == 1 ]
-  then
-  t_Log 'bzcat failed'
-  exit
-fi
+t_CheckExitStatus $? 'bzcat failed'
 
 #run file through bunzip2
 bunzip2 $FILE.bz2
