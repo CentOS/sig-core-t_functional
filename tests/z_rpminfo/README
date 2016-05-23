@@ -1,0 +1,11 @@
+Adding an rpminfo check override for a package can be done in 2 ways:
+- Modifying required_attrs in check-rpminfo.py
+  - should be done for packages specified by name (i.e. overrides for _all_ versions of that package)
+- Adding an NVR line in special_overrides.txt
+  - should be done for specific NVRs
+  - in the form: <name>-<version>-<release>: <attrib_to_override> 
+
+Adding an attribute to check:
+- modify the required_attrs dict in check-rpminfo.py
+  - the key is the name of the attribute to check
+  - the value is a shell-style glob of what the attribute should be
