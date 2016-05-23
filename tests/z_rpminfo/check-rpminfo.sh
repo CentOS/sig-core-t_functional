@@ -5,6 +5,7 @@
 if [[ $centos_ver != 5 ]] 
 then
     python "$(dirname "$(readlink -f "$0")")/check-rpminfo.py"
+    t_CheckExitStatus $?
 else
     echo "Skipped on CentOS 5"
 fi
