@@ -55,6 +55,7 @@ yb = yum.YumBase()
 yb.conf.cache = 0
 
 yb.repos.doSetup()
+log("Checking repos: {0}".format(', '.join([r.name for r in yb.repos.listEnabled()])))
 
 sack = yb.pkgSack
 
