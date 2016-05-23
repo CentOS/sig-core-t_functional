@@ -28,10 +28,10 @@ def skip(skipstring):
 log('Running check-rpminfo.py - Check rpminfo Attributes')
 
 if str(os.getenv('PRE_UPDATES')) == '1':
-    checkrepos = ['preupdates']
+    checkrepos = ['updates']
 else:
     log('Not running in preupdates, checking all repos')
-    checkrepos = ['extras', 'base', 'updates', 'centosplus']
+    checkrepos = ['extras', 'base', 'updates', 'centosplus', 'cr']
 
 # Set the required attributes and their values here. You may use shell-style
 # globs in the value if necessary.
