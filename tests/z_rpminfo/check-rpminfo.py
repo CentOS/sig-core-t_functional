@@ -31,7 +31,7 @@ if str(os.getenv('PRE_UPDATES')) == '1':
     checkrepos = ['updates']
 else:
     log('Not running in preupdates, checking all repos')
-    checkrepos = ['extras', 'base', 'updates', 'centosplus', 'cr']
+    checkrepos = ['extras', 'base', 'updates', 'centosplus']
 
 # Set the required attributes and their values here. You may use shell-style
 # globs in the value if necessary.
