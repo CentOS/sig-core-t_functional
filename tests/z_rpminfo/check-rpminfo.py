@@ -27,12 +27,6 @@ def skip(skipstring):
 
 log('Running check-rpminfo.py - Check rpminfo Attributes')
 
-if str(os.getenv('PRE_UPDATES')) == '1':
-    checkrepos = ['updates']
-else:
-    log('Not running in preupdates, checking all repos')
-    checkrepos = ['extras', 'base', 'updates', 'centosplus']
-
 # Set the required attributes and their values here. You may use shell-style
 # globs in the value if necessary.
 required_attrs = {
@@ -60,10 +54,6 @@ with open(os.path.join(sys.path[0],'special_overrides.txt'),'r') as thefile:
 yb = yum.YumBase()
 yb.conf.cache = 0
 
-yb.repos.disableRepo('*')
-
-for repo in checkrepos:
-    yb.repos.enableRepo(repo)
 yb.repos.doSetup()
 
 sack = yb.pkgSack
