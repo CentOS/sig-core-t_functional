@@ -2,7 +2,7 @@ This Code is written for and used in the CentOS Automated QA tests process. We w
 
 See the doc directory for additional information on test writing.
 
-== Nightly Test Status ==
+## Nightly Test Status
 
 | CentOS Version/Architecture | Build Status |
 | --------------------------- | ------------ |
