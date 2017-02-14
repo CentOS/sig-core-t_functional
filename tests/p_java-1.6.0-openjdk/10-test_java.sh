@@ -1,7 +1,7 @@
 #!/bin/sh
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-if (t_GetArch | grep -qE 'aarch64|armv7hl')
+if (t_GetArch | grep -qE 'aarch64|armv7hl|ppc64le')
   then
   echo "Package not included for current arch, skipping"
   exit 0
