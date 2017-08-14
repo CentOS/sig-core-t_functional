@@ -7,7 +7,7 @@ t_Log "Running $0 - freeradius-access test"
 # Make Backup of /etc/raddb/users and add testuser steve
 /bin/cp /etc/raddb/users /etc/raddb/users.orig
 echo 'steve  Cleartext-Password := "centos"' >> /etc/raddb/users
-echo '       Service-Type = Framed-User,' >> /etc/raddb/users
+echo '       Service-Type = Framed-User' >> /etc/raddb/users
 
 # Restart Service
 service radiusd restart
