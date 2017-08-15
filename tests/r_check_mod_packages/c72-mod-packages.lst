@@ -8,7 +8,6 @@ centos-logos
 centos-release
 chrony
 compat-glibc
-curl
 dhcp
 firefox
 glusterfs
