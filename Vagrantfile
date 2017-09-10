@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  
+
   config.vm.provider "virtualbox" do |vb|
      vb.memory = "1024"
   end
@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
      yum -y update
-     yum -y install vim-enhanced emacs-nox nano 
+     yum -y install vim-enhanced emacs-nox nano
   SHELL
 
 end
