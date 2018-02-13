@@ -5,7 +5,7 @@ t_Log "Running $0 - CentOS Anaconda patch is applied test."
 
 uname_arch=$(uname -m)
 
-if [ "$uname_arch" == "aarch64" ]; then
+if [ "$uname_arch" == "aarch64" ] || [ "$uname_arch" == "i686" ]; then
   exit 0
 fi
 
