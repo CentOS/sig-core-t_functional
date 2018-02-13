@@ -10,8 +10,9 @@ else
   if [ "$centos_ver" = "7" ] ; then
    
    t_Log "Running $0 - Checking current repositories for .el7.centos on modified files"
+   uname_arch=$(uname -m)
    yum clean all
-    for pkg in PackageKit abrt apache-commons-net anaconda basesystem centos-indexhtml centos-logos centos-release chrony compat-glibc dhcp firefox glusterfs grub2 httpd initial-setup ipa-client kabi-yum-plugins kde-settings libreport ntp oscap-anaconda-addon openssl098e pcs plymouth redhat-rpm-config redhat-lsb scap-security-guide shim-unsigned-ia32 shim-unsigned-x64 sos subscription-manager system-config-date system-config-kdump thunderbird xulrunner yum 
+    for pkg in $(cat tests/r_check_mod_packages/c72-mod-packages.lst.$uname_arch) 
       do 
          has_centos=$(yum list $pkg | grep '.el7.centos')
          if [ "$has_centos" == "" ]; then 

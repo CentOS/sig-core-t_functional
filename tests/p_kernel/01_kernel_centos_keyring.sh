@@ -4,6 +4,12 @@
 
 t_Log "Running $0 -  check CentOS' Kernel Module GPG key."
 
+uname_arch=$(uname -m)
+
+if [ "$uname_arch" == "aarch64" ]; then
+  exit 0
+fi
+
 if [ "$centos_ver" = "7" ] ; then
   for id in kpatch "Driver update" kernel
   do

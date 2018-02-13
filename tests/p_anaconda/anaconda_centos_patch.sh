@@ -3,6 +3,12 @@
 
 t_Log "Running $0 - CentOS Anaconda patch is applied test."
 
+uname_arch=$(uname -m)
+
+if [ "$uname_arch" == "aarch64" ]; then
+  exit 0
+fi
+
 if [ "$centos_ver" = "7" ];then
   ANACONDA_PATH=/usr/lib64/python2.7/site-packages/pyanaconda/
   ANACONDA_FILE="centos.py"
