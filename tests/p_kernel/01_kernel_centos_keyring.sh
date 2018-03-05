@@ -6,7 +6,8 @@ t_Log "Running $0 -  check CentOS' Kernel Module GPG key."
 
 uname_arch=$(uname -m)
 
-if [ "$uname_arch" == "aarch64" ]; then
+if [ "$uname_arch" == "aarch64" ] || [ "$uname_arch" == "armv7l" ]; then
+  t_Log "*** Not testing on Arch: $uname_arch ***"
   exit 0
 fi
 

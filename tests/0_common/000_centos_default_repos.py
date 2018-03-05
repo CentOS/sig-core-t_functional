@@ -19,9 +19,9 @@ except KeyError:
     fasttrack = 0
 
 if fasttrack:
-    centos_default_repos = ['base','extras','updates','cr','fasttrack']
+    centos_default_repos = ['base','extras','updates','cr','fasttrack','centos-kernel']
 else:
-    centos_default_repos = ['base','extras','updates','cr']
+    centos_default_repos = ['base','extras','updates','cr','centos-kernel']
 
 now = lambda: datetime.datetime.today().strftime("%c")
 print "[+] %s -> Check if non default repo is enabled" % now() 

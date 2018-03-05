@@ -2,8 +2,13 @@
 # Author: Johnny Hughes <johnny@centos.org>
 # Note: This test is only for Pre Updates testing prior to releasing on CentOS
 
+uname_arch=$(uname -m)
+
 if [ $SKIP_QA_HARNESS -eq 1 ] && [ "$PRE_UPDATES" != "1" ] ; then
-    t_Log "Skip this test in non QA harness environment"
+    t_Log "Skip $0 in non QA harness environment"
+    ret_val=0
+elif [ "$uname_arch" == "armv7l" ] ; then
+    t_Log "*** Not testing $0 on Arch: $uname_arch ***"
     ret_val=0
 else
   ret_val=0

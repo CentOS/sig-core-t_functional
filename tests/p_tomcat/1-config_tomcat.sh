@@ -1,5 +1,6 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
+uname_arch=$(uname -m)
 
 t_Log "$0 - Configuring Tomcat"
 
@@ -22,5 +23,12 @@ fi
 
 service $TOMCAT_SRV_NAME restart
 
-# we need extra sec for tomcat
-sleep 10
+# we need extra sec for tomcat (and even more time for armhfp)
+if [ "$uname_arch" == "armv7l" ]; then
+  sleep_time="300"
+else
+  sleep_time="10"
+fi
+
+t_Log "Sleeping $sleep_time seconds for $uname_arch"
+sleep $sleep_time
