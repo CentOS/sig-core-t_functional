@@ -6,7 +6,6 @@ basesystem
 centos-indexhtml
 centos-logos
 centos-release
-chrony
 compat-glibc
 dhcp
 firefox
