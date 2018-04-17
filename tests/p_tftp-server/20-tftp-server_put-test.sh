@@ -23,6 +23,9 @@ chmod 666 $TFTP_DIR/put_test
 
 tftp 127.0.0.1 -c put put_test 
 
+# needed as caught by 7.5.1804 : allowing filesystem to flush to disk otherwise it fails
+sleep 2
+
 cat $TFTP_DIR/put_test | grep -q 't_functional_test' 
 ret_val=$?
 
