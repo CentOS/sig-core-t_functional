@@ -7,7 +7,7 @@ if [[ "$centos_ver" = "7" && "$arch" = "x86_64" ]] ; then
   t_InstallPackage pesign 
   for kernel in $(rpm -q kernel --queryformat '%{version}-%{release}.%{arch}\n') 
     do
-    t_log "Validating kernel $kernel ..."
+    t_Log "Validating kernel $kernel ..."
     pesign --show-signature --in /boot/vmlinuz-${kernel}|grep -q 'Red Hat Inc.'
     t_CheckExitStatus $?
   done
