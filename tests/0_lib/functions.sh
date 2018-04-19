@@ -114,6 +114,9 @@ function t_GetArch
 	rpm -q --queryformat '%{arch}\n' centos-release
 }
 
+# Set the arch
+arch=$(t_GetArch)
+
 function t_CheckForPort
 {
         while true
@@ -154,3 +157,4 @@ export -f t_CheckForPort
 export -f t_Assert
 export -f t_Assert_Equals
 export centos_ver
+export arch
