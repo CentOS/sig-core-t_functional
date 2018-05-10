@@ -476,4 +476,4 @@ tog-pegasus-test-2.14.1-5.el7: vendor
 vulkan-1.0.61.1-2.el7: packager
 vulkan-1.0.61.1-2.el7: vendor
 vulkan-devel-1.0.61.1-2.el7: packager
-vulkan-devel-1.0.61.1-2.el7: gvendor
+vulkan-devel-1.0.61.1-2.el7: vendor
