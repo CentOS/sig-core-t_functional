@@ -7,7 +7,7 @@ arch=$(uname -m)
 
 if [[ "$centos_ver" = "7" && "$arch" = "x86_64" ]] ; then
   t_InstallPackage pesign grub2-efi
-  pesign --show-signature --in /boot/efi/EFI/centos/grubx64.efi|egrep -q 'Red Hat Inc.|CentOS Secure Boot (key 1)'
+  pesign --show-signature --in /boot/efi/EFI/centos/grubx64.efi|egrep -q 'Red Hat Inc.|CentOS Secure Boot \(key 1\)'
   t_CheckExitStatus $?
 else
   t_Log "previous versions than CentOS 7 - or not x86_64 arch - aren't using secureboot ... skipping"
