@@ -412,6 +412,8 @@ kernel-plus-tools-libs-devel-3.10.0-327.4.5.el7.centos.plus: packager
 kernel-plus-tools-libs-devel-3.10.0-327.4.5.el7.centos.plus: vendor
 kernel-plus-tools-libs-devel-3.10.0-327.el7.centos.plus: packager
 kernel-plus-tools-libs-devel-3.10.0-327.el7.centos.plus: vendor
+mokutil-12-2.el7: packager
+mokutil-12-2.el7: vendor
 perf-3.10.0-327.10.1.el7.centos.plus: packager
 perf-3.10.0-327.10.1.el7.centos.plus: vendor
 perf-3.10.0-327.13.1.el7.centos.plus: packager
