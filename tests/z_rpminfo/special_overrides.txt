@@ -454,6 +454,14 @@ openssl-perl-1.0.1e-48.el6: packager
 openssl-perl-1.0.1e-48.el6: vendor
 openssl-static-1.0.1e-48.el6: packager
 openssl-static-1.0.1e-48.el6: vendor
+shim-ia32-12-2.el7: packager
+shim-ia32-12-2.el7: vendor
+shim-unsigned-ia32-12-2.el7: packager
+shim-unsigned-ia32-12-2.el7: vendor
+shim-unsigned-x64-12-2.el7: packager
+shim-unsigned-x64-12-2.el7: vendor
+shim-x64-12-2.el7: packager
+shim-x64-12-2.el7: vendor
 xmlgraphics-commons-1.3.1-1.2.el6: packager
 xmlgraphics-commons-1.3.1-1.2.el6: vendor
 xmlgraphics-commons-javadoc-1.3.1-1.2.el6: packager
