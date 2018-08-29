@@ -24,8 +24,6 @@ plymouth
 redhat-rpm-config
 redhat-lsb
 scap-security-guide
-shim-unsigned-ia32
-shim-unsigned-x64
 sos
 subscription-manager
 system-config-date
