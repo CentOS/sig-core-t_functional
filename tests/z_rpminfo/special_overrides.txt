@@ -487,3 +487,11 @@ vulkan-1.0.61.1-2.el7: packager
 vulkan-1.0.61.1-2.el7: vendor
 vulkan-devel-1.0.61.1-2.el7: packager
 vulkan-devel-1.0.61.1-2.el7: vendor
+fwupdate-9-8.el7.centos: packager
+fwupdate-9-8.el7.centos: vendor
+fwupdate-devel-9-8.el7.centos: packager
+fwupdate-devel-9-8.el7.centos: vendor
+fwupdate-efi-9-8.el7.centos: packager
+fwupdate-efi-9-8.el7.centos: vendor
+fwupdate-libs-9-8.el7.centos: packager
+fwupdate-libs-9-8.el7.centos: vendor
