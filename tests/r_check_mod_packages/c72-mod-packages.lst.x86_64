@@ -9,7 +9,6 @@ centos-release
 compat-glibc
 dhcp
 firefox
-glusterfs
 grub2
 httpd
 initial-setup
