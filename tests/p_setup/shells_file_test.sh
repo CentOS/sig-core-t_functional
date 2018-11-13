@@ -3,8 +3,7 @@
 
 t_Log "Running $0 - shells file sanity check."
 
-grep -q 'bash' /etc/shells && \
-grep -q 'nologin' /etc/shells
+grep -q 'bash' /etc/shells 
 
 
 t_CheckExitStatus $?
