@@ -63,12 +63,17 @@ finalret = 0
 for pkg in sack:
     for attr, val in required_attrs.iteritems():
         nvr = '{0}-{1}-{2}'.format(pkg['name'], pkg['version'], pkg['release'])
+        nvra = '{0}-{1}-{2}.{3}'.format(pkg['name'], pkg['version'], pkg['release'], pkg['arch'])
         if pkg.name in special_overrides:
             if attr in special_overrides[pkg.name]:
                 skip('{0}: {1} listed in special_overrides'.format(pkg.remote_path, attr))
                 continue
         elif nvr in special_overrides:
             if attr in special_overrides[nvr]:
+                skip('{0}: {1} listed in special_overrides'.format(pkg.remote_path, attr))
+                continue
+        elif nvra in special_overrides:
+            if attr in special_overrides[nvra]:
                 skip('{0}: {1} listed in special_overrides'.format(pkg.remote_path, attr))
                 continue
 
