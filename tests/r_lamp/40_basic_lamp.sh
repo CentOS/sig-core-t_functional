@@ -12,8 +12,11 @@ if [ $centos_ver = 5 ]
 then
   t_InstallPackage mysql55-mysql-server httpd mysql55-mysql php php-mysql wget
   t_ServiceControl mysql55-mysqld stop
-else
+elif [ $centos_ver = 6 ]
+then
   t_InstallPackage httpd mysql mysql-server php php-mysql wget
+else
+  t_InstallPackage httpd mysql mysql-server php php-mysqlnd wget
 fi
 t_ServiceControl mysqld restart
 t_ServiceControl httpd restart
