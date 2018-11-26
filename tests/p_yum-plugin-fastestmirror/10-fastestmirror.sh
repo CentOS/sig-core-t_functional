@@ -7,9 +7,9 @@ if [ "$PRE_UPDATES" == "1" ]; then
   exit 0
 fi
 
-isAltArch=$(uname -m|egrep -q 'armv7hl|aarch64|ppc64|ppc64le'|| echo 1 && echo 0)
+isAltArch=$(uname -m|egrep -q 'armv7l|aarch64|ppc64|ppc64le'|| echo 1 && echo 0)
 
-if [ "$isAltArch" = "0" ] ; then
+if [ "$isAltArch" = "0" ] && [ $centos_ver -lt 7 ] ; then
  t_Log "Skipping for altarch, using only mirror.centos.org"
  t_Log "SKIP"
  exit 0
@@ -23,7 +23,11 @@ t_CheckExitStatus $?
 if [ $centos_ver == 5 ]; then 
 	BaseDir=/var/cache/yum/
 else
-	BaseDir=/var/cache/yum/`uname -i`/$centos_ver
+	BaseArch=`uname -i`
+	if [ "$BaseArch" == "armv7l" ];then
+		BaseArch="armhfp"
+	fi
+	BaseDir=/var/cache/yum/$BaseArch/$centos_ver
 fi
 
 t_Log "Running $0 - Ensure we have mirrorlist enabled."
