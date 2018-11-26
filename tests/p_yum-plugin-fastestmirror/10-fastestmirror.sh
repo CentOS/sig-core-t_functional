@@ -23,7 +23,11 @@ t_CheckExitStatus $?
 if [ $centos_ver == 5 ]; then 
 	BaseDir=/var/cache/yum/
 else
-	BaseDir=/var/cache/yum/`uname -i`/$centos_ver
+	BaseArch=`uname -i`
+	if [ "$BaseArch" == "armv7l" ];then
+		BaseArch="armhfp"
+	fi
+	BaseDir=/var/cache/yum/$BaseArch/$centos_ver
 fi
 
 t_Log "Running $0 - Ensure we have mirrorlist enabled."
