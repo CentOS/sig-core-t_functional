@@ -9,7 +9,7 @@ fi
 
 isAltArch=$(uname -m|egrep -q 'armv7l|aarch64|ppc64|ppc64le'|| echo 1 && echo 0)
 
-if [ "$isAltArch" = "0" ] ; then
+if [ "$isAltArch" = "0" ] && [ $centos_ver -lt 7 ] ; then
  t_Log "Skipping for altarch, using only mirror.centos.org"
  t_Log "SKIP"
  exit 0
