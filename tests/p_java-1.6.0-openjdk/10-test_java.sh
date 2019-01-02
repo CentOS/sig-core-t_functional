@@ -1,14 +1,7 @@
 #!/bin/sh
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
-uname_arch=$(uname -m)
-
-if [ "$uname_arch" == "armv7l" ]; then
-  t_Log "*** Not testing on Arch: $uname_arch ***"
-  exit 0
-fi 
-
-if (t_GetArch | grep -qE 'aarch64|armv7hl|ppc64le')
+if (t_GetArch | grep -qE 'aarch64|ppc64le')
   then
   echo "Package not included for current arch, skipping"
   exit 0
