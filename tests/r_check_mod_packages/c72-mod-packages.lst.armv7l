@@ -5,30 +5,28 @@ anaconda
 basesystem
 centos-indexhtml
 centos-logos
-centos-release
-compat-glibc
+centos-userland-release
+#compat-glibc (not available in armhfp)
 dhcp
 firefox
-grub2
+#grub2 (not available yet in armhfp)
 httpd
 initial-setup
 ipa-client
-kabi-yum-plugins
+#kabi-yum-plugins (not available in armhfp)
 kde-settings
 libreport
 ntp
-openssl098e
+#openssl098e (not available in armhfp)
 pcs
 plymouth
 redhat-rpm-config
 redhat-lsb
 scap-security-guide
-shim-unsigned-ia32
-shim-unsigned-x64
 sos
 subscription-manager
 system-config-date
 system-config-kdump
 thunderbird
-xulrunner
+#xulrunner (currently has the wrong disttag, will be fixed on the next update)
 yum
