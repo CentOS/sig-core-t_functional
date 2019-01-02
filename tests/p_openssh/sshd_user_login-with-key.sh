@@ -1,12 +1,5 @@
 #!/bin/sh
 
-uname_arch=$(uname -m)
-
-if [ "$uname_arch" == "armv7l" ]; then
-  t_Log "*** Not testing on Arch: $uname_arch ***"
-  exit 0
-fi
-
 for KeyType in rsa dsa; do 
 	userdel -rf sshtest; useradd sshtest && echo sshtest | passwd --stdin sshtest
 	runuser -l sshtest -c "echo | ssh-keygen -q -t ${KeyType} -b 1024 -f ~/.ssh/id_${KeyType}" > /dev/null
