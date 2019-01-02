@@ -9,6 +9,10 @@ fi
 
 t_Log "Running $0 - javac can compile and java can print 'hello centos'"
 
+# selecting the right alternative
+t_Select_Alternative java jre-1.6.0-openjdk
+t_Select_Alternative javac java-1.6.0-openjdk
+
 # creating source file
 PATH2FILE='/var/tmp/'
 FILE='HelloWorld'
