@@ -1,0 +1,14 @@
+#!/bin/bash
+# Author: Pablo Greco <pablo@fliagreco.com.ar>
+# Based on java-1.6.0-openjdk test from Christoph Galuschka <christoph.galuschka@chello.at>
+
+[ ${centos_ver} -lt 7 ] && { t_Log "Multiple java versions test is only available since el7, skipping tests..." ; exit ; }
+
+JAVA_VERSIONS="1.7.0 1.8.0 11"
+
+if (t_GetArch | grep -qvE 'aarch64|ppc64le')
+  then
+  JAVA_VERSIONS="1.6.0 $JAVA_VERSIONS"
+fi
+
+[ -z "${JAVA_VERSIONS}" ] && { t_Log "No java versions to test, skipping tests..." ; exit ; }
