@@ -142,6 +142,18 @@ function t_Assert_Equals
  [ $1 -eq $2 ] 
  t_CheckExitStatus $?
 }
+function t_Select_Alternative
+{
+	name=$1
+	search=$2
+	option=$(/bin/echo|/usr/sbin/alternatives --config "$name"|/bin/grep -E "$search"|/usr/bin/head -n1|sed 's/    .*//g;s/[^0-9]//g')
+	if [ -z "$option" ];then
+		t_Log "Option not found for altenative $search of $name"
+		t_CheckExitStatus 1
+	fi
+	t_Log "Selecing alternative $option for $name--$search"
+	/bin/echo "$option"|/usr/sbin/alternatives --config "$name" >/dev/null 2>&1
+}
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
@@ -156,5 +168,6 @@ export -f t_GetArch
 export -f t_CheckForPort
 export -f t_Assert
 export -f t_Assert_Equals
+export -f t_Select_Alternative
 export centos_ver
 export arch
