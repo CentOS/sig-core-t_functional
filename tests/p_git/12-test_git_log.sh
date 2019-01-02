@@ -5,7 +5,7 @@
 
 t_Log "Running $0 - testing git logging and commit messages"
 
-if [ $centos_ver == '6' ]
+if [ $centos_ver -ge 6 ]
   then
   # Testing git log and git commit msgs
   workpath=$(pwd)
@@ -17,6 +17,8 @@ if [ $centos_ver == '6' ]
   cd /tmp
   git clone $temp_repo cloned_repo
   cd cloned_repo
+  git config user.email "centos@centos.org"
+  git config user.name "t_functional tests"
   echo "hello world" > hello
   git add hello
   git commit -m "Temp commit" 2>&1
