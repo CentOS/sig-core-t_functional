@@ -5,7 +5,7 @@
 
 t_Log "Running $0 - testing a local git clone operation"
 
-if [ $centos_ver == '6' ]
+if [ $centos_ver -ge 6 ]
   then
   # Testing Git clone by comparing SHAs
   workpath=$(pwd)
@@ -18,6 +18,8 @@ if [ $centos_ver == '6' ]
   cd /tmp
   git clone $temp_repo cloned_repo
   cd cloned_repo
+  git config user.email "centos@centos.org"
+  git config user.name "t_functional tests"
   echo "hello world" > hello
   git add hello
   git commit -m "Temp commit"

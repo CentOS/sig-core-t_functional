@@ -1,17 +1,15 @@
-#!/bin/sh
-# Author: Christoph Galuschka <christoph.galuschka@chello.at>
+#!/bin/bash
+# Author: Pablo Greco <pablo@fliagreco.com.ar>
+# Based on java-1.6.0-openjdk test from Christoph Galuschka <christoph.galuschka@chello.at>
 
-if (t_GetArch | grep -qE 'aarch64|ppc64le')
-  then
-  echo "Package not included for current arch, skipping"
-  exit 0
-fi
+. $(dirname "$0")/p_java-openjdk-common
 
+for i in $JAVA_VERSIONS;do
 t_Log "Running $0 - javac can compile and java can print 'hello centos'"
 
 # selecting the right alternative
-t_Select_Alternative java jre-1.6.0-openjdk
-t_Select_Alternative javac java-1.6.0-openjdk
+t_Select_Alternative java "(jre|java)-$i-openjdk"
+t_Select_Alternative javac "java-$i-openjdk"
 
 # creating source file
 PATH2FILE='/var/tmp/'
@@ -45,3 +43,4 @@ t_CheckExitStatus $?
 cd $workpath
 # remove files
 /bin/rm $PATH2FILE$FILE.class $FILE2
+done
