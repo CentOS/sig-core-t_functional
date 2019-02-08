@@ -1,6 +1,8 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
+yum -y remove java\*
+
 if [ "$centos_ver" = "7" ] ;then
  tomcat_packages="tomcat tomcat-admin-webapps tomcat-webapps"
 elif [ "$centos_ver" = "6" ]; then
