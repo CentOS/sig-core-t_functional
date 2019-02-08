@@ -24,7 +24,7 @@ fi
 service $TOMCAT_SRV_NAME restart
 
 # we need extra sec for tomcat (and even more time for armhfp)
-if [ "$uname_arch" == "armv7l" ]; then
+if [ "$uname_arch" == "armv7l" ] || [ "$uname_arch" == "i686" ]; then
   sleep_time="300"
 else
   sleep_time="10"
