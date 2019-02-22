@@ -535,3 +535,5 @@ python-cheetah-2.4.4-5.el7.armv7hl: packager
 python-cheetah-2.4.4-5.el7.armv7hl: vendor
 centos-release-azure-1.0-2.el6.centos.noarch: packager
 centos-release-azure-1.0-2.el6.centos.noarch: vendor
+epel-release-7-11.noarch: packager 
+epel-release-7-11.noarch: vendor
