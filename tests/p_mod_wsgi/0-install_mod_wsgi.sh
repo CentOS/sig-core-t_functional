@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-if (t_GetPkgRel basesystem | grep -q el6)
+if [ $centos_ver -ge 6 ]
 then
     t_InstallPackage mod_wsgi
     service httpd restart
