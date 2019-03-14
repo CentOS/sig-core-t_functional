@@ -3,7 +3,7 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 # RRD-sample from http://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html
 
-if (t_GetPkgRel basesystem | grep -q el6)
+if [ $centos_ver -ge 6 ]
 then
     t_Log "Running $0 - rrdtool: create rrd, write values and retrieve values test."
 

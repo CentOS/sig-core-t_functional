@@ -2,7 +2,7 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 #         Athmane Madjoudj <athmanem@gmail.com>
 
-if (t_GetPkgRel basesystem | grep -q el6)
+if [ $centos_ver -ge 6 ]
 then
     # Install rrdtool
     t_InstallPackage rrdtool
