@@ -1,7 +1,8 @@
 #!/bin/sh
 
 t_Log "Running $0 - Apache httpd mod_wsgi is functional"
-if (t_GetPkgRel basesystem | grep -q el6); then
+if [ $centos_ver -ge 6 ]
+then
 	while [ `ps fax | grep 'sbin/httpd' | grep -v grep  | wc -l` -gt 0 ]; do
       #t_ServiceControl httpd stop
       killall -s KILL httpd
