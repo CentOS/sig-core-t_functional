@@ -111,7 +111,7 @@ function t_GetPkgVer
 # Description: get the arch 
 function t_GetArch
 {
-	rpm -q --queryformat '%{arch}\n' centos-release
+	rpm -q $(rpm -qf /etc/redhat-release) --queryformat '%{arch}\n'
 }
 
 # Set the arch
