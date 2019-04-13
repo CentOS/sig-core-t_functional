@@ -2,20 +2,19 @@
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 
 # Install freeradius
-# On C5 both freeradius and freeradius2 are provided, however only freeradius2-utils are provided as well
-# so we will install freeradius2 on C5 and freeradius on C6/7
+# C6 comes with freeradius2
 # C7 comes with freeradius3
 
 t_Log "Running $0 - installation and startup of freeradius."
 
-if [ $centos_ver -gt 5 ]
-then
-  #Install Freeradius (V2/V3)
-  t_InstallPackage freeradius freeradius-utils
-else
-  #Install Freeradius2
-  t_InstallPackage freeradius2 freeradius2-utils
-fi
+#if [ $centos_ver -gt 5 ]
+#then
+#Install Freeradius (V2/V3)
+t_InstallPackage freeradius freeradius-utils
+#else
+#  #Install Freeradius2
+#  t_InstallPackage freeradius2 freeradius2-utils
+#fi
 
 # start daemon with default settings
 if [ $centos_ver -gt 5 ]
