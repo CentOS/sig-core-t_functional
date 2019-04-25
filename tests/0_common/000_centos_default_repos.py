@@ -14,14 +14,16 @@ import os
 yb = yum.YumBase()
 
 def getEnvironOpt(varname,defval):
+    global now
     val=defval
     try:
         val = int(os.environ[varname])
     except KeyError:
         pass
-    print val
+    print "[+] %s -> %s:%d" % (now(),varname,val)
     return val
 
+now = lambda: datetime.datetime.today().strftime("%c")
 centos_default_repos = ['base']
 
 if getEnvironOpt('UPDATES',1):
@@ -37,7 +39,6 @@ if getEnvironOpt('FASTTRACK',0):
 if getEnvironOpt('CENTOSPLUS',0):
     centos_default_repos.append('centosplus')
 
-now = lambda: datetime.datetime.today().strftime("%c")
 print "[+] %s -> Check if non default repo is enabled" % now() 
 for repo in yb.repos.listEnabled():
     if not repo.id in centos_default_repos:
