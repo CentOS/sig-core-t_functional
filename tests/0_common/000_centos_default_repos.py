@@ -13,22 +13,29 @@ import os
 
 yb = yum.YumBase()
 
-try:
-    fasttrack = int(os.environ['FASTTRACK'])
-except KeyError:
-    fasttrack = 0
+def getEnvironOpt(varname,defval):
+    val=defval
+    try:
+        val = int(os.environ[varname])
+    except KeyError:
+        pass
+    print val
+    return val
 
-try:
-    centosplus = int(os.environ['CENTOSPLUS'])
-except KeyError:
-    centosplus = 0
-	    
-if fasttrack:
-    centos_default_repos = ['base','extras','updates','cr','fasttrack','centos-kernel']
-elif centosplus:
-    centos_default_repos = ['base','extras','updates','cr','centosplus','centos-kernel']
-else:
-    centos_default_repos = ['base','extras','updates','cr','centos-kernel']
+centos_default_repos = ['base']
+
+if getEnvironOpt('UPDATES',1):
+    centos_default_repos.append('updates')
+if getEnvironOpt('EXTRAS',1):
+    centos_default_repos.append('extras')
+if getEnvironOpt('CR',1):
+    centos_default_repos.append('cr')
+if getEnvironOpt('CENTOS_KERNEL',1):
+    centos_default_repos.append('centos-kernel')
+if getEnvironOpt('FASTTRACK',0):
+    centos_default_repos.append('fasttrack')
+if getEnvironOpt('CENTOSPLUS',0):
+    centos_default_repos.append('centosplus')
 
 now = lambda: datetime.datetime.today().strftime("%c")
 print "[+] %s -> Check if non default repo is enabled" % now() 
