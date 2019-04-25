@@ -18,8 +18,15 @@ try:
 except KeyError:
     fasttrack = 0
 
+try:
+    centosplus = int(os.environ['CENTOSPLUS'])
+except KeyError:
+    centosplus = 0
+	    
 if fasttrack:
     centos_default_repos = ['base','extras','updates','cr','fasttrack','centos-kernel']
+elif centosplus:
+    centos_default_repos = ['base','extras','updates','cr','centosplus','centos-kernel']
 else:
     centos_default_repos = ['base','extras','updates','cr','centos-kernel']
 
