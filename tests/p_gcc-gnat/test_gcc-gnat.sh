@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - gcc-gnat can build a hello.adb"
 
-if [ "$centos_ver" -lt 7 ] ; then
+if [ "$centos_ver" -ne 7 ] ; then
   t_Log "CentOS $centos_ver -> SKIP"
   exit 0
 fi
