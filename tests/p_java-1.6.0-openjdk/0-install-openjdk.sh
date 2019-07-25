@@ -2,6 +2,10 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 # Install java
+if [ $centos_ver -ge 8 ]; then
+  echo "Package not included in CentOS $centos_ver, skipping"
+  exit 0
+fi
 if (t_GetArch | grep -qE 'aarch64|ppc64le')
   then
   echo "Package not included for current arch, skipping"

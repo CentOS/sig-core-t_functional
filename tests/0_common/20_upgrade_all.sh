@@ -7,7 +7,9 @@ if [ "$CENTOSPLUS" == "1" ] && [ "$centos_ver" == "7" ] && [ "$arch" == "x86_64"
   sed -i 's,DEFAULTKERNEL=.*,DEFAULTKERNEL=kernel-plus,g' /etc/sysconfig/kernel
 fi
 
-yum -d0 -y install deltarpm
+if [ "$centos_ver" -lt 8 ];then
+  yum -d0 -y install deltarpm
+fi
 yum -d0 -y upgrade
 
 t_Log "Running $0 - listing all used/available packages"
