@@ -41,15 +41,15 @@ INSERT='/var/tmp/test.php'
 
 cat >$INSERT <<EOF
 <?php
-\$dbconnect = mysql_connect("localhost","centos","qa");
+\$dbconnect = mysqli_connect("localhost","centos","qa");
 if (!\$dbconnect)
   {
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_error());
   }
-mysql_select_db("phptests", \$dbconnect);
-mysql_query("INSERT INTO tests (name)
+mysqli_select_db(\$dbconnect, "phptests");
+mysqli_query(\$dbconnect, "INSERT INTO tests (name)
 VALUES ('phpsqltest')");
-mysql_close(\$dbconnect);
+mysqli_close(\$dbconnect);
 ?> 
 EOF
 
@@ -64,15 +64,15 @@ fi
 READ='/var/tmp/read.php'
 cat >$READ <<EOF
 <?php
-\$dbconnect = mysql_connect("localhost","centos","qa");
+\$dbconnect = mysqli_connect("localhost","centos","qa");
 if (!\$dbconnect)
   {
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_error());
   }
-mysql_select_db("phptests", \$dbconnect);
-\$array = mysql_query("SELECT count(*) as success FROM tests WHERE name = 'phpsqltest'");
-mysql_close(\$dbconnect);
-\$line = mysql_fetch_array(\$array, MYSQL_ASSOC);
+mysqli_select_db(\$dbconnect, "phptests");
+\$array = mysqli_query(\$dbconnect, "SELECT count(*) as success FROM tests WHERE name = 'phpsqltest'");
+mysqli_close(\$dbconnect);
+\$line = mysqli_fetch_array(\$array, MYSQLI_ASSOC);
 print \$line['success'];
 ?>
 EOF
