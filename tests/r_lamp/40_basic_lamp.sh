@@ -15,8 +15,11 @@ then
 elif [ $centos_ver = 6 ]
 then
   t_InstallPackage httpd mysql mysql-server php php-mysql wget
-else
+elif [ $centos_ver = 7 ]
+then
   t_InstallPackage httpd mysql mysql-server php php-mysqlnd wget
+else
+  t_InstallPackage httpd mariadb mariadb-server php php-mysqlnd wget
 fi
 t_ServiceControl mysqld restart
 t_ServiceControl httpd restart
