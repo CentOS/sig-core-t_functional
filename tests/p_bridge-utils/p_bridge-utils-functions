@@ -1,0 +1,96 @@
+#!/bin/bash
+
+function bru_add_bridge_7
+{
+  bridge=$1
+  bridge_present=`brctl show | grep $bridge`
+  if ! [ "$bridge_present" ]
+    then
+    brctl addbr $bridge 
+    bridge_present=`brctl show | grep $bridge`
+    if [ "$bridge_present" ]
+    then
+      ret_val=0
+    else
+      ret_val=1
+    fi
+  else
+    ret_val=0
+  fi
+  echo $ret_val
+}
+function bru_add_bridge_8
+{
+  bridge=$1
+  bridge_present=`cat /proc/net/dev | grep $bridge`
+  if ! [ "$bridge_present" ]
+  then
+    ip link add name $bridge type bridge
+    bridge_present=`cat /proc/net/dev | grep $bridge`
+    if [ "$bridge_present" ]
+    then
+      ret_val=0
+    else
+      ret_val=1
+    fi
+  else
+    ret_val=0
+  fi
+  echo $ret_val
+}
+
+function bru_del_bridge_7
+{
+  bridge=$1
+  bridge_present=`brctl show | grep $bridge`
+  if ! [ "$bridge_present" ]
+  then
+    ret_val=1
+  else
+    brctl delbr $bridge
+    bridge_present=`brctl show | grep $bridge`
+    if [ $bridge_present ]
+    then
+      ret_val=1
+    else
+      ret_val=0
+    fi
+  fi
+}
+function bru_del_bridge_8
+{
+  bridge=$1
+  bridge_present=`cat /proc/net/dev | grep $bridge`
+  if ! [ "$bridge_present" ]
+  then
+    ret_val=1
+  else
+    ip link del name $bridge
+    bridge_present=`cat /proc/net/dev | grep $bridge`
+    if [ $bridge_present ]
+    then
+      ret_val=1
+    else
+      ret_val=0
+    fi
+  fi
+  echo $ret_val
+}
+
+function bru_add_bridge
+{
+  if [ "$centos_ver" -ge 8 ] ; then
+    bru_add_bridge_8 $1
+  else
+    bru_add_bridge_7 $1
+  fi
+}
+
+function bru_del_bridge
+{
+  if [ "$centos_ver" -ge 8 ] ; then
+    bru_del_bridge_8 $1
+  else
+    bru_del_bridge_7 $1
+  fi
+}

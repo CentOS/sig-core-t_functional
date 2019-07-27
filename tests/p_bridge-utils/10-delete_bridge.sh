@@ -1,24 +1,14 @@
 #!/bin/bash
 # Author : Madhurranjan Mohaan <madhurranjan.mohaan@gmail.com>
+
+. "$(dirname "$0")"/p_bridge-utils-functions
 #add bridge
 bridge=testbridge2
-./tests/p_bridge-utils/05-add_bridge.sh $bridge
-#delete the bridge created
-bridge_present=`brctl show | grep $bridge`
+bru_add_bridge $bridge >/dev/null
+
 t_Log "Running $0 - Deleting the dummy bridge: $bridge"
 
-if ! [ "$bridge_present" ]
-  then
-    ret_val=1
-else
-    t_Log "Deleting bridge $bridge"
-    brctl delbr $bridge
-    bridge_present=`brctl show | grep $bridge`
-  if [ $bridge_present ]
-  then
-    ret_val=1
-  else
-    ret_val=0  
-  fi
-fi
+t_Log "Deleting bridge $bridge"
+ret_val=$(bru_del_bridge $bridge)
+
 t_CheckExitStatus $ret_val
