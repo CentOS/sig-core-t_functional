@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - logwatch test."
 
-if [ "$centos_ver" = "7" ] ; then
+if [ "$centos_ver" -ge 7 ] ; then
  lw_options="--range Today"
 else
  lw_options="--range Today --print"
