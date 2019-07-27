@@ -3,7 +3,7 @@
 
 t_Log "Running $0 -  Verifying that kernel is correctly signed with correct cert"
 
-if [[ "$centos_ver" = "7" && "$arch" = "x86_64" ]] ; then
+if [[ "$centos_ver" -ge 7 && "$arch" = "x86_64" ]] ; then
   t_InstallPackage pesign 
   for kernel in $(rpm -q kernel --queryformat '%{version}-%{release}.%{arch}\n') 
     do
