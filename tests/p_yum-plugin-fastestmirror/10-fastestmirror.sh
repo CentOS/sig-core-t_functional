@@ -2,6 +2,12 @@
 
 # Ensure plugin is enabled :
 
+if [ "$centos_ver" -eq "8" ] ; then
+ t_Log "yum is replaced by dnf on el8. SKIP"
+ exit 0
+fi
+
+
 if [ "$PRE_UPDATES" == "1" ]; then
   t_Log "skipping $0 for pre update testing"
   exit 0
