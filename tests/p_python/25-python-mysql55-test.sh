@@ -11,6 +11,8 @@ if [ $centos_ver = 5 ]
 then
   t_ServiceControl mysqld stop
   t_ServiceControl mysql55-mysqld start
+else
+  exit 0
 fi
 
 # Installing additional python/mysql module
