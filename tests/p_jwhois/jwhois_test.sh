@@ -1,6 +1,9 @@
 #!/bin/sh
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
+if [ "$centos_ver" -ge 8 ] ;then
+  exit 0
+fi
 t_Log "Running $0 - check that jwhois can connect to whois server and get the info."
 
 # Dummy whois server
