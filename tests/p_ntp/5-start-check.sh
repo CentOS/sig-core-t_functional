@@ -1,6 +1,9 @@
 #!/bin/bash
 # Author: Steve Barnes (steve@echo.id.au)
 
+if [ "$centos_ver" -ge 8 ] ; then
+  exit 0
+fi
 # Start NTPd services and confirm it's running.
 t_ServiceControl ntpd start
 
