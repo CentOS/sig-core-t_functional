@@ -37,18 +37,18 @@ mysql </tmp/mysql-QA.sql
 
 cat >/var/www/html/mysql.php <<EOF
 <?php
-\$dbconnect = mysql_connect("localhost","centos","qa");
+\$dbconnect = mysqli_connect("localhost","centos","qa");
 if (!\$dbconnect)
   {
-  die('Could not connect: ' . mysql_error());
+  die('Could not connect: ' . mysqli_error());
   }
 
-mysql_select_db("qatests", \$dbconnect);
+mysqli_select_db(\$dbconnect, "qatests");
 
-mysql_query("INSERT INTO tests (name)
+mysqli_query(\$dbconnect, "INSERT INTO tests (name)
 VALUES ('mysqltest')");
 
-mysql_close(\$dbconnect);
+mysqli_close(\$dbconnect);
 ?> 
 EOF
 
