@@ -4,13 +4,22 @@
 
 t_Log "Running $0 - test XmlTextReader of libxml2-python"
 
-cat << 'EOF' | python - | grep -q 'test succeeded'
+if [ "$centos_ver" -ge 8 ] ; then
+PYTHON=python3
+else
+PYTHON=python
+fi
+
+cat << 'EOF' | $PYTHON - | grep -q 'test succeeded'
 import libxml2
 import sys
-import StringIO
+try:
+  from StringIO import StringIO
+except ImportError:
+  from io import StringIO
 
 # Load a small xml structure
-xmlStr = StringIO.StringIO("""<?xml version="1.0"?>
+xmlStr = StringIO("""<?xml version="1.0"?>
 <tests><test name="XmlTextReader"><key1>val1</key1><key2>val2</key2><key3 /></test></tests>""")
 xmlBuf = libxml2.inputBuffer(xmlStr)
 xmlReader = xmlBuf.newTextReader("reader")
@@ -45,5 +54,5 @@ checkRead(xmlReader, "key2", 0, 15, 0)
 checkRead(xmlReader, "key3", 1, 1, 0)
 checkRead(xmlReader, "test", 0, 15, 1)
 checkRead(xmlReader, "tests", 0, 15, 0)
-print "test succeeded"
+print ("test succeeded")
 EOF
