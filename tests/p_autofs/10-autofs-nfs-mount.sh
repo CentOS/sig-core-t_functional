@@ -12,7 +12,7 @@ t_ServiceControl autofs restart
 
 t_Log 'Running test - accessing /var/lib via autofs'
 
-ls -al /autofs/nfs | grep -q yum
+ls -al /autofs/nfs | egrep -q '(dnf|yum)'
 t_CheckExitStatus $?
 
 # return everything to previous state
@@ -21,4 +21,5 @@ rm -rf /etc/auto.autofs
 cat /dev/null > /etc/exports
 t_ServiceControl autofs stop
 t_ServiceControl nfs stop
+t_ServiceControl nfs-server stop
 t_ServiceControl rpcbind stop
