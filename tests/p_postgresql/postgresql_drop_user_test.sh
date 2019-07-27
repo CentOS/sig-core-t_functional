@@ -3,6 +3,6 @@
 
 t_Log "Running $0 - PostgreSQL drop user test"
 
-su - postgres -c 'dropuser pg_test_user' > /dev/null 2>&1
+su - postgres -c 'dropuser test_user' > /dev/null 2>&1
 
 t_CheckExitStatus $?
