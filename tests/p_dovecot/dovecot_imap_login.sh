@@ -16,7 +16,7 @@ t_Log "Dovecot IMAP login test"
 
 # EL7 comes with nmap-nc , different from nc so different options to use
 
-if [ "$centos_ver" = "7" ];then
+if [ "$centos_ver" -ge 7 ];then
  nc_options="-d 3 -w 5"
 else
  nc_options="-i 3 -w 5"
