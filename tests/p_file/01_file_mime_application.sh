@@ -4,6 +4,12 @@
 
 t_Log "Running $0 - checking if file can recognize mime executable type "
 
-file /bin/bash -i | grep -q "application/x-executable"
+if [ "$centos_ver" -eq "8" ] ;then
+  string="application/x-sharedlib"
+else
+  string="application/x-executable"
+fi
+
+file /bin/bash -i | grep -q "${string}"
 
 t_CheckExitStatus $?
