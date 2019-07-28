@@ -1,5 +1,8 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
+if [ "$centos_ver" -ge "8" ] ; then
+   exit 0
+fi
 uname_arch=$(uname -m)
 
 t_Log "$0 - Configuring Tomcat"
