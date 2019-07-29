@@ -13,6 +13,12 @@ if [ $MTA_ACCEPT == 0 ]
 fi
 
 sleep 1
+
+if [ "$centos_ver" -eq "8" ]; then
+  t_Log "Dumping journalctl to /var/log/maillog"
+  journalctl -u postfix >> /var/log/maillog
+fi
+
 regex='250\ 2\.0\.0\ Ok\:\ queued\ as\ ([0-9A-Z]*).*'
 if [[ $mail =~ $regex ]]
   then
