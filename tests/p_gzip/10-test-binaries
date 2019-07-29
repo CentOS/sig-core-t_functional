@@ -17,7 +17,7 @@ fi
 
 t_Log "Checking binaries are present and run on C6/C7"
 
-if [ $centos_ver == 7 ]
+if [ $centos_ver -ge 7 ]
 then
   [ "$(readlink -e /usr/bin/gunzip)" == "/usr/bin/gunzip" ] || ExitFail
   [ "$(readlink -e /usr/bin/gzip)" == "/usr/bin/gzip" ] || ExitFail

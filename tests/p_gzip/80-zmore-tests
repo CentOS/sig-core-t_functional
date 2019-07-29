@@ -9,13 +9,25 @@ t_Log "Running $0 Testing zmore"
 
 TESTFILE="./tests/p_gzip/gzip-test.txt.gz"
 t_Log "Check single file invocation"
-zmore $TESTFILE | grep -q -- '------> ./tests/p_gzip/gzip-test.txt.gz <-----'-
+zmore $TESTFILE | grep -q -- 'gzip-test of single file'
 t_CheckExitStatus $?
 
 # Check multifile invocation 
 
 t_Log "Check multifile invocation"
 
+if [ $centos_ver -ge 8 ]
+then
+expect << EOF &>/dev/null
+spawn zmore $TESTFILE $TESTFILE
+set timeout 2
+set match_max 1000
+expect -- "gzip-test of single file"
+expect -- "gzip-test of single file" {exit 0}
+exit 1
+EOF
+retval=$?
+else
 expect << EOF &>/dev/null
 spawn zmore $TESTFILE $TESTFILE
 set timeout 2 
@@ -24,7 +36,9 @@ expect -- "--More--(Next file: ./tests/p_gzip/gzip-test.txt.gz)" {send n} timeou
 expect -- "gzip-test of single file" {exit 0} 
 exit 1
 EOF
+retval=$?
+fi
 
-t_CheckExitStatus $?
+t_CheckExitStatus $retval
 
 
