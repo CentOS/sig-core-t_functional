@@ -7,7 +7,7 @@ t_Log "Running $0 - installing and starting mysql server."
 # MySQL
 # starting with 5.10, we have to add mysql55
 
-if [ "$centos_ver" = "7" ] ; then
+if [ "$centos_ver" -ge 7 ] ; then
   my_packages="mariadb mariadb-server nc"
   mysql_service="mariadb"
 elif [ "$centos_ver" = "5" ] ;then
