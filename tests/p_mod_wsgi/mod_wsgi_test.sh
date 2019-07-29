@@ -13,11 +13,16 @@ then
 WSGIScriptAlias /tfapp /var/www/html/tf_app.wsgi
 EOF
 
+
+if [ $centos_ver -ge 8 ]
+then
+outputformat=b
+fi
 cat > /var/www/html/tf_app.wsgi <<EOF
 
 def application(environ, start_response):
     status = '200 OK'
-    output = 't_functional_mod_wsgi_test'
+    output = $outputformat't_functional_mod_wsgi_test'
 
     response_headers = [('Content-type', 'text/plain'),
                         ('Content-Length', str(len(output)))]

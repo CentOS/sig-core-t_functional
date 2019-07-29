@@ -13,6 +13,9 @@ fi
 if [ "$centos_ver" = "7" ];then
   ANACONDA_PATH=/usr/lib64/python2.7/site-packages/pyanaconda/
   ANACONDA_FILE="centos.py"
+elif [ "$centos_ver" = "8" ];then
+  ANACONDA_PATH=/usr/lib64/python3.6/site-packages/pyanaconda/
+  ANACONDA_FILE="centos.py"
 else
   ANACONDA_PATH=/usr/lib/anaconda/
   ANACONDA_FILE="rhel.py"

@@ -1,6 +1,11 @@
 #!/bin/sh
 
-for KeyType in rsa dsa; do 
+keytypes="rsa"
+if [ "$centos_ver" -lt 8 ] ; then
+keytypes="$keytypes dsa"
+fi
+
+for KeyType in $keytypes; do
 	userdel -rf sshtest; useradd sshtest && echo sshtest | passwd --stdin sshtest
 	runuser -l sshtest -c "echo | ssh-keygen -q -t ${KeyType} -b 1024 -f ~/.ssh/id_${KeyType}" > /dev/null
 	runuser -l sshtest -c "cat ~/.ssh/*pub > ~/.ssh/authorized_keys && chmod 600 ~/.ssh/*keys" > /dev/null

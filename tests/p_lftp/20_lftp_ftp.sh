@@ -6,8 +6,15 @@
 #	  Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - installing vsFTPd for local lftp test."
-t_InstallPackage vsftpd 
+t_InstallPackage vsftpd
+if [ "$centos_ver" -ge 8 ] ; then
+cp -fp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.tf_p_lftp
+sed -i 's/anonymous_enable=NO/anonymous_enable=YES/g' /etc/vsftpd/vsftpd.conf
+fi
 t_ServiceControl vsftpd restart
+if [ "$centos_ver" -ge 8 ] ; then
+mv -f /etc/vsftpd/vsftpd.conf.tf_p_lftp /etc/vsftpd/vsftpd.conf
+fi
 
 # Destination File
 TESTFILE=/tmp/t_functional-lftp-test.txt

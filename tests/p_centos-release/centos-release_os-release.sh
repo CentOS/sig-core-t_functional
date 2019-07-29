@@ -1,10 +1,10 @@
 #!/bin/bash
 # Author: Fabian Arrotin <arrfab@centos.org>
 
-t_Log "Running $0 - /etc/os-release has correct ABRT string for CentOS 7"
+t_Log "Running $0 - /etc/os-release has correct ABRT string for CentOS $centos_ver"
 
-if [ "$centos_ver" = "7" ];then
-  for string in CENTOS_MANTISBT_PROJECT=\"CentOS-7\" CENTOS_MANTISBT_PROJECT_VERSION=\"7\" REDHAT_SUPPORT_PRODUCT=\"centos\" REDHAT_SUPPORT_PRODUCT_VERSION=\"7\" 
+if [ "$centos_ver" -ge 7 ];then
+  for string in CENTOS_MANTISBT_PROJECT=\"CentOS-$centos_ver\" CENTOS_MANTISBT_PROJECT_VERSION=\"$centos_ver\" REDHAT_SUPPORT_PRODUCT=\"centos\" REDHAT_SUPPORT_PRODUCT_VERSION=\"$centos_ver\"
   do 
     grep -q $string /etc/os-release
     if [ $? -ne "0" ];then

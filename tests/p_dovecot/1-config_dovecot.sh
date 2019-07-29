@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-if (t_GetPkgRel dovecot | egrep -q 'el6|7')
+if (t_GetPkgRel dovecot | egrep -q 'el6|7|8')
 then
    t_Log "Running $0 - Configuration of Dovecot"
 

@@ -9,7 +9,7 @@
 
 # starting with 5.10, we have to differ between mysql55 and mysql
 
-if [ "$centos_ver" = "7" ] ; then
+if [ "$centos_ver" -ge 7 ] ; then
   t_Log "no mysql55 on CentOS 7 ... SKIP"
   exit 0
 fi

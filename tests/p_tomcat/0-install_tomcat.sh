@@ -1,6 +1,10 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
+if [ "$centos_ver" -eq "8" ] ; then
+  t_Log "Tomcat is not available in CentOS$centos_ver. SKIP"
+  exit 0
+fi
 yum -y remove java\*
 
 if [ "$centos_ver" = "7" ] ;then
