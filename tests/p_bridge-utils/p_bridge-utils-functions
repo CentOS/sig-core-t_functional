@@ -49,13 +49,14 @@ function bru_del_bridge_7
   else
     brctl delbr $bridge
     bridge_present=`brctl show | grep $bridge`
-    if [ $bridge_present ]
+    if [ "$bridge_present" ]
     then
       ret_val=1
     else
       ret_val=0
     fi
   fi
+  echo $ret_val
 }
 function bru_del_bridge_8
 {
