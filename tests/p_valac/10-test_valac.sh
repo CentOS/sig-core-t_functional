@@ -4,6 +4,11 @@
 
 #t_Log "Running $0 - Testing valac by running it with a basic file"
 
+if [ "$centos_ver" -eq "8" ]; then
+  t_Log "vala is not available in el8 => SKIP"
+  exit 0
+fi
+
 # creating source code
 FILE='/var/tmp/valac-test.vala'
 EXE='/var/tmp/valac-test'
