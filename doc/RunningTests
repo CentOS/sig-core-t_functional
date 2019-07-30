@@ -1,5 +1,0 @@
-To run these tests on your local machine :
-./runtests.sh
-
-To only run a specific test ( eg. p_openssh ) : 
-./runtests.sh p_openssh

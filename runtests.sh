@@ -29,6 +29,16 @@ set -e
 # exit on undefined variables
 set -u
 
+# Searching for tests to disable
+if [ -e skipped-tests.list ] ;then
+  t_Log "QA Harness : searching for tests to disable with valid reason"
+  egrep ^${centos_ver} skipped-tests.list | while read line; 
+    do test=$(echo $line|cut -f 2 -d '|')
+    t_Log "Disabling QA harness test ${test}"
+    chmod -x ${test}
+  done
+fi
+
 # process our test scripts
 if [ $# -gt 0 ]; then
   t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' )
@@ -41,5 +51,14 @@ else
 fi
 
 # and, we're done.
+if [ -e skipped-tests.list ] ;then
+  t_Log "QA Harness : Searching for disabled tests (skipped-tests.list)"
+  egrep ^${centos_ver} skipped-tests.list | while read line; 
+    do test=$(echo $line|cut -f 2 -d '|')
+    reason=$(echo $line|cut -f 3 -d '|')
+    t_Log " =WARNING= : Disabled test : ${test} (${reason})" 
+  done
+fi
+
 t_Log "QA t_functional tests finished."
 exit 0
