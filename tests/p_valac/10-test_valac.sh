@@ -2,12 +2,12 @@
 
 # Author: Lz <Lz843723683@163.com>
 
-#t_Log "Running $0 - Testing valac by running it with a basic file"
-
-if [ "$centos_ver" -eq "8" ]; then
-  t_Log "vala is not available in el8 => SKIP"
-  exit 0
+if [ "$centos_ver" -ne "7" ];then
+        t_Log "Package not included in CentOS $centos_ver => SKIP"
+        exit 0
 fi
+
+t_Log "Running $0 - Testing valac by running it with a basic file"
 
 # creating source code
 FILE='/var/tmp/valac-test.vala'
