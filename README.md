@@ -31,4 +31,6 @@ Questions/comments/suggestions should be voiced in the #centos-devel channel on 
 ## Disabling tests
 
 While it's a very bad idea, sometimes , during major.minor release, our scripts really find issues that are then repored upstream.
-For the time being, one can add tests to be skipped by our QA harness setup (validating all new installable trees)See the [skipped-tests.list](skipped-tests.list) file.
+For the time being, one can add tests to be skipped by our QA harness setup (validating all new installable trees)
+
+See the [skipped-tests.list](skipped-tests.list) file.

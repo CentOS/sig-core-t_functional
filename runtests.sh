@@ -7,6 +7,12 @@ echo -e "\n[+] `date` -> CentOS QA $0 starting."
 
 yum -d0 -y install bind-utils 
 
+if [ "$?" -ne "0" ] ;then
+  echo "[+] ERROR : not even able to install bind-utils pkg so all t_functional tests will fail"
+  echo "[+] Do we have enabled repositories with correct GPG settings and signed pkgs ?"
+  exit 1
+fi
+
 host repo.centos.qa > /dev/null
 export SKIP_QA_HARNESS=$?
 
