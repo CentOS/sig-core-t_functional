@@ -18,9 +18,9 @@ tests(){
   SOS_SIZE=$(stat -c "%s" $1/sosreport*${MY_ID}*tar.xz)
   t_Log "Check for minimal size of generated sosreport"
   [ "$SOS_SIZE" -gt "$MINIMAL_SIZE" ]
-  status=$?
+  MY_STATUS=$?
   cleanup
-  t_checkExitStatus $status
+  t_checkExitStatus $MY_STATUS
 }
 
 t_Log "$0 tests sosreport generaton"

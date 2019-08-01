@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Author: Alex Baranowski <aleksander.baranowski@yahoo.pl>
-# This test makes sosreport. Then check if the sosreport file is bigger than 1MiB.
+# This test makes sosreport. Then checks for branding.
 
 export SOS_REPORT_LOG="/tmp/sos-report-test.log"
 export DISTRONAME="CentOS"
@@ -17,7 +17,7 @@ cleanup(){
 }
 
 tests_el6(){
-    t_Log "$0 Running sos branding tests for CentOS 6"
+    t_Log "$0 Running sosreport branding tests for CentOS 6"
     MY_ID="${RANDOM}-$$"
     MY_STATUS=0
     yes "$MY_ID"| sosreport  | tee  $SOS_REPORT_LOG
@@ -31,7 +31,7 @@ tests_el6(){
 }
 
 tests_el7_plus(){
-    t_Log "$0 Running sos branding tests for CentOS 7+"
+    t_Log "$0 Running sosreport branding tests for CentOS 7+"
     MY_ID="${RANDOM}-$$"
     MY_STATUS=0
     yes "$MY_ID"| sosreport  | tee  $SOS_REPORT_LOG
