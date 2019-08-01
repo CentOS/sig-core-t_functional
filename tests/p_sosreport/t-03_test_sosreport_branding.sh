@@ -35,7 +35,7 @@ tests_el7_plus(){
     MY_ID="${RANDOM}-$$"
     MY_STATUS=0
     yes "$MY_ID"| sosreport  | tee  $SOS_REPORT_LOG
-    # CentOS 7 and 8 has fully patched sos branding.
+    # CentOS 7 and 8 have fully patched sos branding.
     grep -qvi 'red hat' $SOS_REPORT_LOG
     MY_STATUS+=$((MY_STATUS+$?))
     grep -qvi 'redhat' $SOS_REPORT_LOG

@@ -20,7 +20,7 @@ tests(){
   [ "$SOS_SIZE" -gt "$MINIMAL_SIZE" ]
   MY_STATUS=$?
   cleanup
-  t_checkExitStatus $MY_STATUS
+  t_CheckExitStatus $MY_STATUS
 }
 
 t_Log "$0 tests sosreport generaton"
