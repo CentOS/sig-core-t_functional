@@ -5,7 +5,7 @@ t_Log "Running $0 - Squid test."
 
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
   URL="http://mirror.centos.org/"
-  CHECK_FOR="CentOS on the Web"
+  CHECK_FOR="timestamp"
 else
   URL="http://repo.centos.qa/qa/"
   CHECK_FOR="ks_cfg"
