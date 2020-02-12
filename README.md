@@ -6,6 +6,7 @@ See the doc directory for additional information on test writing.
 
 | CentOS Version/Architecture | Build Status |
 | --------------------------- | ------------ |
+| CentOS 8-Stream - x86_64           | [![Build Status](https://ci.centos.org/buildStatus/icon?job=CentOS-Core-QA-t_functional-c8-stream-64)](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c8-stream-64/) |
 | CentOS 8 - x86_64           | [![Build Status](https://ci.centos.org/buildStatus/icon?job=CentOS-Core-QA-t_functional-c8-64)](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c8-64/) |
 | CentOS 7 - x86_64           | [![Build Status](https://ci.centos.org/buildStatus/icon?job=CentOS-Core-QA-t_functional-c7-64)](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c7-64/) |
 | CentOS 6 - x86_64           | [![Build Status](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c6-64/badge/icon)](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c6-64/) |
