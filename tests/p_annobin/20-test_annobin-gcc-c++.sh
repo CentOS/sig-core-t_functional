@@ -12,7 +12,7 @@ t_Log "Running $0 - build a hello world program with gcc-c++ using annobin"
 
 BUILTPROG=$(mktemp)
 
-cat <<EOF | g++ -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -o ${BUILTPROG} -
+cat <<EOF | g++ -x c++ -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -o ${BUILTPROG} -
 #include <iostream>
 int main() {
 	std::cout << "Hello World!\n";
