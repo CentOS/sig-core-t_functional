@@ -2,8 +2,8 @@
 
 t_Log "Running $0 - Apache httpd mod_wsgi is functional"
 
-if [[ $centos_ver -lt 6 ]]; then
-    t_Log "mod_wsgi doesn't exist before CentOS 6 -> SKIP"
+if [[ $centos_ver -lt 6 || $centos_ver -gt 7 ]]; then
+    t_Log "mod_wsgi not available before CentOS 6 or after CentOS 7 -> SKIP"
     exit 0
 fi
 
