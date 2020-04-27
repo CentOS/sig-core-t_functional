@@ -7,6 +7,12 @@ if [[ $centos_ver -lt 8 ]]; then
     exit 0
 fi
 
+# TODO: remove after 8.2 rebuild
+if [[ $centos_stream == "no" ]]; then
+    t_Log "python38-mod_wsgi is only in CentOS Stream -> SKIP"
+    exit 0
+fi
+
 cat > /etc/httpd/conf.d/tfapp.conf << EOF
 WSGIScriptAlias /tfapp /var/www/html/tfapp.wsgi
 EOF
