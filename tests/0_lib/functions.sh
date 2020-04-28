@@ -102,6 +102,14 @@ function t_DistCheck
 # Additionally set distro release to $centos_ver
 centos_ver=$(t_DistCheck)
 
+# Description: test if we are using CentOS Stream
+function t_StreamCheck
+{
+    rpm -q centos-release-stream &> /dev/null && echo "yes" || echo "no"
+}
+# set stream variable
+centos_stream=$(t_StreamCheck)
+
 # Description: Get a package (rpm) version number
 function t_GetPkgVer
 {
@@ -170,4 +178,5 @@ export -f t_Assert
 export -f t_Assert_Equals
 export -f t_Select_Alternative
 export centos_ver
+export centos_stream
 export arch
