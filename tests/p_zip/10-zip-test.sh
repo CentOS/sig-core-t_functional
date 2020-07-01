@@ -23,7 +23,7 @@ zip -q /var/tmp/testfile.zip $ZIPDIR/*
 /bin/rm -rf $ZIPDIR
 if [ -e $ZIPDIR ]
   then
-  t_log "something went wrong with deleting $ZIPDIR"
+  t_Log "something went wrong with deleting $ZIPDIR"
   exit
 fi
 

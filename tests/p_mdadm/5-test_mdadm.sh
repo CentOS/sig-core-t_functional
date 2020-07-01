@@ -12,4 +12,4 @@ MDADM=`which mdadm`
 # even with no meta devices available, this should still return a 0 exit status
 ${MDADM} --detail --scan &>/dev/null
 
-[ $? -eq 0 ] || { t_log "mdadm exited with non-zero status. That ain't good..."; exit $FAIL; }
+[ $? -eq 0 ] || { t_Log "mdadm exited with non-zero status. That ain't good..."; exit $FAIL; }
