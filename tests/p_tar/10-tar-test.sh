@@ -23,7 +23,7 @@ tar -c $TARDIR -f /var/tmp/tarfile.tar > /dev/null 2>&1
 /bin/rm -rf $TARDIR
 if [ -e $TARDIR ]
   then
-  t_log "something went wrong with deleting $TARDIR"
+  t_Log "something went wrong with deleting $TARDIR"
   exit
 fi
 
