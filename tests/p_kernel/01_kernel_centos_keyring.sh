@@ -28,7 +28,7 @@ if [ "$centos_ver" -ge 7 ] ; then
   for id in kpatch "Driver update" kernel
   do
     t_Log "Verifying x.509 CentOS ${id}"
-    keyctl list %:$ring | grep -i "CentOS Linux ${id} signing key" > /dev/null 2>&1
+    keyctl list %:$ring | grep -i "CentOS \(Linux \)\?${id} signing key" > /dev/null 2>&1
     t_CheckExitStatus $?
   done
 else
