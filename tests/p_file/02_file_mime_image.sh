@@ -7,6 +7,11 @@ t_Log "Running $0 - checking if file can recognize image mime file type "
 
 pngfile="$(find /usr/share/ -name '*.png' -print -quit)"
 
+if [ -z "$pngfile" ];then
+    t_Log "No png file found => SKIP"
+    exit 0
+fi
+
 file $pngfile -i | grep -q 'image/png'
 
 t_CheckExitStatus $?
