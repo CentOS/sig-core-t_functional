@@ -12,16 +12,16 @@ fi
 
 t_Log "Running $0 - running ${TEST} to ${HOST}"
 
-IP=$(host ${HOST})
+IP=$(dig +short ${HOST} A ${HOST} AAAA)
 FILE=/var/tmp/traceroute_result
 ret_val=1
 # getting IP-address of default gateway as a fall back
 defgw=$(ip route list | grep default | cut -d' ' -f3)
 
-if [[ $IP =~ .*address\ ([0-9.]*) ]]
+if [[ ! -z "$IP" ]]
 then
   traceroute -n ${HOST} > ${FILE}
-  COUNT=$(grep -c ${BASH_REMATCH[1]} ${FILE})
+  COUNT=$(echo "$IP" | grep -cf - ${FILE})
   TTL=$(egrep -c '30  \* \* \*' ${FILE})
   GW=$(grep -c ${defgw} ${FILE})
   if [ $COUNT = 2 ]
