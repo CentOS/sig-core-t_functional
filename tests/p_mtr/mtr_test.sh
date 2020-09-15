@@ -12,13 +12,14 @@ fi
 
 t_Log "Running $0 - running ${TEST} to ${HOST}"
 ret_val=1
+FILE=/var/tmp/mtr_result
 
-IP=$(host ${HOST})
+IP=$(dig +short ${HOST} A ${HOST} AAAA)
 
-regex='.*address\ ([0-9.]*)'
-if [[ $IP =~ $regex ]]
+if [[ ! -z "$IP" ]]
 then
-  COUNT=$( mtr -nr -c1 ${HOST} | grep -c ${BASH_REMATCH[1]} )
+  mtr -nr -c1 ${HOST} > ${FILE}
+  COUNT=$(echo "$IP" | grep -cf - ${FILE})
   if [ $COUNT = 1 ]
   then
     t_Log "${TEST} reached ${HOST}"
@@ -29,4 +30,5 @@ then
   fi
 fi
 
+/bin/rm ${FILE}
 t_CheckExitStatus $ret_val
