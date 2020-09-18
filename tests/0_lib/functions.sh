@@ -105,7 +105,7 @@ centos_ver=$(t_DistCheck)
 # Description: test if we are using CentOS Stream
 function t_StreamCheck
 {
-    rpm -q centos-release-stream &> /dev/null && echo "yes" || echo "no"
+    rpm -q centos-stream-release &> /dev/null && echo "yes" || echo "no"
 }
 # set stream variable
 centos_stream=$(t_StreamCheck)
