@@ -5,7 +5,7 @@
 
 t_Log "Running $0 - checking if file can recognize image mime file type "
 
-pngfile="$(find /usr/share/ -name '*.png' -print -quit)"
+pngfile="$(find /usr/share/ -type f -name '*.png' -print -quit)"
 
 if [ -z "$pngfile" ];then
     t_Log "No png file found => SKIP"
