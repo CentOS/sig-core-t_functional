@@ -128,6 +128,46 @@ function t_StreamCheck
 # set stream variable
 centos_stream=$(t_StreamCheck)
 
+# Description: skip test on a particular release
+# Arguments: release, reason
+function t_SkipRelease {
+    if [ $(rpm --eval %rhel) -eq $1 ]; then
+        t_Log "$2"
+        t_Log "SKIP"
+        exit 0
+    fi
+}
+
+# Description: skip test on everything except a particular release
+# Arguments: release, reason
+function t_SkipNotRelease {
+    if [ $(rpm --eval %rhel) -ne $1 ]; then
+        t_Log "$2"
+        t_Log "SKIP"
+        exit 0
+    fi
+}
+
+# Description: skip test on releases less than a particular release
+# Arguments: release, reason
+function t_SkipReleaseLessThan {
+    if [ $(rpm --eval %rhel) -lt $1 ]; then
+        t_Log "$2"
+        t_Log "SKIP"
+	exit 0
+    fi
+}
+
+# Description: skip test on releases greater than a particular release
+# Arguments: release, reason
+function t_SkipReleaseGreaterThan {
+    if [ $(rpm --eval %rhel) -gt $1 ]; then
+        t_Log "$2"
+        t_Log "SKIP"
+        exit 0
+    fi
+}
+
 # Description: Get a package (rpm) version number
 function t_GetPkgVer
 {
@@ -189,6 +229,10 @@ export -f t_ResetModule
 export -f t_Process
 export -f t_CheckDeps
 export -f t_ServiceControl
+export -f t_SkipRelease
+export -f t_SkipNotRelease
+export -f t_SkipReleaseLessThan
+export -f t_SkipReleaseGreaterThan
 export -f t_GetPkgRel
 export -f t_DistCheck
 export -f t_GetPkgVer
