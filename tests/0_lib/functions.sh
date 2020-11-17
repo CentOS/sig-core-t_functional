@@ -38,6 +38,24 @@ function t_RemovePackage
 	t_CheckExitStatus $?
 }
 
+# Description: call this to enable a module stream
+# Arguments: the module:stream(s) to enable
+function t_EnableModuleStream
+{
+    t_Log "Enabling module stream $@"
+    dnf --assumeyes --debuglevel ${YUMDEBUG} module enable $@
+    t_CheckExitStatus $?
+}
+
+# Description: call this to reset a module
+# Arguments: the module(s) to reset
+function t_ResetModule
+{
+    t_Log "Resetting module $@"
+    dnf --assumeyes --debuglevel ${YUMDEBUG} module reset $@
+    t_CheckExitStatus $?
+}
+
 # Description: call this to process a list of folders containing test scripts
 # Arguments: a file handle from which to read the names of paths to process.
 function t_Process
@@ -166,6 +184,8 @@ export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
 export -f t_RemovePackage
+export -f t_EnableModuleStream
+export -f t_ResetModule
 export -f t_Process
 export -f t_CheckDeps
 export -f t_ServiceControl
