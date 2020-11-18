@@ -29,6 +29,15 @@ function t_InstallPackage
 	t_CheckExitStatus $?
 }
 
+# Description: call this to install packages without weak dependencies
+# Arguments: a space separated list of package names to install
+function t_InstallPackageMinimal
+{
+    t_Log "Installing packages: $@"
+    dnf --assumeyes --debuglevel ${YUMDEBUG} --setopt install_weak_deps=0 install $@
+    t_CheckExitStatus $?
+}
+
 # Description: call this to perform a yum-based removal of packages
 # Arguments: a space separated list of package names to remove.
 function t_RemovePackage
@@ -223,6 +232,7 @@ function t_Select_Alternative
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
+export -f t_InstallPackageMinimal
 export -f t_RemovePackage
 export -f t_EnableModuleStream
 export -f t_ResetModule
