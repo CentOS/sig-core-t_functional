@@ -3,6 +3,7 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - php test: looking for Zend Engine in phpinfo()."
+t_SkipReleaseGreaterThan 7 'use module-aware tests instead'
 
 FILE='/var/tmp/php-test.php'
 
