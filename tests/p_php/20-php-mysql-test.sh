@@ -4,6 +4,7 @@
 # reusing the script from LAMP-Tests
 
 t_Log "Running $0 - php-cli basic interaction with mysql test."
+t_SkipReleaseGreaterThan 7 'use module-aware tests instead'
 
 # Install php-mysql/php-mysqld module depending on version
 # we need a working and running mysql server
