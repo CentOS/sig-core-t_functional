@@ -39,6 +39,7 @@ required_attrs = {
 # the line describing why the override is in place
 special_overrides = {
     'epel-release': ['vendor', 'packager'],                   #Rebuilt directly from Fedora, so the vendor remains Fedora Project
+    'elrepo-release': ['vendor', 'packager'],                 #Imported from elrepo, so the vendor remains "The ELRepo Project"
     'redhat-support-lib-python': ['vendor'],
     'redhat-support-tool': ['vendor'],
     }
