@@ -23,6 +23,7 @@ else
   mysql_service="mysqld"
 fi
 
+t_InstallPackage ${my_packages}
 t_ServiceControl ${mysql_service} start >/dev/null 2>&1
 
 # Installing additional python/mysql module
