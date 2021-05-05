@@ -3,6 +3,11 @@
 
 t_Log "Running $0 - testing comps.xml groups"
 
+if [ "$centos_ver" -eq "7" ]; then
+    t_Log "CentOS $centos_ver -> SKIP"
+    exit 0
+fi
+
 # Get **all** the group IDs
 ALL_GROUPS=`dnf group list -v --hidden | grep '^   ' | sed 's/.*(\(.*\))$/\1/'`
 
