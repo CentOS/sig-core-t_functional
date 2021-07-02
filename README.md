@@ -24,7 +24,7 @@ To only run a specific test ( eg. p_openssh ) :
 ## Writing tests
 
 There is a dedicated [wiki page](http://wiki.centos.org/QaWiki/AutomatedTests/WritingTests/t_functional) covering that. As a newcomer, you should read this document from start to finish. 
-Questions/comments/suggestions should be voiced in the #centos-devel channel on Freenode IRC, or via email on the centos-devel@centos.org mailing list.
+Questions/comments/suggestions should be voiced in the #centos-devel channel on Libera IRC, or via email on the centos-devel@centos.org mailing list.
 
 ## Disabling tests
 
