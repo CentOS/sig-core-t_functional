@@ -17,7 +17,7 @@ To run these tests on your local machine :
 ./runtests.sh
 ```
 
-To only run a specific test ( eg. p_openssh ) : 
+To only run a specific test ( e.g. p_openssh ) : 
 ```
 ./runtests.sh p_openssh
 ```
@@ -28,7 +28,7 @@ Questions/comments/suggestions should be voiced in the #centos-devel channel on 
 
 ## Disabling tests
 
-While it's a very bad idea, sometimes , during major.minor release, our scripts really find issues that are then repored upstream.
+While it's a very bad idea, sometimes, during major.minor release, our scripts really find issues that are then reported upstream.
 For the time being, one can add tests to be skipped by our QA harness setup (validating all new installable trees)
 
 See the [skipped-tests.list](skipped-tests.list) file.
