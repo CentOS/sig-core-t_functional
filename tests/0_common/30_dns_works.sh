@@ -8,7 +8,7 @@ else
 fi
 
 # its important we dont hit a dns record with a wildcard like centos.org
-/bin/ping -c 1 $HOST &>/dev/null
+getent hosts $HOST >/dev/null
 
 t_CheckExitStatus $?
 
