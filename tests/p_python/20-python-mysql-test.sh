@@ -41,7 +41,7 @@ SCRIPT='/var/tmp/test.py'
 cat >$SCRIPT <<EOF
 import $importcomponent
 
-conn = $importcomponent.connect (host = "localhost",
+conn = $importcomponent.connect (unix_socket="/var/lib/mysql/mysql.sock",
                            user = "",
                            passwd = "",
                            db = "")

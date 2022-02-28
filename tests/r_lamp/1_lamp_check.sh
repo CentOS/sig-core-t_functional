@@ -7,7 +7,7 @@
 # Last Updated: Saturday, 09 November 2013 2:23
 # Description: A simple Bash script to start LAMP daemons (httpd, mysqld), and confirm PHP is working.
 
-if [ "$centos_ver" = "7" ] ; then
+if [ "$centos_ver" -ge "7" ] ; then
   readonly DAEMONS=( httpd mariadb )
 else
  readonly DAEMONS=( httpd mysqld )
