@@ -11,7 +11,7 @@ then
   t_InstallPackage mysql-server mysql55-mysql-server httpd php
 elif [ $centos_ver -ge 8 ]
 then
-  t_InstallPackage mariadb-server httpd php
+  t_InstallPackage mariadb-server httpd php php-cli
 else
   t_InstallPackage mysql-server httpd php
 fi

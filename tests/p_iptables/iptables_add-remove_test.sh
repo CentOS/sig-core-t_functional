@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - verify iptables can insert and delete rules"
 
-if [ "$centos_ver" = "7" ] || [ "$centos_ver" = "8" ];then
+if [ "$centos_ver" -ge "7" ];then
  t_Log "CentOS $centos_ver uses firewalld and not iptables -> SKIP"
  t_CheckExitStatus 0
  exit 0

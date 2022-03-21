@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if (t_GetPkgRel basesystem | grep -q el9)
+then
+  t_Log "This is a C9 system. Modular php not present. Skipping."
+  t_CheckExitStatus 0
+  exit $PASS
+fi
+
 t_Log "Running $0 - PHP/MariaDB interaction"
 t_SkipReleaseLessThan 8 'no modularity'
 

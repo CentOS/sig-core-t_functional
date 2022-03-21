@@ -66,7 +66,7 @@ t_Log "Check -a is ignored as we're on CentOS"
 if [ $centos_ver == '5' ]
   then
   gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gunzip: option --ascii ignored on this system' || ExitFail
-elif [[ $centos_ver =~ ^(6|7|8)$ ]]
+elif [[ $centos_ver =~ ^(6|7|8|9)$ ]]
   then
   gunzip -a $FILE.gz 2>&1 | head -n 1 | grep  -q 'gzip: option --ascii ignored on this system' || ExitFail
 fi
@@ -166,13 +166,21 @@ gunzip $FILE.1.gz $FILE || ExitFail
 t_Log "No file extension supplied for gunzip"
 gzip $FILE $FILE.1  || ExitFail
 
-# Compress the file then get gunzip to uncompress it, the file needs
-# to be larger for compress to work
-t_Log "Check gunzip can handle .Z files"
-gunzip $FILE 
-ls -l /var/tmp >>$FILE
-compress $FILE || ExitFail
-gunzip $FILE.Z || ExitFail
+if (t_GetPkgRel basesystem | grep -q el9)
+then
+  t_Log "This is a C9 system. Ncompress not present. Skipping."
+  t_CheckExitStatus 0
+  exit $PASS
+else
+
+  # Compress the file then get gunzip to uncompress it, the file needs
+  # to be larger for compress to work
+  t_Log "Check gunzip can handle .Z files"
+  gunzip $FILE 
+  ls -l /var/tmp >>$FILE
+  compress $FILE || ExitFail
+  gunzip $FILE.Z || ExitFail
+fi
 
 # Zip the file then get gunzip to uncompress it.
 t_Log "Check gunzip can handle .zip files"

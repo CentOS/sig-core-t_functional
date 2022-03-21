@@ -2,7 +2,7 @@
 # Author: Brian Stinson <brian@bstinson.com>
 # Runner script for checking rpminfo so we can fail gracefully on EL5
 
-if [ "$centos_ver" -eq "8" ]; then
+if [ "$centos_ver" -ge "8" ]; then
   t_Log "check-rpminfo.py not python3/dnf ready on c8 => SKIP"
   exit 0
 fi

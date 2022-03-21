@@ -2,7 +2,7 @@
 
 # Ensure plugin is enabled :
 
-if [ "$centos_ver" -eq "8" ] ; then
+if [ "$centos_ver" -ge "8" ] ; then
  t_Log "yum is replaced by dnf on el8. SKIP"
  exit 0
 fi

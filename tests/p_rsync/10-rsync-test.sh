@@ -29,7 +29,7 @@ hosts allow = 127.0.0.1
  include = $FILE
 EOF
 
-if [ "$centos_ver" = "7" ] || [ "$centos_ver" = "8" ]; then
+if [ "$centos_ver" -ge 7 ]; then
  systemctl start rsyncd.service
 else
  t_ServiceControl xinetd restart
@@ -47,7 +47,7 @@ t_CheckExitStatus $?
 /bin/rm $PATH2FILE/$FILE
 /bin/rm /var/log/$FILE
 
-if [ "$centos_ver" = "7" ] ; then
+if [ "$centos_ver" -ge 7 ]; then
  systemctl start rsyncd.service
 else
  /bin/rm /etc/rsyncd.conf

@@ -9,6 +9,11 @@ if [ "$centos_ver" -eq "8" ]; then
   exit 0
 fi
 
+if [ "$centos_ver" -eq "9" ]; then
+  t_Log "c9 => SKIPPING"
+  exit 0
+fi
+
 if [ "$uname_arch" == "aarch64" ] || [ "$uname_arch" == "i686" ] || [ "$uname_arch" == "armv7l" ]; then
   t_Log "*** Not testing on Arch: $uname_arch ***"
   exit 0

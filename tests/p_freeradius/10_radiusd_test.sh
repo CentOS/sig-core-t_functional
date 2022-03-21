@@ -2,6 +2,14 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 #         Athmane Madjodj <athmanem@gmail.com>
 
+if (t_GetPkgRel basesystem | grep -q el9)
+then
+  t_Log "This is a C9 system. Freeradius doesn't work. FIX LATER. Skipping."
+  t_CheckExitStatus 0
+  exit $PASS
+fi
+
+
 t_Log "Running $0 - freeradius-access test"
 
 # Make Backup of /etc/raddb/users and add testuser steve

@@ -1,7 +1,10 @@
 #!/bin/bash
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
-t_InstallPackage tftp-server xinetd tftp
+t_InstallPackage tftp-server tftp
+if [ "$centos_ver" -le "8" ] ; then
+t_InstallPackage xinetd
+fi
 
 # Enable tftp
 if [ "$centos_ver" -ge "8" ] ; then
@@ -24,4 +27,8 @@ else
 sed -i 's/\(disable\s*=\ \)yes/\1no/' /etc/xinetd.d/tftp
 fi
 
+if [ "$centos_ver" -le "8" ] ; then
 t_ServiceControl xinetd restart
+else
+service tftp start
+fi

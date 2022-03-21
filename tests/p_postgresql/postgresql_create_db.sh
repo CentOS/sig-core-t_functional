@@ -2,5 +2,11 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 
 t_Log "Running $0 - PostgreSQL create database test"
-su - postgres -c 'createdb pg_testdb' > /dev/null 2>&1
+if (t_GetPkgRel basesystem | grep -q el9)
+then
+  t_Log "This is a C9 system. Postgres needs to be initialized."
+  /usr/bin/postgresql-setup --initdb
+fi
+
+su - postgres -c 'createdb pg_testdb'
 t_CheckExitStatus $?

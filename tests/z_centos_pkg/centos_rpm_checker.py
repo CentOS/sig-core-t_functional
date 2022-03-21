@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # A script that search for CentOS branding issues in installed rpm
+from __future__ import print_function
     
 import rpm
 import sys
@@ -19,24 +20,24 @@ def main():
     # Comment the following line to check all rpms
     mi.pattern("release", rpm.RPMMIRE_GLOB, "*centos*")
     ret=True
-    print "Searching for CentOS branding issues in installed rpm..."
+    print("Searching for CentOS branding issues in installed rpm...")
     for hdr in mi:
         if hdr['buildhost'][-11:] != '.centos.org':
-            print "  Build host is not centos.org machine in: %s" % hdr['name']
+            print("  Build host is not centos.org machine in: %s" % hdr['name'])
             ret=False
         if hdr['vendor'] != 'CentOS':
-            print "  Vendor is not CentOS in: %s" % hdr['name']
+            print("  Vendor is not CentOS in: %s" % hdr['name'])
             ret=False
         if hdr['packager'] != 'CentOS BuildSystem <http://bugs.centos.org>':
-            print "  Packager is not CentOS BuildSystem in: %s" % hdr['name']
+            print("  Packager is not CentOS BuildSystem in: %s" % hdr['name'])
             ret=False
         try:
             changelog = hdr['changelogname'][0]
             if not is_valid_changelog_entry(changelog):
-                 print "  Bad changelog entry in: %s" % hdr['name']
+                 print("  Bad changelog entry in: %s" % hdr['name'])
                  ret=False
         except Exception, e:
-            print "  Errors found when reading changelog entry of: %s" % hdr['name']
+            print("  Errors found when reading changelog entry of: %s" % hdr['name'])
             ret=False
     return ret
     
