@@ -1,6 +1,6 @@
 #!/bin/sh
 # Author: Christoph Galuschka <tigalch@tigalch.org>
-if [  $CONTAINERTEST -eq 1]; then
+if [  $CONTAINERTEST -eq 1 ]; then
 	    echo "Skipping this test ..."
 else
 t_Log "Running $0 - autofs can mount nfs share test."

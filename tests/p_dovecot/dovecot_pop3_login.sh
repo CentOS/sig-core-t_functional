@@ -4,6 +4,11 @@
 
 t_Log "Running $0 - adding pop3test local user account + attempting POP3 login"
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 { userdel -rf pop3test; useradd pop3test && echo pop3test | passwd --stdin pop3test; } &>/dev/null
 
 # creating maildir in HOME, else test will fail at first try

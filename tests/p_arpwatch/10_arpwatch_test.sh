@@ -11,6 +11,11 @@ fi
 
 t_Log "Running $0 - arpwatch on interface with default gateway"
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 # arpwatch is broken in el7
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1044062
 [[ $centos_ver -eq 7 ]] && { 

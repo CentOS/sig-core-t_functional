@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 keytypes="rsa"
 if [ "$centos_ver" -lt 8 ] ; then
 keytypes="$keytypes dsa"

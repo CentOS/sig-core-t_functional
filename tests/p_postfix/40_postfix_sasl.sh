@@ -2,6 +2,10 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "Running $0 - Postfix plain SASL test."
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
 t_Log "Installing prerequisits"
 
 t_InstallPackage dovecot

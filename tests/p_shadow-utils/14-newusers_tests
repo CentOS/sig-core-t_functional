@@ -2,6 +2,12 @@
 # Author: Iain Douglas <centos@1n6.org.uk>
 
 t_Log "Running $0 - Testing newusers"
+
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 grep -q "^xyssy" /etc/passwd && { t_Log "FAIL: user xyssy alredy exists"; exit $FAIL; }
 newusers <<EOF
 xyssy:plughcycle:990991:990991:xyssy comment:/home/xyssy:/bin/bash

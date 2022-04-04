@@ -8,6 +8,12 @@ fi
 
 t_Log "Running $0 - Testing audit2why for policy mismatch ..."
 
+
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 cat << __EOF__ | $PYTHON -
 import sys
 import selinux.audit2why as audit2why

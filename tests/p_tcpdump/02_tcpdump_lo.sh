@@ -4,6 +4,12 @@
 
 t_Log "Running $0 - TCPdump test to lo"
 
+
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 #Dumping pings to loopback to file
 FILE='/var/tmp/lo_test.pcap'
 COUNT='4'

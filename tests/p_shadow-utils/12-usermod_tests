@@ -2,6 +2,7 @@
 # Author: Iain Douglas <centos@1n6.org.uk>
 
 t_Log "Running $0 - Modify user shadowuser"
+
 usermod -c "Comment plugh" shadowuser
 t_CheckExitStatus $?
 echo "Check /etc/passwd was modified" 

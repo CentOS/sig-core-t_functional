@@ -3,6 +3,11 @@
 
 t_Log "Running $0 - nmap querys eth0 and checks for open ssh-port"
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 # Grabing IP of eth0
 IP=$(ip -f inet addr list eth0 | grep 'inet ')
 regex='.*inet\ (.*)\/.*'

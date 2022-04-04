@@ -3,6 +3,11 @@
 
 t_Log "Running $0 - testing comps.xml groups"
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 if [ "$centos_ver" -eq "7" ]; then
     t_Log "CentOS $centos_ver -> SKIP"
     exit 0
@@ -13,14 +18,13 @@ ALL_GROUPS=`dnf group list -v --hidden | grep '^   ' | sed 's/.*(\(.*\))$/\1/'`
 
 for GROUP in $ALL_GROUPS; do
     t_Log " - testing group $GROUP"
-
     # Pretend to install the group, but all we really want is the solver debug data
-    dnf --installroot=/tmp group --releasever $centos_ver install --assumeno --debugsolver $GROUP >/dev/null
-
+    dnf --installroot=/tmp group --releasever $centos_ver install --assumeno --debugsolver $GROUP
+    pwd
+    ls
     # Check the solver results to see if there are problems
-    grep -qw '^problem' debugdata/rpms/solver.result
+    grep '^problem' debugdata/rpms/solver.result
     RES=$?
-
     # Clean up the debugdata
     rm -rf debugdata/
 

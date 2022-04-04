@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 
-if [ $CONTAINERTEST -eq 1]; then
+if [ $CONTAINERTEST -eq 1 ]; then
 	    echo "Skipping this test ..."
 else
 
