@@ -3,6 +3,11 @@
 
 t_Log "Running $0 - NFS writable share test."
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 cp /etc/exports /etc/exports.orig
 echo '/srv/nfs *(rw,sync,no_root_squash)' >/etc/exports
 mkdir -p /srv/nfs

@@ -7,6 +7,11 @@
 
 t_Log "Running $0 - lftp: HTTP test"
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
   URL="http://mirror.centos.org/"
 else

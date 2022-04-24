@@ -3,6 +3,11 @@
 
 t_Log "Running $0 - logwatch test."
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 if [ "$centos_ver" -ge 7 ] ; then
  lw_options="--range Today"
 else

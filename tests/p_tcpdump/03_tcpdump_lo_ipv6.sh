@@ -4,6 +4,11 @@
 
 t_Log "Running $0 - TCPdump test IPv6 to lo"
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 # Grabing IPv6 address of lo to check if IPv6 is enabled
 IP=$(ip addr list lo | grep 'inet6 ')
 regex='\t*inet6\ (.*)\/.*'

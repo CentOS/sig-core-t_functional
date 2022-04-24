@@ -4,6 +4,11 @@
 
 t_Log "Running $0 - testing lsof against ssh port"
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 sshd_status=`service sshd status | grep running`
 if ! [ "$sshd_status" ]
 then

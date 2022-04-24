@@ -1,6 +1,10 @@
 #!/bin/bash
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 
+if [ $CONTAINERTEST -eq 1 ]; then
+	    echo "Skipping this test ..."
+else
+
 t_Log "Running $0 - Installing required packages"
 
 if [ "$centos_ver" = "5" ] ; then
@@ -31,3 +35,4 @@ ls -al /mnt | egrep -q '(dnf|yum)'
 
 t_CheckExitStatus $?
 umount /mnt
+fi

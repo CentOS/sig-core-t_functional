@@ -3,4 +3,9 @@
 # Christoph Galuschka <christoph.galuschka@chello.at>
 
 t_Log "$0 - installing curl"
-t_InstallPackage curl
+if [ "$centos_ver" -ge "9" ]; then
+  t_InstallPackage curl-minimal
+else
+  t_InstallPackage curl
+fi
+

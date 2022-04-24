@@ -1,6 +1,8 @@
 #!/bin/sh
 # Author: Christoph Galuschka <tigalch@tigalch.org>
-
+if [  $CONTAINERTEST -eq 1 ]; then
+	    echo "Skipping this test ..."
+else
 t_Log "Running $0 - autofs can mount nfs share test."
 
 t_Log 'Preparing autofs configuration'
@@ -23,3 +25,4 @@ t_ServiceControl autofs stop
 t_ServiceControl nfs stop
 t_ServiceControl nfs-server stop
 t_ServiceControl rpcbind stop
+fi

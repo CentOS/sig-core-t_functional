@@ -8,13 +8,19 @@ then
   php_mysql="php-mysqlnd"
 fi
 
+curl="curl"
+if [ $centos_ver -ge 8 ] & [ "$CONTAINERTEST" -eq "1" ]
+then
+  curl="curl"
+fi
+
 # Install tests deps
-t_Log "Running $0 - httpd: installing curl, http, php and $php_mysql"
+t_Log "Running $0 - httpd: installing $curl, http, php and $php_mysql"
 
 #t_InstallPackage curl
 
 # HTTPD / PHP 
-t_InstallPackage curl httpd mod_ssl php $php_mysql
+t_InstallPackage $curl httpd mod_ssl php $php_mysql
 t_ServiceControl httpd stop
 sleep 3
 killall httpd

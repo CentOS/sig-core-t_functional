@@ -3,6 +3,8 @@
 
 t_Log "Running $0"
 
+grep -q "^shadowuser" /etc/passwd &&  userdel -r shadowuser 
+
 # Basic useradd tests
 echo "Add user shadowuser"
 useradd shadowuser

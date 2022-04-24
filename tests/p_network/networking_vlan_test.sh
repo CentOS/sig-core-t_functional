@@ -1,6 +1,11 @@
 #!/bin/sh
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 t_Log "Running $0 - create VLAN IF, assign IP on VLAN IF and tear down VLAN IF using IP command test (not on C5)"
 ret_val=0
 

@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - check that lynx can dump remote page."
 
-if [ "$centos_ver" -eq "8" ]; then
+if [ "$centos_ver" -ge "8" ]; then
   t_Log "Package lynx not available in default repos on c8 => SKIP"
   exit 0
 fi

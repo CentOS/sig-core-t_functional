@@ -2,6 +2,11 @@
 # Author: Christoph Galuschka <christoph.galuschka@chello.at>
 #         Athmane Madjodj <athmanem@gmail.com>
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 if (t_GetPkgRel basesystem | grep -q el9)
 then
   t_Log "This is a C9 system. Freeradius doesn't work. FIX LATER. Skipping."

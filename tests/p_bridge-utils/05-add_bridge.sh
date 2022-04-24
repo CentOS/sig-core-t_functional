@@ -1,6 +1,11 @@
 #!/bin/bash
 # Author : Madhurranjan Mohaan <madhurranjan.mohaan@gmail.com>
 
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 if  [ $# -eq 0 ]
 then
   bridge=testbridge1

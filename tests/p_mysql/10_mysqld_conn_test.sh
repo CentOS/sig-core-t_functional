@@ -8,7 +8,7 @@ MySqlHostName=$(mysql -N -B -u root -e "show variables like 'hostname'" | cut -f
 # printing both variables for debugging purposes
 echo $HostName
 echo ${MySqlHostName}
-if [ $HostName = ${MySqlHostName} ]; then
+if [ "$HostName" = "${MySqlHostName}" ]; then
 	ret_val=0
 else
 	ret_val=1

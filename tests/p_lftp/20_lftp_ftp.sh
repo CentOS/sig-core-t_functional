@@ -7,6 +7,12 @@
 
 t_Log "Running $0 - installing vsFTPd for local lftp test."
 t_InstallPackage vsftpd
+
+if [ "$CONTAINERTEST" -eq "1" ]; then
+    t_Log "Running in container -> SKIP"
+    exit 0
+fi
+
 if [ "$centos_ver" -ge 8 ] ; then
 cp -fp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.tf_p_lftp
 sed -i 's/anonymous_enable=NO/anonymous_enable=YES/g' /etc/vsftpd/vsftpd.conf
