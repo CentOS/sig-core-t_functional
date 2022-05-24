@@ -8,11 +8,6 @@ if [ "$centos_ver" -ge "8" ] ; then
 fi
 
 
-if [ "$PRE_UPDATES" == "1" ]; then
-  t_Log "skipping $0 for pre update testing"
-  exit 0
-fi
-
 isAltArch=$(uname -m|egrep -q 'armv7l|aarch64|ppc64|ppc64le'|| echo 1 && echo 0)
 
 if [ "$isAltArch" = "0" ] && [ $centos_ver -lt 7 ] ; then

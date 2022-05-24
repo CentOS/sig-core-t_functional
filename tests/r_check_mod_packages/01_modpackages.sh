@@ -4,10 +4,6 @@
 
 uname_arch=$(uname -m)
 
-if [ $SKIP_QA_HARNESS -eq 1 ] ; then
-    t_Log "Skip $0 in non QA harness environment"
-    ret_val=0
-else
   ret_val=0
   if [ "$centos_ver" = "7" ] ; then
 
@@ -29,4 +25,3 @@ else
 
 
   t_CheckExitStatus $ret_val
-fi
