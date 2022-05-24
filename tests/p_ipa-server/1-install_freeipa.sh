@@ -1,10 +1,6 @@
 #!/bin/bash
 # Author: James Hogarth <james.hogarth@gmail.com>
 #	  
-if [ "$PRE_UPDATES" == "1" ]; then
-  t_Log "skipping $0 for pre update testing"
-  exit 0
-fi
 
 if (t_GetPkgRel basesystem | grep -qE 'el(6|7)') && !(t_GetArch | grep -qE 'aarch64')
   then

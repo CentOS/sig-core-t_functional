@@ -5,7 +5,7 @@ t_Log "Running $0 -  repoclosure test ."
 
 if [ "$centos_ver" -ge 8 ] ; then
     t_Log "Skip this test in versions greater than 8, because repoclosure doesn't work with modules enabled"
-elif [ $SKIP_QA_HARNESS -eq 1 ] && [ "$PRE_UPDATES" != "1" ] ; then
+elif [ $SKIP_QA_HARNESS -eq 1 ] ; then
     t_Log "Skip this test in non QA harness environment"
 else
 

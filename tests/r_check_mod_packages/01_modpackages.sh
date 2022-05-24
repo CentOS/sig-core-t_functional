@@ -4,7 +4,7 @@
 
 uname_arch=$(uname -m)
 
-if [ $SKIP_QA_HARNESS -eq 1 ] && [ "$PRE_UPDATES" != "1" ] ; then
+if [ $SKIP_QA_HARNESS -eq 1 ] ; then
     t_Log "Skip $0 in non QA harness environment"
     ret_val=0
 else
