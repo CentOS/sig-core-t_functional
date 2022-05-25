@@ -23,7 +23,10 @@ IP=$(dig +short ${HOST} A ${HOST} AAAA)
 
 if [[ ! -z "$IP" ]]
 then
+  t_Log "${HOST} IPs:\n${IP}"
   mtr -nr -c1 ${HOST} > ${FILE}
+  t_Log "Results of 'mtr -nr -c1 ${HOST}':"
+  cat ${FILE}
   COUNT=$(echo "$IP" | grep -cf - ${FILE})
   if [ $COUNT = 1 ]
   then
