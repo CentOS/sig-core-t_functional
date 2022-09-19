@@ -5,7 +5,7 @@ jobs:
     steps:
       - uses: "actions/checkout@v2"
       - run: sudo dnf -y install python3-pip
-      - run: sudo sh -c 'cd /opt && ./runtests.sh {}'
+      - run: sudo sh runtests.sh
 
 name: Greeting
 on:
