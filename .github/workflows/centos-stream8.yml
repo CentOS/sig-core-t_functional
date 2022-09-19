@@ -5,13 +5,7 @@ jobs:
     steps:
       - uses: "actions/checkout@v2"
       - run: sudo dnf -y install python3-pip
-      - run: sudo pip install each
-      - run: ls -x1 tests | grep "^0_" > testlist
-      - run: each -j 4 --no-stdin testlist "sudo sh -c 'cd /opt && ./runtests.sh {}'"
-      - run: find . -type f -name "status" -exec grep '1' "{}" \; -exec dirname "{}" \;
-      - run: find . -type f -name "status" -exec grep '1' "{}" \; -exec dirname "{}" \; > failed_tests
-      - run: cat failed_tests | grep -v "^1" | xargs -i tail {}/out
-      - run: "! [[ -s failed_tests ]]"
+      - run: sudo sh -c 'cd /opt && ./runtests.sh {}'
 
 name: Greeting
 on:
