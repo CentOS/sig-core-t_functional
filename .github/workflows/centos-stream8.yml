@@ -4,6 +4,7 @@ jobs:
     runs-on: stream-8
     steps:
       - uses: "actions/checkout@v2"
+      - run: dnf -y install pip
       - run: pip install each
       - run: ls -x1 tests | grep "^0_" > testlist
       - run: each -j 4 --no-stdin testlist "sh -c 'cd /opt && ./runtests.sh {}'"
