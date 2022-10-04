@@ -5,9 +5,9 @@ TEST=tracepath
 
 # Testing availability of network
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
-  HOST="ci.centos.org"
+  HOST="www.centos.org"
 else
-  HOST="repo.centos.qa"
+  HOST="www.centos.qa"
 fi
 
 t_Log "Running $0 - running ${TEST} to ${HOST}"
