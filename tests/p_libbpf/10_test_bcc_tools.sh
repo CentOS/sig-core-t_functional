@@ -5,11 +5,12 @@
 # Author: Konark Modi <modi.konark@gmail.com>
 # 	  Christoph Galuschka <tigalch@tigalch.org>
 
+
 t_Log "Running $0 - bcc-tools: argdist test"
 
-if [ "$CONTAINERTEST" -eq "1" ]; then
+if [ -z "$CONTAINERTEST" ] ; then
+    /usr/share/bcc/tools/argdist -i 1 -n 5 -C 'p:c:umask(u32 mask):u32:mask'
+else
     t_Log "Running in container -> SKIP"
     exit 0
 fi
-
-/usr/share/bcc/tools/argdist -i 1 -n 5 -C 'p:c:umask(u32 mask):u32:mask'
