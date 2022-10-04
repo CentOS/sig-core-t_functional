@@ -26,6 +26,12 @@
 #
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# only run on centos 8 for now
+if [ "$centos_ver" -ne "8" ]; then
+  t_Log "non c8 => SKIPPING"
+  exit 0
+fi
+
 # Include Beaker environment
 . /usr/share/beakerlib/beakerlib.sh || exit 1
 
