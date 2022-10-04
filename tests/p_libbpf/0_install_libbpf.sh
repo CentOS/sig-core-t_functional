@@ -8,5 +8,5 @@ if [ "$centos_ver" -ge 8 ] ; then
  t_InstallPackage libbpf
  t_InstallPackage bcc-tools
 else
- t_log "Skip on less than EL8"
+ t_Log "Skip on less than EL8"
 fi
