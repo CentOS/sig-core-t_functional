@@ -7,7 +7,7 @@ TEST=tracepath
 if [ $SKIP_QA_HARNESS -eq 1 ]; then
   HOST="www.centos.org"
 else
-  HOST="www.centos.qa"
+  HOST="www.centos.org"
 fi
 
 t_Log "Running $0 - running ${TEST} to ${HOST}"
