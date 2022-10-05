@@ -258,3 +258,6 @@ export -f t_Select_Alternative
 export centos_ver
 export centos_stream
 export arch
+if [ -z "$CONTAINERTEST" ]; then
+    export CONTAINERTEST=0
+fi
