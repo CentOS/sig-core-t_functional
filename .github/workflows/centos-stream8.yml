@@ -3,6 +3,14 @@ jobs:
     name: test_0
     runs-on: stream-8
     steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: NO 
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
       - run: sudo dnf -y install python3-pip
       - run: sudo bash runtests.sh
