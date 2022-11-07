@@ -133,7 +133,7 @@ def main():
     args = parser.parse_args()
     auth_name=os.getenv("DUFFY_AUTH_NAME")
     auth_key=os.getenv("DUFFY_AUTH_KEY")
-    print("Running with args:",args.arch, args.release, path=args.path, compose=args.compose)
+    print("Running with args:",args.arch, args.release, args.path, args.compose)
     if auth_name and auth_key:
         runtests(auth_name, auth_key, ['virt', args.arch, args.release], path=args.path, compose=args.compose)
     else:
