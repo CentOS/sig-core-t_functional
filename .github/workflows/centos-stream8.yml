@@ -1,7 +1,7 @@
 jobs:
   test_0:
     name: test_0
-    runs-on: stream-8
+    runs-on: ubuntu-latest
     steps:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
