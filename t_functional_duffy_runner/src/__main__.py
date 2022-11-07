@@ -133,8 +133,12 @@ def main():
     args = parser.parse_args()
     auth_name=os.getenv("DUFFY_AUTH_NAME")
     auth_key=os.getenv("DUFFY_AUTH_KEY")
+    print("Running with args:",args.arch, args.release, path=args.path, compose=args.compose)
     if auth_name and auth_key:
         runtests(auth_name, auth_key, ['virt', args.arch, args.release], path=args.path, compose=args.compose)
+    else:
+        raise Exception("Duffy key or auth name not available")
 
 if __name__ == "__main__":
+    print("Running tests")
     main()
