@@ -13,6 +13,9 @@ jobs:
       - uses: "actions/checkout@v2"
       - run: sudo python3 -m pip install duffy fabric httpx
       - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-8s
+        env:
+          DUFFY_AUTH_KEY: ${{ secrets.DUFFY_AUTH_KEY }}
+          DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
 
 name: Greeting
 on:
