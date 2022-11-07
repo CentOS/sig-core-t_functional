@@ -11,7 +11,7 @@ jobs:
           known_hosts: NO 
           if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
-      - run: sudo python3 -m pip install duffy fabric
+      - run: sudo python3 -m pip install duffy fabric httpx
       - run: cd t_functional_duffy_runner/src && python3 __main__.py --arch=x86 --release=centos-8s
 
 name: Greeting
