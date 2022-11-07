@@ -4,7 +4,10 @@
 
 t_Log "$0 - installing curl"
 if [ "$centos_ver" -ge "9" ]; then
-  t_InstallPackage curl-minimal
+  binary=$(which curl)
+  if [ -z $binary ]; then
+    t_InstallPackage curl-minimal
+  fi
 else
   t_InstallPackage curl
 fi
