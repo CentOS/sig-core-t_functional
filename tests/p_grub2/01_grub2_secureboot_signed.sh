@@ -6,7 +6,7 @@ t_Log "Running $0 -  Verifying that grub2-efi is correctly signed with correct c
 arch=$(uname -m)
 
 if [[ "$centos_ver" -ge 7 && "$arch" = "x86_64" ]] ; then
-  t_InstallPackage pesign grub2-efi
+  t_InstallPackage pesign grub2-efi-x64
   pesign --show-signature --in /boot/efi/EFI/centos/grubx64.efi|egrep -q 'Red Hat Inc.|CentOS Secure Boot \(key 1\)'
   t_CheckExitStatus $?
 else
