@@ -190,7 +190,7 @@ function t_GetPkgVer
 # Description: get the arch
 function t_GetArch
 {
-	rpm -q $(rpm -qf /etc/redhat-release) --queryformat '%{arch}\n'
+	rpm -q kernel --queryformat '%{arch}\n'
 }
 
 # Set the arch
