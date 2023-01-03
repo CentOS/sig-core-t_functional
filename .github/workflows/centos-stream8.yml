@@ -8,12 +8,12 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
-          name: id_rsa # optional
+          name: id_centos_stream # optional
           known_hosts: NO 
-          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+          if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
       - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-8s
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=~/.ssh/id_centos_stream
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
@@ -28,32 +28,10 @@ jobs:
           key: ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
           name: id_rsa # optional
           known_hosts: NO 
-          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+          if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
       - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=~/.ssh/id_centos_stream
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
-  test_c9s_latest:
-    name: test_9s_latest
-    runs-on: ubuntu-latest
-    environment: centosduffy
-    steps:
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
-          name: id_rsa # optional
-          known_hosts: NO 
-          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
-      - uses: "actions/checkout@v2"
-      - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --compose=https://composes.stream.centos.org/development/latest-CentOS-Stream/compose/
-        env:
-            DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
-            DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
-
-name: Greeting
-on:
-  push: {}
