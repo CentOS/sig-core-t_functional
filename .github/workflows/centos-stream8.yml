@@ -35,3 +35,7 @@ jobs:
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
+
+name: Testing
+on:
+  push: {}
