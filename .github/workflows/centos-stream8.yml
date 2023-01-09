@@ -12,8 +12,7 @@ jobs:
           known_hosts: NO 
           if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
-      - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=~/.ssh/id_centos_stream
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=/home/runner/.ssh/id_centos_stream
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
@@ -30,8 +29,7 @@ jobs:
           known_hosts: NO 
           if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
-      - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=~/.ssh/id_centos_stream
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=/home/runner/.ssh/id_centos_stream
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
