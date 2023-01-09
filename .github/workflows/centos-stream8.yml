@@ -36,4 +36,5 @@ jobs:
 
 name: Testing
 on:
-  push: {}
+  pull_request:
+    branches: [ master ]
