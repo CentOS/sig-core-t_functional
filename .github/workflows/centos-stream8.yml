@@ -38,3 +38,5 @@ name: Testing
 on:
  pull_request_target: 
     branches: [ master ]
+ push: 
+    branches: [ master ]
