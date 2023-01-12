@@ -4,16 +4,13 @@ jobs:
     runs-on: ubuntu-latest
     environment: centosduffy
     steps:
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
-          name: id_centos_stream # optional
-          known_hosts: NO 
-          if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
+      - run: printf '%s\n' "$DUFFYY_SSH_PRIVATE_KEY" > /tmp/id_centos_stream
+        env:
+            DUFFYY_SSH_PRIVATE_KEY:  ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
+      - run: chmod 600 /tmp/id_centos_stream
       - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=/home/runner/.ssh/id_centos_stream
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-8s --sshkey=/tmp/id_centos_stream
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
@@ -21,20 +18,17 @@ jobs:
     name: test_9s
     runs-on: ubuntu-latest
     environment: centosduffy
-    steps:
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
-          name: id_rsa # optional
-          known_hosts: NO 
-          if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
       - uses: "actions/checkout@v2"
+      - run: printf '%s\n' "$DUFFYY_SSH_PRIVATE_KEY" > /tmp/id_centos_stream
+        env:
+            DUFFYY_SSH_PRIVATE_KEY:  ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
+      - run: chmod 600 /tmp/id_centos_stream
       - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=/home/runner/.ssh/id_centos_stream
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=/tmp/id_centos_stream
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
+    steps:
 
 name: Testing
 on:
