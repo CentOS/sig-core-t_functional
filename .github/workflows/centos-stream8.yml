@@ -18,6 +18,7 @@ jobs:
     name: test_9s
     runs-on: ubuntu-latest
     environment: centosduffy
+    steps:
       - uses: "actions/checkout@v2"
       - run: printf '%s\n' "$DUFFYY_SSH_PRIVATE_KEY" > /tmp/id_centos_stream
         env:
