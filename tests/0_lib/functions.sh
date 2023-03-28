@@ -190,7 +190,7 @@ function t_GetPkgVer
 # Description: get the arch
 function t_GetArch
 {
-	rpm -q kernel --queryformat '%{arch}\n'
+	rpm -q kernel --queryformat '%{arch}\n' | head -n 1
 }
 
 # Set the arch
