@@ -2,14 +2,6 @@ This Code is written for and used in the CentOS Automated QA tests process. We w
 
 See the doc directory for additional information on test writing.
 
-## Nightly Test Status
-
-| CentOS Version/Architecture | Build Status |
-| --------------------------- | ------------ |
-| CentOS 8-Stream - x86_64           | [![Build Status](https://ci.centos.org/buildStatus/icon?job=CentOS-Core-QA-t_functional-c8-stream-64)](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c8-stream-64/) |
-| CentOS 8 - x86_64           | [![Build Status](https://ci.centos.org/buildStatus/icon?job=CentOS-Core-QA-t_functional-c8-64)](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c8-64/) |
-| CentOS 7 - x86_64           | [![Build Status](https://ci.centos.org/buildStatus/icon?job=CentOS-Core-QA-t_functional-c7-64)](https://ci.centos.org/job/CentOS-Core-QA-t_functional-c7-64/) |
-
 ## Running tests
 
 To run these tests on your local machine :
