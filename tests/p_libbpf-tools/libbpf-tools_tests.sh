@@ -107,22 +107,22 @@ tracing_tests=(
 one_failed=0
 
 for cmd in "${version_tests[@]}"; do
-  t_Log "Running lib-tools test: ${cmd}"
+  t_Log "Running $0 - libbpf-tools test: ${cmd}"
   if ! eval "${cmd}" > /dev/null 2>&1; then
-    t_Log "FAIL: lib-tools test: ${cmd}"
+    t_Log "FAIL: $0: libbpf-tools test: ${cmd}"
     one_failed=1
   else
-    t_Log "PASS: lib-tools test: ${cmd}"
+    t_Log "PASS: $0: libbpf-tools test: ${cmd}"
   fi
 done
 
 for cmd in "${tracing_tests[@]}"; do
-  t_Log "Running $0 - lib-tools test: ${cmd}"
+  t_Log "Running $0 - libbpf-tools test: ${cmd}"
   if ! eval "${cmd}" > /dev/null 2>&1; then
-    t_Log "$0: FAIL: lib-tools test: ${cmd}"
+    t_Log "FAIL: $0: libbpf-tools test: ${cmd}"
     one_failed=1
   else
-    t_Log "$0: PASS: lib-tools test: ${cmd}"
+    t_Log "PASS: $0: libbpf-tools test: ${cmd}"
   fi
 done
 
