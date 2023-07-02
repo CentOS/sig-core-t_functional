@@ -3,7 +3,7 @@
 
 t_Log "Running $0 - libbpf tools"
 
-if [[ "$centos_ver" -lt 8 ]]; then
+if [[ "$centos_ver" -le 8 ]]; then
   t_Log "Running $0 in EL8 or less -> SKIP"
   exit 0
 fi
