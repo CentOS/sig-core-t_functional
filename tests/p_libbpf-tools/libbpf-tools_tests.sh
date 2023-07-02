@@ -74,13 +74,13 @@ version_tests=(
 tracing_tests=(
 "bpf-biolatency 1 1"
 "bpf-biopattern 1 1"
-"bpf-biosnoop 1"
+# IGNORE, CURRENTLY BROKEN: "bpf-biosnoop 1", see https://bugzilla.redhat.com/show_bug.cgi?id=2219196
 "bpf-biostacks 1"
 "bpf-biotop 1 1"
 "bpf-bitesize 1 1"
 "bpf-cachestat 1 1"
 "bpf-cpudist 1 1"
-# IGNORE, CURRENTLY BROKEN: "bpf-cpufreq -d 1", https://github.com/iovisor/bcc/issues/4651
+# IGNORE, CURRENTLY BROKEN: "bpf-cpufreq -d 1", see https://github.com/iovisor/bcc/issues/4651
 "bpf-drsnoop -d 1"
 "bpf-filetop 1 1"
 "bpf-fsdist -t $(df -T $(pwd) | tail -1 | awk '{print $2}') 1 1"
@@ -125,5 +125,9 @@ for cmd in "${tracing_tests[@]}"; do
     t_Log "PASS: $0: libbpf-tools test: ${cmd}"
   fi
 done
+
+if [[ "${one_failed}" == "1" ]]; then
+  t_Log "FAIL: $0: At least one test failed, see logs above"
+fi
 
 exit ${one_failed}
