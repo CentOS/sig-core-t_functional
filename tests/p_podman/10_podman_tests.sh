@@ -12,6 +12,10 @@ tests_in_order=(
      podman run --rm --privileged -v ${HOME}/test.txt:/test.txt quay.io/centos/centos:stream${centos_ver} bash -c 'echo HELLO > /test.txt' && \
      grep -q -e 'HELLO' ${HOME}/test.txt && \
      rm -f ${HOME}/test.txt"
+    "printf \"FROM quay.io/centos/centos:stream${centos_ver}\nRUN echo 'HELLO'\n\" > ${HOME}/Containerfile && \
+     podman build -t test:latest -f ${HOME}/Containerfile && \
+     podman image rm localhost/test:latest && \
+     rm -rf ${HOME}/Containerfile"
 )
 
 for cmd in "${tests_in_order[@]}"; do
