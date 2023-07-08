@@ -104,12 +104,16 @@ tracing_tests=(
 "bpf-wakeuptime 1"
 )
 
+output_file=$(mktemp)
+trap "rm -f ${output_file}" EXIT
+
 one_failed=0
 
 for cmd in "${version_tests[@]}"; do
   t_Log "Running $0 - libbpf-tools test: ${cmd}"
-  if ! eval "${cmd}" > /dev/null 2>&1; then
+  if ! eval "${cmd}" > ${output_file} 2>&1; then
     t_Log "FAIL: $0: libbpf-tools test: ${cmd}"
+    cat ${output_file}
     one_failed=1
   else
     t_Log "PASS: $0: libbpf-tools test: ${cmd}"
@@ -118,8 +122,9 @@ done
 
 for cmd in "${tracing_tests[@]}"; do
   t_Log "Running $0 - libbpf-tools test: ${cmd}"
-  if ! eval "${cmd}" > /dev/null 2>&1; then
+  if ! eval "${cmd}" > ${output_file} 2>&1; then
     t_Log "FAIL: $0: libbpf-tools test: ${cmd}"
+    cat ${output_file}
     one_failed=1
   else
     t_Log "PASS: $0: libbpf-tools test: ${cmd}"
