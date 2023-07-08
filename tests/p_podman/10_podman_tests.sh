@@ -18,12 +18,17 @@ tests_in_order=(
      rm -rf ${HOME}/Containerfile"
 )
 
+output_file=$(mktemp)
+trap "rm -f ${output_file}" EXIT
+
 for cmd in "${tests_in_order[@]}"; do
   t_Log "Running $0: ${cmd}"
-  if ! eval "${cmd}" > /dev/null 2>&1; then
+  if ! eval "${cmd}" > ${output_file} 2>&1; then
     t_Log "FAIL: $0: ${cmd}"
+    cat ${output_file}
     exit 1
   else
     t_Log "PASS: $0: ${cmd}"
   fi
 done
+
