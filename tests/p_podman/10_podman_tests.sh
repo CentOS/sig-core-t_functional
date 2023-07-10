@@ -3,6 +3,11 @@
 
 t_Log "Running $0 - podman tests"
 
+if [ "$centos_ver" -lt 8 ] ; then
+  t_Log "SKIP $0: only run on centos stream 8 or greater"
+  exit 0
+fi
+
 tests_in_order=(
     "podman version"
     "podman info"
