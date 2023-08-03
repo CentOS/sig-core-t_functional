@@ -6,7 +6,7 @@ t_Log "Running $0 - perf tests"
 tests_in_order=(
     "perf version"
     "perf record -F 49 -a -g -- sleep 1"
-    "perf report --stdio > /dev/null 2>&1"
+    "perf report --stdio "
 )
 
 for cmd in "${tests_in_order[@]}"; do
