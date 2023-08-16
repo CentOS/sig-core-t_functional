@@ -73,15 +73,37 @@ function t_ResetModule
 # Arguments: a file handle from which to read the names of paths to process.
 function t_Process
 {
+    FAILED_FILE=""
+
 	exec 7< $@
+   
+    # There is a logic now to allow for testuite to continue running on test failure
+    # inspired by the serial-tests.sh
+    # If the testscript did run, append it's path to file 'successful'
+    # If it failed, append it's path to file 'failed'
+    # If not executable, or if it is in the same directory as previously failed test, 
+    # don't run it and add path to 'skipped'
+    # These three files: successful, failed and skipped atre then used in the test-runner
+    # to print a statistic and fail the testsuite if there is a failure
 
 	while read -u 7 f
 	do
 		# skip files named readme or those that start with an _
 		[[ "$(basename ${f})" =~ readme|^_ ]] &&  continue;
 
-		# handy tip: chmod -x to disable individual test scripts.
-		[ -x ${f} ] && ${f}
+        # if there is a test that failed, we skip the rest of the tests in the same directory
+		if ["$FAILED_FILE" = ""] || [[ "$(dirname ${f})" -ne "$(dirname ${FAILED_FILE})" ]]; then
+    		# handy tip: chmod -x to disable individual test scripts.
+            if [ -x ${f} ]; then
+                (${f} && echo ${f} >> successful) || (t_Log "$f - FAIL" && FAILED_FILE="$f" && echo ${f} >> failed)
+            else
+                t_Log "$f is not executable - SKIP"
+                echo ${f} >> skipped
+            fi
+        else
+            t_Log "$f is in the same directory as failed $(basename ${FAILED_FILE}) - SKIP"
+            echo ${f} >> skipped
+        fi
 
 	done
 
