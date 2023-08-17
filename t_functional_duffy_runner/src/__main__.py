@@ -40,7 +40,7 @@ class DuffyWrapper:
             self.last_session = session
             return session
         else:
-            raise session
+            raise Exception(repr(session))
 
 class TmuxWrapper:
     def __init__(self, host, session='default-session', private_key=None, **rest):
