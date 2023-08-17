@@ -129,7 +129,7 @@ def runtests(auth_name, auth_key, query, path=None, compose=None, private_key=No
     tmux.run("cd /opt/t_functional")
     tmux.run("export SYSTEMD_PAGER=")
     tmux.run("ls -l")
-    tmux.c.run("cd /opt//t_functional && /bin/bash runtests.sh 0_common")
+    tmux.c.run("cd /opt/t_functional && /bin/bash runtests.sh")
     return tmux
 
 
