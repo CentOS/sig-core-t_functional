@@ -45,6 +45,10 @@ if [ -e skipped-tests.list ] ;then
   done
 fi
 
+for i in successful failed skipped;do
+  test -e $i && rm $i
+done
+
 # process our test scripts
 if [ $# -gt 0 ]; then
   t_Process <(/usr/bin/find ./tests/0_*/ -type f|sort -t'/' )
@@ -64,6 +68,21 @@ if [ -e skipped-tests.list ] ;then
     reason=$(echo $line|cut -f 3 -d '|')
     t_Log " =WARNING= : Disabled test : ${test} (${reason})" 
   done
+fi
+
+if test -e successful; then 
+  t_Log "There were $(wc -l successful) tests"
+fi
+
+if test -e skipped; then 
+  t_Log "There were $(wc -l skipped) tests:"
+  cat skipped
+fi
+
+if test -e fail; then 
+  t_Log "There were $(wc -l fail) tests:"
+  cat failed
+  exit 1
 fi
 
 t_Log "QA t_functional tests finished."
