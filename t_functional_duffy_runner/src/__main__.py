@@ -36,8 +36,11 @@ class DuffyWrapper:
     def request_session(self, *query):
         pool = self.find_pool_name(*query)
         session = self.c.request_session([{"pool":pool[0], "quantity":"1"}])
-        self.last_session = session
-        return session
+        if hasattr(session, 'session'):
+            self.last_session = session
+            return session
+        else:
+            raise session
 
 class TmuxWrapper:
     def __init__(self, host, session='default-session', private_key=None, **rest):
