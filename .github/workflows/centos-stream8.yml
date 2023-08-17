@@ -10,7 +10,7 @@ jobs:
             DUFFYY_SSH_PRIVATE_KEY:  ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
       - run: chmod 600 /tmp/id_centos_stream
       - run: sudo python3 -m pip install pydantic==1.10.10 duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-8s --sshkey=/tmp/id_centos_stream --path=$GITHUB_WORKSPACE
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-8s --sshkey=/tmp/id_centos_stream --path=./
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
@@ -25,7 +25,7 @@ jobs:
             DUFFYY_SSH_PRIVATE_KEY:  ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
       - run: chmod 600 /tmp/id_centos_stream
       - run: sudo python3 -m pip install pydantic==1.10.10 duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=/tmp/id_centos_stream --path=$GITHUB_WORKSPACE
+      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-9s --sshkey=/tmp/id_centos_stream --path=./
         env:
             DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
             DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
