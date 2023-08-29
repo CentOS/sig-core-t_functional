@@ -2,7 +2,7 @@
 # Author: Athmane Madjoudj <athmanem@gmail.com>
 # Note: This was a known issue with CentOS 6.0 GA kernel
 
-t_Log "Running $0 -  check CentOS' Kernel Module GPG key."
+t_Log "Running $0 -  check $os_name Kernel Module GPG key."
 
 uname_arch=$(uname -m)
 uname_kernel=$(uname -r)
@@ -27,12 +27,19 @@ if [ "$centos_ver" -ge 7 ] ; then
   fi
   for id in kpatch "Driver update" kernel
   do
-    t_Log "Verifying x.509 CentOS ${id}"
-    keyctl list %:$ring | grep -i "CentOS \(Linux \)\?${id} signing key" > /dev/null 2>&1
+    t_Log "Verifying x.509 $os_name ${id}"
+    if [[ $is_almalinux == "yes" ]]; then
+      key="AlmaLinux ${id} signing key"
+    else
+      key="CentOS \(Linux \)\?${id} signing key"
+    fi
+    keyctl list %:$ring | grep -i "$key" > /dev/null 2>&1
     t_CheckExitStatus $?
   done
 else
-  grep 'User ID: CentOS (Kernel Module GPG key)' /var/log/dmesg > /dev/null 2>&1
+  user_id="User ID: $os_name (Kernel Module GPG key)"
+  grep "$user_id" /var/log/dmesg > /dev/null 2>&1
+
   t_CheckExitStatus $?
 fi
 

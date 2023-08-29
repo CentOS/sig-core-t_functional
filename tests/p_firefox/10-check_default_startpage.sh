@@ -2,7 +2,14 @@
 # Author: Christoph Galuschka <tigalch@tigalch.org>
 
 # Check for centos.org in preferences.js
-t_Log "Running $0 - firefox has www.centos.org as default page."
+
+website=www.centos.org
+
+if [[ $is_almalinux == "yes" ]]; then
+  website=www.almalinux.org
+fi
+
+t_Log "Running $0 - firefox has $website as default page."
 
 if (t_GetArch firefox | grep -q 'x86_64')
   then
@@ -11,9 +18,9 @@ if (t_GetArch firefox | grep -q 'x86_64')
   path='/usr/lib/firefox/defaults/preferences/all-redhat.js'
 fi
 
-count=$(grep -c www.centos.org $path)
+count=$(grep -c $website $path)
 
-if [ $count=2 ]
+if [ $count -eq 2 ]
   then
   t_CheckExitStatus 0
   else

@@ -141,6 +141,20 @@ function t_StreamCheck
 # set stream variable
 centos_stream=$(t_StreamCheck)
 
+function t_AlmaLinuxCheck
+{
+    rpm -q almalinux-release &> /dev/null && echo "yes" || echo "no"
+}
+is_almalinux=$(t_AlmaLinuxCheck)
+
+function t_GetMinorVer
+{
+    rpm -q $(rpm -qf /etc/redhat-release) --queryformat '%{version}\n'|cut -f 2 -d '.'
+}
+
+if [[ $is_almalinux == "yes" ]]; then
+    minor_ver=$(t_GetMinorVer)
+fi
 # Description: skip test on a particular release
 # Arguments: release, reason
 function t_SkipRelease {
@@ -221,6 +235,7 @@ function t_Assert_Equals
  [ $1 -eq $2 ]
  t_CheckExitStatus $?
 }
+
 function t_Select_Alternative
 {
 	name=$1
@@ -233,6 +248,16 @@ function t_Select_Alternative
 	t_Log "Selecing alternative $option for $name--$search"
 	/bin/echo "$option"|/usr/sbin/alternatives --config "$name" >/dev/null 2>&1
 }
+
+vendor="centos"
+os_name="CentOS"
+
+if [[ $is_almalinux == "yes" ]]; then
+    export minor_ver
+    vendor="almalinux"
+    os_name="AlmaLinux"
+fi
+
 export -f t_Log
 export -f t_CheckExitStatus
 export -f t_InstallPackage
@@ -258,6 +283,10 @@ export -f t_Select_Alternative
 export centos_ver
 export centos_stream
 export arch
+export is_almalinux
+export vendor
+export os_name
+
 if [ -z "$CONTAINERTEST" ]; then
     export CONTAINERTEST=0
 fi
