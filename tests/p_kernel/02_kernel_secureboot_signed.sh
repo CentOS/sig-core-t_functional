@@ -13,10 +13,15 @@ if [[ "$centos_ver" -ge 7 && "$arch" = "x86_64" ]] ; then
     elif [[ "$centos_ver" -eq 9 ]] ; then
       key_ver="201"
     fi 
+    if [[ $is_almalinux == "yes" ]]; then
+      key="AlmaLinux OS Foundation"
+    else
+      key="Red Hat Inc.|CentOS Secure Boot Signing $key_ver"
+    fi
     if [[ "$centos_ver" -ge 8 && "$kernel" > "4.18.0-480.el8" ]] ; then
-      pesign --show-signature --in /boot/vmlinuz-${kernel}|egrep -q "Red Hat Inc.|CentOS Secure Boot Signing $key_ver"
+      pesign --show-signature --in /boot/vmlinuz-${kernel}|egrep -q "$key"
     else 
-       pesign --show-signature --in /boot/vmlinuz-${kernel}|egrep -q 'Red Hat Inc.|CentOS Secure Boot \(key 1\)'
+      pesign --show-signature --in /boot/vmlinuz-${kernel}|egrep -q "$key"
     fi
     t_CheckExitStatus $?
   done
