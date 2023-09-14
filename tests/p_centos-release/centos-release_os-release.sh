@@ -3,11 +3,7 @@
 
 t_Log "Running $0 - /etc/os-release has correct ABRT string for $os_name $centos_ver"
 
-if [[ $is_almalinux == "yes" ]]; then
-	lines_to_check="ALMALINUX_MANTISBT_PROJECT=\"AlmaLinux-$centos_ver\" ALMALINUX_MANTISBT_PROJECT_VERSION=\"$centos_ver.$minor_ver\""
-else
-	lines_to_check="CENTOS_MANTISBT_PROJECT=\"CentOS-$centos_ver\" CENTOS_MANTISBT_PROJECT_VERSION=\"$centos_ver\""
-fi
+lines_to_check="${os_name^^}_MANTISBT_PROJECT=\"$os_name-$centos_ver\" ${os_name^^}_MANTISBT_PROJECT_VERSION=\"$centos_ver.$minor_ver\""
 
 if [ "$centos_ver" -ge 7 ];then
 	if [[ $centos_stream == "no" ]]; then

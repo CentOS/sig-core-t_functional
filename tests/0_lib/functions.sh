@@ -249,13 +249,27 @@ function t_Select_Alternative
 	/bin/echo "$option"|/usr/sbin/alternatives --config "$name" >/dev/null 2>&1
 }
 
+if [[ "$centos_ver" -eq 8 ]] ; then
+  key_ver="201"
+elif [[ "$centos_ver" -eq 9 ]] ; then
+  key_ver="201"
+fi 
+
 vendor="centos"
 os_name="CentOS"
+grub_sb_token='CentOS Secure Boot Signing 202'
+kernel_sb_token="CentOS Secure Boot Signing 201"
+key_template="CentOS \(Linux \)\?%s signing key"
+firefox_start_page="www.centos.org"
 
 if [[ $is_almalinux == "yes" ]]; then
     export minor_ver
     vendor="almalinux"
     os_name="AlmaLinux"
+    grub_sb_token='AlmaLinux OS Foundation'
+    kernel_sb_token=$sb_signing_token
+    firefox_start_page="www.almalinux.org"
+    key_template="AlmaLinux %s signing key"
 fi
 
 export -f t_Log
@@ -286,6 +300,10 @@ export arch
 export is_almalinux
 export vendor
 export os_name
+export grub_sb_token
+export firefox_start_page
+export key_template
+export kernel_sb_token
 
 if [ -z "$CONTAINERTEST" ]; then
     export CONTAINERTEST=0

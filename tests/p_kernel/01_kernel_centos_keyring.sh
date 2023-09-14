@@ -28,11 +28,7 @@ if [ "$centos_ver" -ge 7 ] ; then
   for id in kpatch "Driver update" kernel
   do
     t_Log "Verifying x.509 $os_name ${id}"
-    if [[ $is_almalinux == "yes" ]]; then
-      key="AlmaLinux ${id} signing key"
-    else
-      key="CentOS \(Linux \)\?${id} signing key"
-    fi
+    key=$(printf "$key_template" "$id")
     keyctl list %:$ring | grep -i "$key" > /dev/null 2>&1
     t_CheckExitStatus $?
   done
