@@ -267,7 +267,7 @@ if [[ $is_almalinux == "yes" ]]; then
     vendor="almalinux"
     os_name="AlmaLinux"
     grub_sb_token='AlmaLinux OS Foundation'
-    kernel_sb_token=$sb_signing_token
+    kernel_sb_token=$grub_sb_token
     firefox_start_page="www.almalinux.org"
     key_template="AlmaLinux %s signing key"
 fi
