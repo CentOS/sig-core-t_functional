@@ -14,6 +14,9 @@ loginctl enable-linger podman-remote-test
 output_file=$(mktemp)
 trap "loginctl terminate-user podman-remote-test && loginctl disable-linger podman-remote-test && sleep 1 && userdel -r podman-remote-test && rm -f ${output_file}" EXIT
 
+# give time to loginctl linger
+sleep 3
+
 su -l podman-remote-test > ${output_file} 2>&1 <<EOF
 set -e
 export XDG_RUNTIME_DIR=/run/user/\$(id -u)
