@@ -1,19 +1,4 @@
 jobs:
-  test_c8s:
-    name: test_c8s
-    runs-on: ubuntu-latest
-    environment: centosduffy
-    steps:
-      - uses: "actions/checkout@v2"
-      - run: printf '%s\n' "$DUFFYY_SSH_PRIVATE_KEY" > /tmp/id_centos_stream
-        env:
-            DUFFYY_SSH_PRIVATE_KEY:  ${{ secrets.DUFFYY_SSH_PRIVATE_KEY }}
-      - run: chmod 600 /tmp/id_centos_stream
-      - run: sudo python3 -m pip install duffy fabric httpx
-      - run: python3 t_functional_duffy_runner/src/__main__.py --arch=x86 --release=centos-8s --sshkey=/tmp/id_centos_stream --path=$GITHUB_WORKSPACE
-        env:
-            DUFFY_AUTH_NAME: ${{ secrets.DUFFY_AUTH_NAME }}
-            DUFFY_AUTH_KEY: ${{secrets.DUFFY_AUTH_KEY}}
   test_c9s:
     name: test_9s
     runs-on: ubuntu-latest
