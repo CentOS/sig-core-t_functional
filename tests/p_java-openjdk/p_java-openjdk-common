@@ -5,7 +5,7 @@
 [ ${centos_ver} -lt 7 ] && { t_Log "Multiple java versions test is only available since el7, skipping tests..." ; exit ; }
 
 if [ ${centos_ver} -eq 8 ];then
-JAVA_VERSIONS="1.8.0 11"
+JAVA_VERSIONS="1.8.0 11 17"
 elif [ ${centos_ver} -eq 9 ];then
 JAVA_VERSIONS="1.8.0 11 17"
 else
