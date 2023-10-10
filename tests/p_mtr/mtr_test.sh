@@ -26,7 +26,10 @@ defgw=$(ip route list | grep default | cut -d' ' -f3)
 
 if [[ ! -z "$IP" ]]
 then
+  t_Log "${HOST} IPs:\n${IP}"
   mtr -nr -c1 ${HOST} > ${FILE}
+  t_Log "Results of 'mtr -nr -c1 ${HOST}':"
+  cat ${FILE}
   COUNT=$(echo "$IP" | grep -cf - ${FILE})
   GW=$(grep -c ${defgw} ${FILE})
   if [ $COUNT = 1 ]
