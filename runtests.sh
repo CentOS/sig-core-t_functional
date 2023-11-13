@@ -52,9 +52,11 @@ if [ $# -gt 0 ]; then
   t_Process <(/usr/bin/find ./tests/$1/ -type f|sort -t'/' )
 else
   t_Process <(/usr/bin/find ./tests/p_*/ -type f|sort -t'/' )
-  t_Process <(/usr/bin/find ./tests/r_*/ -type f|sort -t'/' )
+  if [ -z "$skip_r_tests" ]; then
+    t_Process <(/usr/bin/find ./tests/r_*/ -type f|sort -t'/' )
+  fi
   # For now we skipping these tests on AlmaLinux
-  if [[ $is_almalinux == "no" ]]; then
+  if [ -z "$skip_z_tests" ]; then
     t_Process <(/usr/bin/find ./tests/z_*/ -type f|sort -t'/' )
   fi
 fi

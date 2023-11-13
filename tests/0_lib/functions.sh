@@ -141,20 +141,11 @@ function t_StreamCheck
 # set stream variable
 centos_stream=$(t_StreamCheck)
 
-function t_AlmaLinuxCheck
-{
-    rpm -q almalinux-release &> /dev/null && echo "yes" || echo "no"
-}
-is_almalinux=$(t_AlmaLinuxCheck)
-
 function t_GetMinorVer
 {
     rpm -q $(rpm -qf /etc/redhat-release) --queryformat '%{version}\n'|cut -f 2 -d '.'
 }
 
-if [[ $is_almalinux == "yes" ]]; then
-    minor_ver=$(t_GetMinorVer)
-fi
 # Description: skip test on a particular release
 # Arguments: release, reason
 function t_SkipRelease {
@@ -255,22 +246,38 @@ elif [[ "$centos_ver" -eq 9 ]] ; then
   key_ver="201"
 fi 
 
-vendor="centos"
-os_name="CentOS"
-grub_sb_token='CentOS Secure Boot Signing 202'
-kernel_sb_token="CentOS Secure Boot Signing 201"
-key_template="CentOS \(Linux \)\?%s signing key"
-firefox_start_page="www.centos.org"
+os_id=$(source /etc/os-release; echo $ID)
+skip_z_tests=0
+skip_r_tests=0
 
-if [[ $is_almalinux == "yes" ]]; then
-    export minor_ver
-    vendor="almalinux"
-    os_name="AlmaLinux"
-    grub_sb_token='AlmaLinux OS Foundation'
-    kernel_sb_token=$grub_sb_token
-    firefox_start_page="www.almalinux.org"
-    key_template="AlmaLinux %s signing key"
-fi
+case $os_id in
+    almalinux)
+        # AlmaLinux variables
+        vendor="almalinux"
+        os_name="AlmaLinux"
+        grub_sb_token='AlmaLinux OS Foundation'
+        kernel_sb_token=$grub_sb_token
+        key_template="AlmaLinux %s signing key"
+        firefox_start_page="www.almalinux.org"
+        minor_ver=$(t_GetMinorVer)
+        skip_z_tests=1
+        export minor_ver
+        ;;
+    centos)
+        # CentOS variables
+        vendor="centos"
+        os_name="CentOS"
+        grub_sb_token='CentOS Secure Boot Signing 202'
+        kernel_sb_token="CentOS Secure Boot Signing 201"
+        key_template="CentOS \(Linux \)\?%s signing key"
+        firefox_start_page="www.centos.org"
+        ;;
+    *)
+        # Exit in default case
+        t_Log "Unknown OS ID: $os_id"
+        exit 1
+        ;;
+esac
 
 export -f t_Log
 export -f t_CheckExitStatus
@@ -297,13 +304,14 @@ export -f t_Select_Alternative
 export centos_ver
 export centos_stream
 export arch
-export is_almalinux
 export vendor
 export os_name
 export grub_sb_token
 export firefox_start_page
 export key_template
 export kernel_sb_token
+export skip_z_tests
+export skip_r_tests
 
 if [ -z "$CONTAINERTEST" ]; then
     export CONTAINERTEST=0
